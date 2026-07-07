@@ -23,6 +23,8 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+#sf-uid-notif.sf-hidden{display:none !important;}
+
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
 
         body {
@@ -114,11 +116,9 @@ html:not([data-theme="light"]) body::after { background-color: transparent; }
             width: 100%;
             max-width: 448px;
             z-index: 101;
-            background: linear-gradient(180deg, rgba(15, 20, 30, 0.97) 0%, rgba(18, 24, 36, 0.95) 100%);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(99, 102, 241, 0.25);
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(99, 102, 241, 0.08) inset;
+            background: transparent;
+            border-bottom: none;
+            box-shadow: none;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -128,9 +128,12 @@ html:not([data-theme="light"]) body::after { background-color: transparent; }
             min-height: 46px;
         }
 
+        /* إخفاء شريط تثبيت PWA كلياً من الواجهة (مدموج مع الخلفية) */
+        #pwa-install-bar { display: none !important; }
+
         #pwa-install-bar[data-pwa-state="installable"] {
-            border-bottom-color: rgba(99, 102, 241, 0.4);
-            background: linear-gradient(180deg, rgba(20, 25, 42, 0.98) 0%, rgba(15, 20, 35, 0.96) 100%);
+            border-bottom-color: transparent;
+            background: transparent;
         }
 
         #pwa-install-bar[data-pwa-state="installable"] .pwa-bar-icon-wrap {
@@ -2189,35 +2192,27 @@ span.badge:where([data-letter="B"]){
 
 
     <!-- ==================== الهيدر مع زر الدعوة ==================== -->
-    <header class="p-4 flex justify-between items-center glass border-b border-white/5 sticky z-40 shadow-lg" style="top: 46px;">
-        <div class="flex items-center space-x-3 space-x-reverse cursor-pointer select-none"
-             role="button" tabindex="0" title="عرض تفاصيل الحساب والأصول"
-             onclick="openAssetsDetailsModal()"
-             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openAssetsDetailsModal();}">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-indigo-500 to-indigo-700 flex items-center justify-center shadow-md shadow-blue-500/30 ring-1 ring-white/10" aria-label="StrataFlow">
-                <svg viewBox="0 0 32 32" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <defs>
-                        <linearGradient id="sfLogoHdr" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stop-color="#ffffff"/>
-                            <stop offset="100%" stop-color="#c7d8ff"/>
-                        </linearGradient>
-                    </defs>
-                    <path d="M6 22 L12 10 L16 18 L20 8 L26 22" fill="none" stroke="url(#sfLogoHdr)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="26" cy="22" r="2" fill="#ffffff"/>
-                </svg>
-            </div>
-            <div>
-                <h1 class="text-sm font-bold" id="user-display-name">StrataFlow</h1>
-            </div>
-        </div>
+    <header class="p-4 flex justify-end items-center sticky z-40" style="top: 46px;background:transparent;border:0;box-shadow:none;">
+        <span id="user-display-name" style="display:none"></span>
 
         <!-- ===== بطاقة إشعار UID (StrataFlow) — تفتح المركز الشخصي ===== -->
         <div id="sf-uid-notif" role="button" tabindex="0" title="المركز الشخصي"
              onclick="event.stopPropagation(); openPersonalCenter();"
              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();openPersonalCenter();}"
-             style="display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:12px;background:transparent;border:0;box-shadow:none;cursor:pointer;transition:opacity .15s ease;user-select:none;opacity:.9;"
+             style="display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:12px;background:transparent;border:0;box-shadow:none;cursor:pointer;transition:opacity .15s ease;user-select:none;opacity:.95;direction:ltr;"
              onmouseover="this.style.opacity='1'"
-             onmouseout="this.style.opacity='0.9'">
+             onmouseout="this.style.opacity='0.95'">
+            <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#0f2450 0%,#0a1a3a 100%);box-shadow:0 4px 10px rgba(0,0,0,.35),inset 0 0 0 1px rgba(96,165,250,.35);flex:0 0 auto;">
+                <svg viewBox="0 0 32 32" width="22" height="22" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="sfXg" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#60a5fa"/>
+                            <stop offset="100%" stop-color="#3b82f6"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M6 5 L13 5 L16 10.2 L19 5 L26 5 L19.4 15.9 L26 27 L19 27 L16 21.6 L13 27 L6 27 L12.6 15.9 Z" fill="url(#sfXg)" stroke="#93c5fd" stroke-width="0.6" stroke-linejoin="round"/>
+                </svg>
+            </span>
             <span id="sf-notif-uid" style="font-size:13px;font-weight:700;color:#ffffff;direction:ltr;font-family:'Tajawal',sans-serif;letter-spacing:0.3px;white-space:nowrap;">UID:--------</span>
         </div>
         <script>
@@ -2249,6 +2244,108 @@ span.badge:where([data-letter="B"]){
         </script>
 </header>
 
+<style>
+@keyframes sfTickerScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+#sf-ticker-track > span.sf-tk-item { padding: 0 14px; display:inline-block; }
+#sf-ticker-track > span.sf-tk-sep { opacity:.45; }
+#sf-ticker:hover #sf-ticker-track { animation-play-state: running; }
+</style>
+<script>
+(function(){
+    var TEMPLATES = [
+        '{uid} upgrade to VIP {vip}',
+        '{uid} just recharged {amt} USDT',
+        '{uid} withdrew {amt} USDT',
+        '{uid} earned {amt2} USDT profit',
+        '{uid} ترقية إلى VIP {vip}',
+        '{uid} إيداع {amt} USDT',
+        '{uid} سحب ناجح {amt} USDT',
+        '{uid} ربح {amt2} USDT من التداول',
+        '{uid} joined StrataFlow',
+        '{uid} opened a new {sym} position',
+        '{uid} completed KYC verification',
+        '{uid} تم تفعيل الحساب بنجاح'
+    ];
+    var SYMS = ['BTC','ETH','SOL','ADA','LTC','XRP','DOGE','BNB'];
+    function rnd(n){ return Math.floor(Math.random()*n); }
+    function uid(){ return String(100000 + rnd(900000)); }
+    function amt(){ var a=[50,100,200,300,500,800,1000,1500,2000,3000,5000]; return a[rnd(a.length)].toLocaleString('en-US'); }
+    function amt2(){ return (10 + rnd(990)).toLocaleString('en-US'); }
+    function vip(){ return 1 + rnd(8); }
+    function sym(){ return SYMS[rnd(SYMS.length)]; }
+    function makeMsg(){
+        var t = TEMPLATES[rnd(TEMPLATES.length)];
+        return t.replace('{uid}', uid()).replace('{vip}', vip()).replace('{amt}', amt()).replace('{amt2}', amt2()).replace('{sym}', sym());
+    }
+    function buildBatch(n){
+        var parts = [];
+        for (var i=0; i<n; i++){
+            parts.push('<span class="sf-tk-item">🚀 ' + makeMsg() + '</span><span class="sf-tk-sep">•</span>');
+        }
+        return parts.join('');
+    }
+    function render(){
+        var track = document.getElementById('sf-ticker-track');
+        if(!track) return;
+        var batch = buildBatch(14);
+        // duplicate for seamless -50% loop
+        track.innerHTML = batch + batch;
+    }
+    function boot(){
+        render();
+        // refresh content periodically without breaking the infinite animation
+        setInterval(render, 20000);
+    }
+    if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', boot);
+    } else { boot(); }
+})();
+</script>
+
+<!-- ===== إخفاء شريط الإشعارات في غير الرئيسية ===== -->
+<script>
+(function(){
+  function sfUpdateTickerVisibility(){
+    var t = document.getElementById('sf-ticker');
+    if(!t) return;
+    var home = document.getElementById('sec-home');
+    var isHome = home && !home.classList.contains('hidden');
+    t.style.display = isHome ? '' : 'none';
+  }
+  window.sfUpdateTickerVisibility = sfUpdateTickerVisibility;
+  function wrapSwitch(){
+    var orig = window.switchTab;
+    if (typeof orig === 'function' && !orig.__sfTickerWrapped){
+      window.switchTab = function(tabId, btn){
+        var r = orig.apply(this, arguments);
+        try { sfUpdateTickerVisibility(); } catch(e){}
+        return r;
+      };
+      window.switchTab.__sfTickerWrapped = true;
+    }
+  }
+  function bootObs(){
+    wrapSwitch();
+    sfUpdateTickerVisibility();
+    document.querySelectorAll('.tab-content').forEach(function(sec){
+      try {
+        new MutationObserver(sfUpdateTickerVisibility)
+          .observe(sec, { attributes:true, attributeFilter:['class'] });
+      } catch(e){}
+    });
+    setTimeout(wrapSwitch, 500);
+    setTimeout(wrapSwitch, 2000);
+    setTimeout(sfUpdateTickerVisibility, 2100);
+  }
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', bootObs);
+  } else { bootObs(); }
+})();
+</script>
+
 <main class="flex-1 p-4" style="padding-top: 4px;">
 
     <!-- ========== الرئيسية ========== -->
@@ -2271,6 +2368,13 @@ span.badge:where([data-letter="B"]){
             </div>
         </div>
 
+
+        <!-- ===== شريط الإشعارات المتحرك (StrataFlow) - moved & compact ===== -->
+        <div id="sf-ticker" dir="ltr" style="position:relative;margin:10px 0 8px;padding:8px 12px;border-radius:10px;background:linear-gradient(135deg,rgba(59,130,246,0.18) 0%,rgba(15,36,80,0.55) 100%);border:1px solid rgba(96,165,250,0.25);overflow:hidden;display:flex;align-items:center;gap:8px;box-shadow:0 3px 10px rgba(0,0,0,.2);">
+            <div id="sf-ticker-viewport" style="flex:1 1 auto;overflow:hidden;position:relative;height:24px;">
+                <div id="sf-ticker-track" style="display:inline-flex;white-space:nowrap;will-change:transform;animation:sfTickerScroll 18s linear infinite;font-size:12px;line-height:24px;font-weight:600;color:#e5efff;font-family:'Tajawal',sans-serif;letter-spacing:.1px;"></div>
+            </div>
+        </div>
 
         <!-- (C) العملات الرئيسية -->
         <div>
@@ -2746,18 +2850,28 @@ span.badge:where([data-letter="B"]){
 
 <!-- ========== تزامن بالصفقات ========== -->
 <section id="sec-sync" class="space-y-4 tab-content hidden">
-    <!-- Hero Card -->
-    <div class="relative rounded-2xl overflow-hidden" style="background: radial-gradient(ellipse at center, #0d2960 0%, #061434 60%, #030a1f 100%); min-height: 340px;">
-        <!-- Neon glow accents -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full" style="background: radial-gradient(circle, rgba(59,130,246,0.35) 0%, transparent 70%); filter: blur(30px);"></div>
-        <div class="absolute top-10 left-1/4 w-24 h-24 rounded-full" style="background: radial-gradient(circle, rgba(0,200,255,0.4) 0%, transparent 70%); filter: blur(20px);"></div>
-        <div class="absolute bottom-8 right-1/4 w-20 h-20 rounded-full" style="background: radial-gradient(circle, rgba(56,189,248,0.35) 0%, transparent 70%); filter: blur(18px);"></div>
-
-        <!-- Register button top-left (in RTL, appears top-right visually would need adjustment - keeping to match image: top-left in LTR reading) -->
-        <button onclick="switchTab('login', this)" class="absolute top-3 left-3 z-20 flex items-center gap-1.5 text-blue-400 text-sm font-bold px-3 py-1.5 hover:text-blue-300 transition">
-            <i class="fa-solid fa-clipboard-list"></i>
+    <!-- Top bar: back arrow + title (blends with page background) -->
+    <div class="flex items-center justify-between -mt-1 mb-1">
+        <button type="button" onclick="switchTab('home', document.querySelector('.nav-btn[data-tab=&quot;home&quot;]'))"
+                aria-label="رجوع"
+                class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white transition">
+            <i class="fa-solid fa-arrow-right text-sm"></i>
+        </button>
+        <h3 class="text-sm font-bold text-white/90">التزامن بالصفقة</h3>
+        <button type="button" onclick="openTxHistory()"
+                class="flex items-center gap-1.5 text-blue-400 text-[12px] font-bold px-2 py-1.5 hover:text-blue-300 transition">
+            <i class="fa-solid fa-clipboard-list text-[11px]"></i>
             <span>السجل</span>
         </button>
+    </div>
+
+    <!-- Hero Card (colors blended with page #0a1a3a) -->
+    <div class="relative rounded-2xl overflow-hidden"
+         style="background: radial-gradient(ellipse at center, #12295c 0%, #0a1a3a 55%, #0a1a3a 100%); min-height: 340px; border: 1px solid rgba(59,130,246,0.18); box-shadow: inset 0 0 40px rgba(59,130,246,0.08);">
+        <!-- Neon glow accents -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full" style="background: radial-gradient(circle, rgba(59,130,246,0.32) 0%, transparent 70%); filter: blur(30px);"></div>
+        <div class="absolute top-10 left-1/4 w-24 h-24 rounded-full" style="background: radial-gradient(circle, rgba(0,200,255,0.28) 0%, transparent 70%); filter: blur(20px);"></div>
+        <div class="absolute bottom-8 right-1/4 w-20 h-20 rounded-full" style="background: radial-gradient(circle, rgba(56,189,248,0.28) 0%, transparent 70%); filter: blur(18px);"></div>
 
         <!-- Center content -->
         <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-16 pb-8">
@@ -2768,11 +2882,12 @@ span.badge:where([data-letter="B"]){
         </div>
     </div>
 
-    <!-- Order code input -->
+    <!-- Order code input (blended blue theme) -->
     <div>
         <input type="text" id="sync-code-input"
             placeholder="يرجى إدخال كود الطلب"
-            class="w-full py-4 px-5 bg-[#2a2a2a]/90 rounded-xl border border-white/5 text-sm outline-none text-white placeholder-gray-400 focus:border-blue-500 transition text-right" />
+            class="w-full py-4 px-5 rounded-xl text-sm outline-none text-white placeholder-gray-400 focus:border-blue-500 transition text-right"
+            style="background: rgba(59,130,246,0.10); border: 1px solid rgba(59,130,246,0.24);" />
     </div>
 
     <!-- Sync button -->
@@ -2785,6 +2900,17 @@ span.badge:where([data-letter="B"]){
 
 <!-- ========== المهام ========== -->
 <section id="sec-tasks" class="space-y-3 tab-content hidden pb-24">
+    <!-- شريط علوي مع سهم رجوع (خاص بقسم الخيارات فقط) -->
+    <div class="flex items-center justify-between px-1 pt-1">
+      <button type="button"
+              onclick="switchTab('home', document.querySelector('.nav-btn[data-tab=&quot;home&quot;]'))"
+              aria-label="رجوع"
+              class="w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-blue-500/20 border border-white/10 text-blue-300 hover:text-white transition active:scale-95">
+        <i class="fa-solid fa-chevron-right text-[13px]"></i>
+      </button>
+      <span class="text-[13px] font-bold text-white/90">الخيارات</span>
+      <span class="w-9 h-9"></span>
+    </div>
     <!-- ============ StrataFlow Options Trading ============ -->
     <style>
       #sec-tasks .sfo-panel{background:linear-gradient(180deg,rgba(20,32,58,.6),rgba(10,20,42,.6));border:1px solid rgba(59,130,246,.18);border-radius:14px;}
@@ -3075,6 +3201,17 @@ span.badge:where([data-letter="B"]){
 
 <!-- ========== حسابي (محدّث) ========== -->
 <section id="sec-account" class="space-y-4 tab-content hidden">
+    <!-- شريط علوي مع سهم رجوع (خاص بقسم الأصول) -->
+    <div class="flex items-center justify-between -mt-1 mb-1">
+        <button type="button"
+                onclick="switchTab('home', document.querySelector('.nav-btn[data-tab=&quot;home&quot;]'))"
+                aria-label="رجوع"
+                class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white transition active:scale-95">
+            <i class="fa-solid fa-arrow-right text-sm"></i>
+        </button>
+        <h3 class="text-sm font-bold text-white/90">الأصول</h3>
+        <span class="w-9 h-9"></span>
+    </div>
     <!-- ============ بطاقة الرصيد العلوية (مطابقة للصورة) ============ -->
     <div class="relative rounded-3xl p-5 pb-14 overflow-hidden"
          style="background: linear-gradient(135deg, #16253f 0%, #0f1c33 60%, #0b1428 100%); box-shadow: 0 10px 30px rgba(0,0,0,0.35);">
@@ -5562,15 +5699,9 @@ class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blu
     }
 
     function adjustHeaderPosition() {
-        const pwaBar = document.getElementById('pwa-install-bar');
+        // شريط تثبيت PWA مخفي — الهيدر يلتصق دائماً بأعلى الشاشة
         const header = document.querySelector('#main-platform header.sticky');
-        if (pwaBar && header) {
-            if (isAppInstalled || pwaBar.getAttribute('data-pwa-state') === 'installed') {
-                header.style.top = '0';
-            } else {
-                header.style.top = pwaBar.offsetHeight + 'px';
-            }
-        }
+        if (header) header.style.top = '0';
     }
 
     // ============================================================
@@ -10743,6 +10874,35 @@ function bfToggleTheme(){
       renderBalance();
     }
   }, 1000);
+})();
+</script>
+
+<script>
+(function(){
+  function apply(tabId){
+    var el=document.getElementById('sf-uid-notif');
+    if(!el) return;
+    if(tabId==='home'){ el.classList.remove('sf-hidden'); }
+    else { el.classList.add('sf-hidden'); }
+  }
+  function currentTab(){
+    var active=document.querySelector('.tab-content:not(.hidden)');
+    if(!active) return 'home';
+    return (active.id||'').replace(/^sec-/,'') || 'home';
+  }
+  function wrap(){
+    var orig=window.switchTab;
+    if(typeof orig!=='function'){ setTimeout(wrap,50); return; }
+    if(orig.__sfUidWrapped) return;
+    window.switchTab=function(tabId, btn){
+      var r=orig.apply(this, arguments);
+      try{ apply(tabId); }catch(e){}
+      return r;
+    };
+    window.switchTab.__sfUidWrapped=true;
+  }
+  function boot(){ wrap(); apply(currentTab()); setTimeout(function(){apply(currentTab());}, 800); }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
 })();
 </script>
 </body>
