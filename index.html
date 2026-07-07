@@ -2215,9 +2215,9 @@ span.badge:where([data-letter="B"]){
         <div id="sf-uid-notif" role="button" tabindex="0" title="المركز الشخصي"
              onclick="event.stopPropagation(); openPersonalCenter();"
              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();openPersonalCenter();}"
-             style="display:flex;align-items:center;gap:8px;padding:6px 12px 6px 8px;border-radius:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);box-shadow:0 4px 14px rgba(0,0,0,0.25);cursor:pointer;transition:transform .15s ease, background .15s ease;user-select:none;"
-             onmouseover="this.style.background='rgba(255,255,255,0.10)'"
-             onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+             style="display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:12px;background:transparent;border:0;box-shadow:none;cursor:pointer;transition:opacity .15s ease;user-select:none;opacity:.9;"
+             onmouseover="this.style.opacity='1'"
+             onmouseout="this.style.opacity='0.9'">
             <span id="sf-notif-uid" style="font-size:13px;font-weight:700;color:#ffffff;direction:ltr;font-family:'Tajawal',sans-serif;letter-spacing:0.3px;white-space:nowrap;">UID:--------</span>
         </div>
         <script>
