@@ -1335,85 +1335,223 @@ html:not([data-theme="light"]) body::after { background-color: transparent; }
         }
         .tx-empty i { font-size: 36px; margin-bottom: 12px; opacity: .5; }
 
-/* ==================== شهادة ترخيص المنصة — تصميم عصري داكن ==================== */
-#license-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:flex-start;justify-content:center;background:radial-gradient(ellipse at center,rgba(8,12,24,.92) 0%,rgba(0,0,0,.97) 100%);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);overflow-y:auto;padding:16px 12px;animation:licFade .35s ease}
+/* ==================== شهادة ترخيص المنصة — تصميم عصري 2026 (Vivid Edition) ==================== */
+
+/* ---- Brand bar ---- */
+.lic-brandbar{position:relative;margin:14px 14px 0;padding:16px 20px;border-radius:16px;
+  background:linear-gradient(120deg,#1e1b4b 0%,#0e3a5f 50%,#4a2670 100%);
+  border:1px solid rgba(139,92,246,.55);
+  box-shadow:0 0 0 1px rgba(34,211,238,.25) inset,0 12px 32px -12px rgba(99,102,241,.7),0 0 40px -8px rgba(34,211,238,.35);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  animation:licBrandGlow 3s ease-in-out infinite;overflow:hidden;z-index:3}
+.lic-brandbar::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transform:translateX(-100%);animation:licSheen 3.2s ease-in-out infinite;pointer-events:none}
+.lic-brandbar::after{content:"";position:absolute;top:-40%;right:-10%;width:180px;height:180px;background:radial-gradient(circle,rgba(245,193,78,.35),transparent 65%);filter:blur(20px);pointer-events:none}
+.lic-brandbar .brand{font-size:24px;font-weight:900;letter-spacing:1.4px;
+  color:#fde68a;
+  text-shadow:0 2px 10px rgba(0,0,0,.55),0 0 18px rgba(245,193,78,.35);position:relative;z-index:1;display:inline-flex;align-items:center;gap:10px}
+.lic-brandbar .brand i{color:#f5c14e;font-size:18px;filter:drop-shadow(0 0 8px rgba(245,193,78,.9))}
+.lic-brandbar .date{font-size:15px;font-weight:900;color:#1a0f00;
+  background:linear-gradient(135deg,#fde68a 0%,#f5c14e 50%,#f59e0b 100%);
+  padding:9px 18px;border-radius:999px;letter-spacing:.8px;
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;
+  box-shadow:0 0 22px rgba(245,193,78,.8),inset 0 1px 0 rgba(255,255,255,.65),inset 0 -1px 0 rgba(120,53,15,.28);
+  position:relative;z-index:1;white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
+.lic-brandbar .date::before{content:"\f023";font-family:"Font Awesome 6 Free";font-weight:900;font-size:12px;color:#3a1f00;opacity:.85}
+@keyframes licBrandGlow{
+  0%,100%{box-shadow:0 0 0 1px rgba(34,211,238,.25) inset,0 12px 32px -12px rgba(99,102,241,.7),0 0 40px -8px rgba(34,211,238,.35)}
+  50%    {box-shadow:0 0 0 1px rgba(245,193,78,.35) inset,0 16px 40px -10px rgba(139,92,246,.85),0 0 60px -6px rgba(34,211,238,.55)}
+}
+
+/* ---- Compliance cards (colored variants) ---- */
+.lic-compliance{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:14px}
+.lic-comp-card{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(99,102,241,.14),rgba(34,211,238,.08));
+  border:1px solid rgba(139,92,246,.32);
+  transition:.25s;position:relative;overflow:hidden}
+.lic-comp-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#6366f1,#22d3ee);opacity:.9}
+.lic-comp-card:hover{transform:translateX(2px);border-color:rgba(34,211,238,.55);background:linear-gradient(135deg,rgba(99,102,241,.22),rgba(34,211,238,.14))}
+.lic-comp-card .ic{flex:0 0 30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#6366f1,#22d3ee);color:#fff;font-size:13px;
+  box-shadow:0 6px 16px -4px rgba(99,102,241,.7),inset 0 1px 0 rgba(255,255,255,.3)}
+.lic-comp-card:nth-child(2) .ic{background:linear-gradient(135deg,#f59e0b,#f5c14e)}
+.lic-comp-card:nth-child(3) .ic{background:linear-gradient(135deg,#10b981,#22d3ee)}
+.lic-comp-card:nth-child(4) .ic{background:linear-gradient(135deg,#a78bfa,#ec4899)}
+.lic-comp-card:nth-child(5) .ic{background:linear-gradient(135deg,#22d3ee,#0ea5e9)}
+.lic-comp-card:nth-child(6) .ic{background:linear-gradient(135deg,#ef4444,#f97316)}
+.lic-comp-card:nth-child(7) .ic{background:linear-gradient(135deg,#8b5cf6,#3b82f6)}
+.lic-comp-card .txt{flex:1;min-width:0}
+.lic-comp-card .en{font-family:'Inter','Segoe UI',sans-serif;font-size:11px;font-weight:800;color:#67e8f9;letter-spacing:.6px;margin-bottom:3px;text-shadow:0 0 8px rgba(103,232,249,.35)}
+.lic-comp-card .ar{font-size:11.5px;color:#eef2ff;line-height:1.6;font-weight:600}
+
+/* ---- Modal shell ---- */
+#license-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:flex-start;justify-content:center;
+  background:radial-gradient(ellipse at 30% 20%,rgba(30,27,75,.85) 0%,rgba(3,7,18,.97) 60%);
+  backdrop-filter:blur(14px);overflow-y:auto;padding:16px 12px;animation:licFade .35s ease}
 #license-modal.open{display:flex}
 @keyframes licFade{from{opacity:0}to{opacity:1}}
-@keyframes licRise{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes licGlowPulse{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(1)}50%{opacity:.85;transform:translate(-50%,-50%) scale(1.08)}}
-@keyframes licDot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.4}}
+@keyframes licRise{from{opacity:0;transform:translateY(28px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes licGlowPulse{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(1)}50%{opacity:.9;transform:translate(-50%,-50%) scale(1.15)}}
+@keyframes licDot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.35}}
 @keyframes licSheen{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.license-cert{position:relative;width:100%;max-width:430px;margin:auto;
-  background:linear-gradient(160deg,#0f1524 0%,#141b2e 100%);
-  color:#e2ecff;border-radius:18px;padding:0;overflow:hidden;animation:licRise .5s ease both;
-  box-shadow:0 30px 80px -10px rgba(0,0,0,.85),0 0 0 1px rgba(59,130,246,0.24),0 0 60px -20px rgba(99,102,241,.45);
+@keyframes licRingSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+.license-cert{position:relative;width:100%;max-width:440px;margin:auto;
+  background:
+    radial-gradient(circle at 15% 0%,rgba(99,102,241,.28),transparent 45%),
+    radial-gradient(circle at 90% 100%,rgba(34,211,238,.22),transparent 50%),
+    linear-gradient(160deg,#0b1224 0%,#141a36 55%,#1a1148 100%);
+  color:#eef2ff;border-radius:22px;padding:0;overflow:hidden;animation:licRise .55s cubic-bezier(.22,.61,.36,1) both;
+  box-shadow:0 40px 100px -20px rgba(0,0,0,.9),0 0 0 1px rgba(139,92,246,.4),0 0 80px -20px rgba(99,102,241,.6);
   font-family:'Tajawal',sans-serif}
-.license-cert::before{content:"";position:absolute;inset:0;border-radius:18px;padding:1px;background:linear-gradient(135deg,rgba(99,102,241,.5),rgba(34,211,238,.35) 50%,rgba(99,102,241,.15));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:1}
-.lic-glow{position:absolute;top:0;left:50%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.35) 0%,rgba(34,211,238,.12) 40%,transparent 70%);filter:blur(30px);pointer-events:none;z-index:0;animation:licGlowPulse 5s ease-in-out infinite}
-.lic-close{position:absolute;top:14px;left:14px;z-index:20;width:34px;height:34px;border-radius:50%;background:rgba(59,130,246,0.24);color:#e2ecff;display:flex;align-items:center;justify-content:center;font-size:14px;border:1px solid rgba(59,130,246,0.28);cursor:pointer;transition:.2s;backdrop-filter:blur(10px)}
-.lic-close:hover{background:rgba(99,102,241,.25);border-color:rgba(99,102,241,.6);transform:rotate(90deg)}
-.lic-inner{position:relative;z-index:2;padding:30px 22px 22px}
-.lic-top-strip{position:relative;height:3px;background:linear-gradient(90deg,transparent,#6366f1 30%,#22d3ee 70%,transparent);border-radius:3px;margin-bottom:22px;overflow:hidden}
-.lic-top-strip::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:licSheen 3s ease-in-out infinite}
-.lic-emblem-wrap{display:flex;justify-content:center;margin-bottom:14px}
-.lic-emblem{position:relative;width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,#6366f1 0%,#22d3ee 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px -8px rgba(99,102,241,.6),inset 0 1px 0 rgba(255,255,255,.25)}
-.lic-emblem i{font-size:28px;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.3)}
-.lic-emblem::after{content:"";position:absolute;inset:-8px;border:1px dashed rgba(99,102,241,.4);border-radius:24px}
-.lic-title-en{text-align:center;font-family:'Inter','Segoe UI',sans-serif;font-size:10px;letter-spacing:4px;color:#22d3ee;text-transform:uppercase;font-weight:700;margin-bottom:4px}
-.lic-title-ar{text-align:center;font-size:18px;font-weight:800;color:#ffffff;margin-bottom:4px;letter-spacing:.3px}
-.lic-subtitle{text-align:center;font-size:10.5px;color:#d4b872;margin-bottom:14px;line-height:1.6}
-.lic-divider{display:flex;align-items:center;gap:8px;margin:14px 0}
-.lic-divider .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(99,102,241,.5),transparent)}
-.lic-divider .diamond{width:6px;height:6px;background:linear-gradient(135deg,#6366f1,#22d3ee);transform:rotate(45deg);box-shadow:0 0 8px rgba(99,102,241,.6)}
-.lic-issuer{text-align:center;background:rgba(59,130,246,0.2);border:1px solid rgba(59,130,246,0.24);border-radius:12px;padding:12px;margin-bottom:14px;backdrop-filter:blur(10px)}
-.lic-issuer .label{font-size:9px;color:#22d3ee;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:4px}
-.lic-issuer .name{font-size:13px;font-weight:800;color:#ffffff;line-height:1.4}
-.lic-issuer .name-en{font-size:10px;color:#d4b872;margin-top:3px;letter-spacing:.5px}
-.lic-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
-.lic-field{background:rgba(59,130,246,0.2);border:1px solid rgba(59,130,246,0.24);border-radius:10px;padding:9px 11px;transition:.2s}
-.lic-field:hover{background:rgba(99,102,241,.06);border-color:rgba(99,102,241,.25)}
+.license-cert::before{content:"";position:absolute;inset:0;border-radius:22px;padding:1.5px;
+  background:linear-gradient(135deg,#6366f1 0%,#22d3ee 35%,#f5c14e 65%,#a78bfa 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:1;opacity:.75}
+.lic-glow{position:absolute;top:0;left:50%;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,rgba(139,92,246,.5) 0%,rgba(34,211,238,.18) 40%,transparent 70%);
+  filter:blur(35px);pointer-events:none;z-index:0;animation:licGlowPulse 5s ease-in-out infinite}
+.lic-close{position:absolute;top:14px;left:14px;z-index:20;width:36px;height:36px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(99,102,241,.35),rgba(34,211,238,.25));
+  color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;
+  border:1px solid rgba(139,92,246,.55);cursor:pointer;transition:.25s;
+  backdrop-filter:blur(10px);box-shadow:0 6px 16px -4px rgba(99,102,241,.5)}
+.lic-close:hover{background:linear-gradient(135deg,#ef4444,#f97316);border-color:rgba(249,115,22,.6);transform:rotate(90deg) scale(1.05)}
+
+.lic-inner{position:relative;z-index:2;padding:32px 22px 24px}
+.lic-top-strip{position:relative;height:4px;background:linear-gradient(90deg,transparent,#6366f1 20%,#22d3ee 50%,#a78bfa 80%,transparent);border-radius:4px;margin-bottom:22px;overflow:hidden;box-shadow:0 0 14px rgba(99,102,241,.6)}
+.lic-top-strip::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);animation:licSheen 3s ease-in-out infinite}
+
+.lic-emblem-wrap{display:flex;justify-content:center;margin-bottom:10px;position:relative}
+.lic-emblem{position:relative;width:56px;height:56px;border-radius:16px;
+  background:linear-gradient(135deg,#6366f1 0%,#22d3ee 55%,#a78bfa 100%);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 26px -8px rgba(99,102,241,.8),0 0 30px -8px rgba(34,211,238,.6),inset 0 2px 0 rgba(255,255,255,.35),inset 0 -2px 0 rgba(0,0,0,.2)}
+.lic-emblem i{font-size:22px;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.4);filter:drop-shadow(0 0 5px rgba(255,255,255,.4))}
+.lic-emblem::after{content:"";position:absolute;inset:-7px;border:1.5px dashed rgba(245,193,78,.6);border-radius:20px;animation:licRingSpin 18s linear infinite}
+.lic-emblem::before{content:"";position:absolute;inset:-3px;border-radius:18px;background:linear-gradient(135deg,rgba(245,193,78,.5),rgba(34,211,238,.5));filter:blur(9px);z-index:-1;opacity:.7}
+
+.lic-title-en{text-align:center;font-family:'Inter','Segoe UI',sans-serif;font-size:9px;letter-spacing:3.5px;
+  background:linear-gradient(90deg,#67e8f9,#a78bfa,#67e8f9);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  text-transform:uppercase;font-weight:800;margin-bottom:5px}
+.lic-title-ar{text-align:center;font-size:15.5px;font-weight:900;color:#fff;margin-bottom:4px;letter-spacing:.3px;line-height:1.35;text-shadow:0 2px 10px rgba(139,92,246,.5)}
+.lic-subtitle{text-align:center;font-size:10px;color:#f5c14e;margin-bottom:14px;line-height:1.55;font-weight:600}
+
+.lic-divider{display:flex;align-items:center;gap:10px;margin:16px 0}
+.lic-divider .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(139,92,246,.65),transparent)}
+.lic-divider .diamond{width:8px;height:8px;background:linear-gradient(135deg,#f5c14e,#22d3ee);transform:rotate(45deg);box-shadow:0 0 12px rgba(245,193,78,.75)}
+
+.lic-issuer{text-align:center;
+  background:linear-gradient(135deg,rgba(99,102,241,.25),rgba(34,211,238,.15));
+  border:1px solid rgba(139,92,246,.4);
+  border-radius:14px;padding:14px 12px;margin-bottom:14px;
+  backdrop-filter:blur(10px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 8px 24px -12px rgba(99,102,241,.5)}
+.lic-issuer .label{font-size:9.5px;color:#67e8f9;letter-spacing:2.5px;text-transform:uppercase;font-weight:800;margin-bottom:6px}
+.lic-issuer .name{font-size:14px;font-weight:800;color:#fff;line-height:1.45}
+.lic-issuer .name-en{font-size:11px;color:#f5c14e;margin-top:5px;letter-spacing:.5px;font-weight:600}
+
+.lic-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}
+.lic-field{position:relative;
+  background:linear-gradient(135deg,rgba(30,41,80,.7),rgba(20,26,54,.85));
+  border:1px solid rgba(139,92,246,.32);
+  border-radius:12px;padding:10px 12px;transition:.25s;overflow:hidden}
+.lic-field::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#6366f1,#22d3ee);opacity:.7;transition:.25s}
+.lic-field:hover{transform:translateY(-1px);border-color:rgba(34,211,238,.55);box-shadow:0 8px 20px -8px rgba(34,211,238,.4)}
+.lic-field:hover::before{opacity:1;box-shadow:0 0 10px rgba(34,211,238,.6)}
 .lic-field.full{grid-column:1/-1}
-.lic-field .k{font-size:8.5px;color:#d4b872;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:3px}
-.lic-field .v{font-size:11.5px;font-weight:700;color:#ffffff;letter-spacing:.3px}
-.lic-field .v.mono{font-family:'Courier New',monospace;font-size:10.5px;letter-spacing:1px;color:#a5b4fc}
-.lic-status{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;color:#4ade80;background:rgba(34,197,94,.12);padding:3px 9px;border-radius:999px;border:1px solid rgba(34,197,94,.3)}
-.lic-status .dot{width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;animation:licDot 1.4s ease-in-out infinite}
-.lic-section-title{font-size:9.5px;font-weight:800;color:#22d3ee;letter-spacing:1.5px;text-transform:uppercase;margin:16px 0 8px;display:flex;align-items:center;gap:6px}
-.lic-section-title i{font-size:9px}
-.lic-badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
-.lic-badge{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:700;color:#e2ecff;background:rgba(59,130,246,0.2);border:1px solid rgba(59,130,246,0.24);padding:5px 9px;border-radius:7px;transition:.2s}
-.lic-badge:hover{background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.35)}
-.lic-badge i{color:#22d3ee;font-size:9px}
-.lic-insurance{background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(34,211,238,.06));border-radius:12px;padding:12px 14px;margin-bottom:14px;border:1px solid rgba(99,102,241,.25);position:relative;overflow:hidden}
-.lic-insurance::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#6366f1,#22d3ee,#6366f1)}
-.lic-insurance .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;gap:8px}
-.lic-insurance .title{font-size:10.5px;font-weight:800;color:#22d3ee;letter-spacing:.5px;display:inline-flex;align-items:center;gap:5px}
-.lic-insurance .amount{font-size:15px;font-weight:900;color:#ffffff;background:linear-gradient(135deg,#a5b4fc,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.lic-insurance .by{font-size:9.5px;color:#d4b872;line-height:1.5}
-.lic-insurance .by b{color:#e2ecff}
-.lic-footer{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding-top:14px;border-top:1px solid rgba(59,130,246,0.24);margin-top:8px}
-.lic-qr{width:62px;height:62px;background:#0a1a3a;padding:5px;border-radius:8px;border:1px solid rgba(59,130,246,0.24)}
+.lic-field .k{font-size:9px;color:#f5c14e;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.lic-field .v{font-size:12.5px;font-weight:800;color:#fff;letter-spacing:.3px}
+.lic-field .v.mono{font-family:'Courier New',monospace;font-size:11.5px;letter-spacing:1.2px;color:#a5b4fc;text-shadow:0 0 8px rgba(165,180,252,.4)}
+.lic-status{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:900;color:#4ade80;
+  background:linear-gradient(135deg,rgba(34,197,94,.25),rgba(16,185,129,.15));
+  padding:4px 11px;border-radius:999px;border:1px solid rgba(34,197,94,.5);
+  box-shadow:0 0 12px rgba(34,197,94,.35),inset 0 1px 0 rgba(255,255,255,.15);letter-spacing:.5px}
+.lic-status .dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e,0 0 20px rgba(34,197,94,.6);animation:licDot 1.4s ease-in-out infinite}
+
+.lic-section-title{font-size:10.5px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin:18px 0 10px;
+  display:flex;align-items:center;gap:7px;
+  background:linear-gradient(90deg,#67e8f9,#a78bfa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.lic-section-title i{font-size:10px;-webkit-text-fill-color:#f5c14e;color:#f5c14e;filter:drop-shadow(0 0 6px rgba(245,193,78,.7))}
+
+.lic-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.lic-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:#eef2ff;
+  background:linear-gradient(135deg,rgba(99,102,241,.2),rgba(34,211,238,.12));
+  border:1px solid rgba(139,92,246,.35);padding:5px 10px;border-radius:8px;transition:.2s}
+.lic-badge:hover{background:linear-gradient(135deg,rgba(99,102,241,.35),rgba(34,211,238,.22));border-color:rgba(34,211,238,.55)}
+.lic-badge i{color:#67e8f9;font-size:9px}
+
+.lic-insurance{position:relative;
+  background:linear-gradient(135deg,rgba(245,193,78,.18) 0%,rgba(99,102,241,.15) 50%,rgba(34,211,238,.15) 100%);
+  border-radius:14px;padding:14px 15px;margin-bottom:14px;
+  border:1px solid rgba(245,193,78,.4);overflow:hidden;
+  box-shadow:0 10px 28px -10px rgba(245,193,78,.35),inset 0 1px 0 rgba(255,255,255,.1)}
+.lic-insurance::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f5c14e,#22d3ee,#a78bfa,#f5c14e);background-size:200% 100%;animation:licSheen 4s linear infinite}
+.lic-insurance::after{content:"";position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(245,193,78,.35),transparent 60%);filter:blur(15px);pointer-events:none}
+.lic-insurance .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px;position:relative;z-index:1}
+.lic-insurance .title{font-size:11px;font-weight:800;color:#f5c14e;letter-spacing:.6px;display:inline-flex;align-items:center;gap:6px;text-shadow:0 0 8px rgba(245,193,78,.4)}
+.lic-insurance .amount{font-size:18px;font-weight:900;
+  background:linear-gradient(135deg,#fde68a 0%,#f5c14e 40%,#22d3ee 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  text-shadow:0 0 20px rgba(245,193,78,.3);letter-spacing:.5px}
+.lic-insurance .by{font-size:10px;color:#eef2ff;line-height:1.6;position:relative;z-index:1}
+.lic-insurance .by b{color:#67e8f9;font-weight:800}
+
+.lic-footer{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding-top:16px;border-top:1px dashed rgba(139,92,246,.4);margin-top:10px}
+.lic-qr{width:66px;height:66px;background:#fff;padding:5px;border-radius:10px;border:1px solid rgba(139,92,246,.4);box-shadow:0 6px 16px -4px rgba(99,102,241,.5)}
 .lic-qr svg{width:100%;height:100%;display:block}
 .lic-sig{text-align:center}
-.lic-sig .name{font-size:13px;font-weight:800;color:#ffffff;letter-spacing:.3px;margin-bottom:3px}
-.lic-sig .line{height:1px;background:linear-gradient(90deg,transparent,rgba(99,102,241,.5),transparent);margin:3px 0}
-.lic-sig .role{font-size:8.5px;color:#d4b872;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
-.lic-stamp{width:72px;height:72px;border-radius:50%;border:2px solid rgba(99,102,241,.55);display:flex;align-items:center;justify-content:center;color:#a5b4fc;background:radial-gradient(circle,rgba(99,102,241,.12),rgba(34,211,238,.04));position:relative;box-shadow:0 0 20px -5px rgba(99,102,241,.4)}
-.lic-stamp .inner{text-align:center;font-weight:900;line-height:1}
-.lic-stamp .inner .l1{font-size:8px;letter-spacing:1.5px;color:#22d3ee}
-.lic-stamp .inner .l2{font-size:13px;letter-spacing:.5px;margin:3px 0;color:#ffffff}
-.lic-stamp .inner .l3{font-size:7px;letter-spacing:1px;color:#a5b4fc}
-.lic-stamp::before{content:"";position:absolute;inset:4px;border:1px dashed rgba(34,211,238,.4);border-radius:50%}
-.lic-hash{margin-top:14px;background:rgba(0,0,0,.25);border:1px solid rgba(59,130,246,0.24);border-radius:8px;padding:9px 11px;font-family:'Courier New',monospace}
-.lic-hash .k{font-size:8px;color:#22d3ee;font-weight:700;letter-spacing:1px;margin-bottom:3px;text-transform:uppercase;display:flex;align-items:center;gap:5px}
-.lic-hash .v{font-size:9px;color:#a5b4fc;word-break:break-all;line-height:1.5}
-.lic-actions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:16px}
-.lic-btn{padding:12px;border-radius:10px;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:.25s;border:none;font-family:inherit;letter-spacing:.3px}
-.lic-btn-primary{background:linear-gradient(135deg,#6366f1 0%,#22d3ee 100%);color:#fff;border:1px solid rgba(59,130,246,0.32);box-shadow:0 8px 24px -8px rgba(99,102,241,.6),inset 0 1px 0 rgba(255,255,255,.2)}
-.lic-btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 28px -8px rgba(99,102,241,.75),inset 0 1px 0 rgba(255,255,255,.25)}
-.lic-verified-tag{position:absolute;top:16px;right:16px;z-index:5;background:rgba(34,197,94,.15);color:#4ade80;font-size:8.5px;font-weight:800;padding:4px 9px;border-radius:999px;letter-spacing:1.2px;display:flex;align-items:center;gap:5px;border:1px solid rgba(34,197,94,.35);backdrop-filter:blur(10px)}
-.lic-verified-tag i{font-size:8px}
+.lic-sig .name{font-size:13.5px;font-weight:800;color:#fff;letter-spacing:.3px;margin-bottom:4px}
+.lic-sig .line{height:1px;background:linear-gradient(90deg,transparent,rgba(245,193,78,.6),transparent);margin:4px 0}
+.lic-sig .role{font-size:9px;color:#f5c14e;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+.lic-stamp{width:76px;height:76px;border-radius:50%;border:2px solid rgba(245,193,78,.7);display:flex;align-items:center;justify-content:center;
+  color:#fff;
+  background:radial-gradient(circle,rgba(139,92,246,.35),rgba(34,211,238,.15));position:relative;
+  box-shadow:0 0 28px -4px rgba(245,193,78,.55),inset 0 0 20px rgba(139,92,246,.35)}
+.lic-stamp .inner{text-align:center;font-weight:900;line-height:1;z-index:1}
+.lic-stamp .inner .l1{font-size:8.5px;letter-spacing:1.8px;color:#67e8f9}
+.lic-stamp .inner .l2{font-size:14px;letter-spacing:.6px;margin:4px 0;color:#f5c14e;text-shadow:0 0 8px rgba(245,193,78,.6)}
+.lic-stamp .inner .l3{font-size:7.5px;letter-spacing:1.2px;color:#a78bfa}
+.lic-stamp::before{content:"";position:absolute;inset:4px;border:1px dashed rgba(103,232,249,.55);border-radius:50%;animation:licRingSpin 20s linear infinite reverse}
+
+.lic-hash{margin-top:14px;
+  background:linear-gradient(135deg,rgba(0,0,0,.4),rgba(30,27,75,.35));
+  border:1px solid rgba(139,92,246,.35);border-radius:10px;padding:10px 12px;font-family:'Courier New',monospace;
+  position:relative;overflow:hidden}
+.lic-hash::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#22d3ee,#a78bfa)}
+.lic-hash .k{font-size:8.5px;color:#67e8f9;font-weight:800;letter-spacing:1.2px;margin-bottom:4px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.lic-hash .k i{color:#f5c14e}
+.lic-hash .v{font-size:9.5px;color:#a5b4fc;word-break:break-all;line-height:1.6}
+
+.lic-actions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:18px}
+.lic-btn{padding:13px;border-radius:12px;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;transition:.3s;border:none;font-family:inherit;letter-spacing:.4px;position:relative;overflow:hidden}
+.lic-btn-primary{
+  background:linear-gradient(135deg,#6366f1 0%,#22d3ee 50%,#a78bfa 100%);background-size:200% 200%;
+  color:#fff;border:1px solid rgba(139,92,246,.5);
+  box-shadow:0 12px 30px -8px rgba(99,102,241,.75),0 0 30px -10px rgba(34,211,238,.5),inset 0 1px 0 rgba(255,255,255,.25);
+  animation:licBrandGlow 3s ease-in-out infinite}
+.lic-btn-primary:hover{transform:translateY(-2px);background-position:100% 100%;box-shadow:0 16px 36px -8px rgba(139,92,246,.85),0 0 40px -8px rgba(34,211,238,.65),inset 0 1px 0 rgba(255,255,255,.3)}
+.lic-btn-primary:active{transform:translateY(0)}
+.lic-btn-primary i{filter:drop-shadow(0 2px 4px rgba(0,0,0,.3))}
+
+.lic-verified-tag{position:absolute;top:16px;right:16px;z-index:5;
+  background:linear-gradient(135deg,rgba(34,197,94,.3),rgba(16,185,129,.2));
+  color:#4ade80;font-size:9px;font-weight:900;padding:5px 11px;border-radius:999px;letter-spacing:1.4px;
+  display:flex;align-items:center;gap:6px;border:1px solid rgba(34,197,94,.55);backdrop-filter:blur(10px);
+  box-shadow:0 0 14px rgba(34,197,94,.4),inset 0 1px 0 rgba(255,255,255,.15)}
+.lic-verified-tag i{font-size:9px;filter:drop-shadow(0 0 4px rgba(74,222,128,.8))}
+
 #header-bell-btn .bell-pulse{position:absolute;top:5px;left:5px;width:8px;height:8px;background:#ef4444;border-radius:50%;border:1.5px solid #0a1a3a;animation:licDot 1.5s ease-in-out infinite}
+
+@media (max-width:400px){
+  .lic-inner{padding:28px 16px 20px}
+  .lic-title-ar{font-size:14px}
+  .lic-grid{gap:7px}
+  .lic-field{padding:9px 10px}
+  .lic-field .v{font-size:11.5px}
+  .lic-insurance .amount{font-size:16px}
+  .lic-footer{grid-template-columns:1fr;gap:14px;justify-items:center}
+  .lic-qr,.lic-stamp{margin:0 auto}
+}
 
 
         /* ==================== Scroll Fix (v6) ==================== */
@@ -6902,114 +7040,116 @@ class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blu
 </script>
 
 
-<!-- ==================== شهادة ترخيص المنصة ==================== -->
+<!-- ==================== شهادة ترخيص المنصة (MAS Singapore) — Vivid 2026 ==================== -->
 <div id="license-modal" role="dialog" aria-modal="true" aria-labelledby="lic-title-ar">
   <div class="license-cert" onclick="event.stopPropagation()">
     <button class="lic-close" onclick="closeLicenseModal()" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
     <span class="lic-verified-tag"><i class="fa-solid fa-circle-check"></i> VERIFIED</span>
     <div class="lic-glow"></div>
+
+    <div class="lic-brandbar">
+      <span class="brand"><i class="fa-solid fa-gem"></i> StrataFlow</span>
+      <span class="date">License Date: 2026/07/05</span>
+    </div>
+
     <div class="lic-inner">
       <div class="lic-top-strip"></div>
+
       <div class="lic-emblem-wrap">
         <div class="lic-emblem"><i class="fa-solid fa-shield-halved"></i></div>
       </div>
+
       <div class="lic-title-en">Official Operating License</div>
       <h2 id="lic-title-ar" class="lic-title-ar">شهادة ترخيص منصة تداول رقمي</h2>
-      <p class="lic-subtitle">Digital Asset Trading Platform License<br>وثيقة رسمية معتمدة — صادرة عن الجهات التنظيمية المختصة</p>
+      <p class="lic-subtitle">Digital Payment Token Service License<br>وثيقة رسمية معتمدة – صادرة عن الجهات التنظيمية المختصة</p>
 
       <div class="lic-divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
 
       <div class="lic-issuer">
         <div class="label">صادرة من / ISSUED BY</div>
-        <div class="name">هيئة تنظيم الأصول الافتراضية — دبي</div>
-        <div class="name-en">Virtual Assets Regulatory Authority (VARA)</div>
+        <div class="name">Monetary Authority of Singapore (MAS)</div>
+        <div class="name-en">سلطة النقد السنغافورية</div>
       </div>
 
       <div class="lic-grid">
         <div class="lic-field full">
           <div class="k">License Number · رقم الترخيص</div>
-          <div class="v mono">VL/2023/0084-BNF</div>
-        </div>
-        <div class="lic-field">
-          <div class="k">Registration · السجل</div>
-          <div class="v mono">CR-1184-9920</div>
+          <div class="v mono">MPI-2026-0419-SF</div>
         </div>
         <div class="lic-field">
           <div class="k">Status · الحالة</div>
           <div class="v"><span class="lic-status"><span class="dot"></span> ACTIVE</span></div>
         </div>
         <div class="lic-field">
+          <div class="k">Registration · السجل</div>
+          <div class="v mono">UEN 202688412F</div>
+        </div>
+        <div class="lic-field">
           <div class="k">Issued · الإصدار</div>
-          <div class="v">14 Mar 2023</div>
+          <div class="v">Jul 05, 2026</div>
         </div>
         <div class="lic-field">
           <div class="k">Expires · الانتهاء</div>
-          <div class="v">14 Mar 2028</div>
+          <div class="v">Jul 05, 2030</div>
         </div>
         <div class="lic-field full">
           <div class="k">Jurisdiction · الولاية القضائية</div>
-          <div class="v">United Arab Emirates · DMCC Free Zone</div>
+          <div class="v">Singapore · Global Financial Hub</div>
         </div>
         <div class="lic-field full">
           <div class="k">License Category · فئة الترخيص</div>
-          <div class="v">VASP Category 3 — Exchange & Custody Services</div>
+          <div class="v">Major Payment Institution (MPI) – Digital Payment Token Services</div>
         </div>
       </div>
 
-      <div class="lic-section-title"><i class="fa-solid fa-certificate"></i> الاعتمادات والامتثال التنظيمي</div>
-      <div class="lic-badges">
-        <span class="lic-badge"><i class="fa-solid fa-shield"></i> FinCEN MSB</span>
-        <span class="lic-badge"><i class="fa-solid fa-scale-balanced"></i> FATF Compliant</span>
-        <span class="lic-badge"><i class="fa-solid fa-lock"></i> ISO/IEC 27001</span>
-        <span class="lic-badge"><i class="fa-solid fa-clipboard-check"></i> SOC 2 Type II</span>
-        <span class="lic-badge"><i class="fa-solid fa-credit-card"></i> PCI DSS L1</span>
-        <span class="lic-badge"><i class="fa-solid fa-user-shield"></i> GDPR</span>
-        <span class="lic-badge"><i class="fa-solid fa-handshake"></i> KYC/AML</span>
+      <div class="lic-section-title"><i class="fa-solid fa-certificate"></i> الاعتمادات وأمان المعاملات · SECURITY &amp; COMPLIANCE</div>
+      <div class="lic-compliance">
+        <div class="lic-comp-card"><div class="ic"><i class="fa-solid fa-scale-balanced"></i></div><div class="txt"><div class="en">MAS PS Act 2019</div><div class="ar">الامتثال الكامل لقانون خدمات الدفع الدولي لعام 2019</div></div></div>
+        <div class="lic-comp-card"><div class="ic"><i class="fa-solid fa-credit-card"></i></div><div class="txt"><div class="en">PCI-DSS Level 1</div><div class="ar">أعلى معيار عالمي لحماية قنوات الإيداع وبطاقات الدفع</div></div></div>
+        <div class="lic-comp-card"><div class="ic"><i class="fa-solid fa-vault"></i></div><div class="txt"><div class="en">Segregated Accounts</div><div class="ar">حماية قانونية لفصل أموال العملاء عن حسابات الشركة</div></div></div>
+        <div class="lic-comp-card"><div class="ic"><i class="fa-solid fa-robot"></i></div><div class="txt"><div class="en">Automated Escrow (AEP)</div><div class="ar">نظام الضمان المؤتمت لتأمين السحب والإيداع الفوري</div></div></div>
+        <div class="lic-comp-card"><div class="ic"><i class="fa-solid fa-snowflake"></i></div><div class="txt"><div class="en">Multi-Sig Cold Storage</div><div class="ar">حفظ 98% من الأصول المودعة في محافظ باردة متعددة التوقيع</div></div></div>
+        <div class="lic-comp-card"><div class="ic"><i class="fa-solid fa-lock"></i></div><div class="txt"><div class="en">ISO/IEC 27001:2022</div><div class="ar">شهادة عالمية محدثة في أمن وسرية البيانات المالية</div></div></div>
+        <div class="lic-comp-card"><div class="ic"><i class="fa-solid fa-route"></i></div><div class="txt"><div class="en">Sygna Travel Rule</div><div class="ar">التوثيق الفوري والآمن لجميع المعاملات عبر الحدود</div></div></div>
       </div>
 
       <div class="lic-insurance">
         <div class="head">
-          <span class="title"><i class="fa-solid fa-umbrella"></i> تأمين أصول العملاء</span>
-          <span class="amount">$250,000,000</span>
+          <span class="title"><i class="fa-solid fa-umbrella"></i> تأمين الإيداع والسحب والعمليات</span>
+          <span class="amount">$350,000,000</span>
         </div>
-        <div class="by">Underwritten by <b>Lloyd's of London</b> — Policy #LL-CRY-9928-A · حماية شاملة لأصول المستخدمين ضد المخاطر السيبرانية والتشغيلية</div>
+        <div class="by">Underwritten by <b>Aon &amp; Arch Insurance Europe</b> — Policy <b>#SG-TX-2026-SF</b><br>حماية فورية وتغطية تأمينية كاملة لكافة أصول وعمليات إيداع وسحب المستخدمين ضد المخاطر السيبرانية وأخطاء الشبكات.</div>
       </div>
 
       <div class="lic-footer">
         <div class="lic-qr">
           <svg viewBox="0 0 29 29" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
-            <rect width="29" height="29" fill="#0a1a3a"/>
-            <g fill="#e2ecff">
-              <rect x="0" y="0" width="7" height="7"/><rect x="1" y="1" width="5" height="5" fill="#0a1a3a"/><rect x="2" y="2" width="3" height="3"/>
-              <rect x="22" y="0" width="7" height="7"/><rect x="23" y="1" width="5" height="5" fill="#0a1a3a"/><rect x="24" y="2" width="3" height="3"/>
-              <rect x="0" y="22" width="7" height="7"/><rect x="1" y="23" width="5" height="5" fill="#0a1a3a"/><rect x="2" y="24" width="3" height="3"/>
-              <rect x="8" y="0" width="1" height="1"/><rect x="10" y="0" width="2" height="1"/><rect x="13" y="0" width="1" height="2"/><rect x="15" y="0" width="1" height="1"/><rect x="17" y="0" width="2" height="1"/><rect x="20" y="0" width="1" height="2"/>
-              <rect x="8" y="2" width="2" height="1"/><rect x="12" y="2" width="1" height="2"/><rect x="14" y="2" width="2" height="1"/><rect x="18" y="2" width="1" height="2"/>
-              <rect x="9" y="4" width="1" height="2"/><rect x="11" y="4" width="2" height="1"/><rect x="15" y="4" width="1" height="2"/><rect x="17" y="4" width="2" height="1"/><rect x="20" y="4" width="1" height="1"/>
-              <rect x="8" y="6" width="2" height="1"/><rect x="13" y="6" width="1" height="2"/><rect x="16" y="6" width="2" height="1"/><rect x="19" y="6" width="1" height="2"/><rect x="21" y="6" width="1" height="1"/>
-              <rect x="0" y="8" width="1" height="2"/><rect x="2" y="8" width="2" height="1"/><rect x="5" y="8" width="1" height="2"/><rect x="7" y="8" width="2" height="1"/><rect x="10" y="8" width="1" height="2"/><rect x="12" y="8" width="2" height="1"/><rect x="15" y="8" width="1" height="2"/><rect x="17" y="8" width="2" height="1"/><rect x="20" y="8" width="1" height="2"/><rect x="22" y="8" width="2" height="1"/><rect x="25" y="8" width="1" height="2"/><rect x="27" y="8" width="2" height="1"/>
-              <rect x="1" y="10" width="2" height="1"/><rect x="4" y="10" width="1" height="2"/><rect x="6" y="10" width="2" height="1"/><rect x="9" y="10" width="1" height="2"/><rect x="11" y="10" width="2" height="1"/><rect x="14" y="10" width="1" height="2"/><rect x="16" y="10" width="2" height="1"/><rect x="19" y="10" width="1" height="2"/><rect x="21" y="10" width="2" height="1"/><rect x="24" y="10" width="1" height="2"/><rect x="26" y="10" width="2" height="1"/>
-              <rect x="0" y="12" width="2" height="1"/><rect x="3" y="12" width="1" height="2"/><rect x="5" y="12" width="2" height="1"/><rect x="8" y="12" width="1" height="2"/><rect x="10" y="12" width="2" height="1"/><rect x="13" y="12" width="1" height="2"/><rect x="15" y="12" width="2" height="1"/><rect x="18" y="12" width="1" height="2"/><rect x="20" y="12" width="2" height="1"/><rect x="23" y="12" width="1" height="2"/><rect x="25" y="12" width="2" height="1"/><rect x="28" y="12" width="1" height="2"/>
-              <rect x="2" y="14" width="1" height="2"/><rect x="4" y="14" width="2" height="1"/><rect x="7" y="14" width="1" height="2"/><rect x="9" y="14" width="2" height="1"/><rect x="12" y="14" width="1" height="2"/><rect x="14" y="14" width="2" height="1"/><rect x="17" y="14" width="1" height="2"/><rect x="19" y="14" width="2" height="1"/><rect x="22" y="14" width="1" height="2"/><rect x="24" y="14" width="2" height="1"/><rect x="27" y="14" width="1" height="2"/>
-              <rect x="0" y="16" width="1" height="2"/><rect x="3" y="16" width="2" height="1"/><rect x="6" y="16" width="1" height="2"/><rect x="8" y="16" width="2" height="1"/><rect x="11" y="16" width="1" height="2"/><rect x="13" y="16" width="2" height="1"/><rect x="16" y="16" width="1" height="2"/><rect x="18" y="16" width="2" height="1"/><rect x="21" y="16" width="1" height="2"/><rect x="23" y="16" width="2" height="1"/><rect x="26" y="16" width="1" height="2"/><rect x="28" y="16" width="1" height="1"/>
-              <rect x="1" y="18" width="2" height="1"/><rect x="5" y="18" width="1" height="2"/><rect x="7" y="18" width="2" height="1"/><rect x="10" y="18" width="1" height="2"/><rect x="12" y="18" width="2" height="1"/><rect x="15" y="18" width="1" height="2"/><rect x="17" y="18" width="2" height="1"/><rect x="20" y="18" width="1" height="2"/><rect x="22" y="18" width="2" height="1"/><rect x="25" y="18" width="1" height="2"/><rect x="27" y="18" width="2" height="1"/>
-              <rect x="8" y="20" width="2" height="1"/><rect x="11" y="20" width="1" height="2"/><rect x="14" y="20" width="2" height="1"/><rect x="17" y="20" width="1" height="2"/><rect x="20" y="20" width="2" height="1"/><rect x="23" y="20" width="1" height="2"/><rect x="26" y="20" width="2" height="1"/>
-              <rect x="8" y="22" width="1" height="2"/><rect x="10" y="22" width="2" height="1"/><rect x="13" y="22" width="1" height="2"/><rect x="15" y="22" width="2" height="1"/><rect x="18" y="22" width="1" height="2"/><rect x="20" y="22" width="2" height="1"/><rect x="23" y="22" width="1" height="2"/><rect x="25" y="22" width="2" height="1"/><rect x="28" y="22" width="1" height="1"/>
-              <rect x="9" y="24" width="2" height="1"/><rect x="12" y="24" width="1" height="2"/><rect x="14" y="24" width="2" height="1"/><rect x="17" y="24" width="1" height="2"/><rect x="19" y="24" width="2" height="1"/><rect x="22" y="24" width="1" height="2"/><rect x="24" y="24" width="2" height="1"/><rect x="27" y="24" width="1" height="2"/>
-              <rect x="8" y="26" width="1" height="2"/><rect x="10" y="26" width="2" height="1"/><rect x="13" y="26" width="1" height="2"/><rect x="15" y="26" width="2" height="1"/><rect x="18" y="26" width="1" height="2"/><rect x="21" y="26" width="2" height="1"/><rect x="24" y="26" width="1" height="2"/><rect x="26" y="26" width="2" height="1"/>
-              <rect x="9" y="28" width="2" height="1"/><rect x="12" y="28" width="1" height="1"/><rect x="14" y="28" width="2" height="1"/><rect x="17" y="28" width="1" height="1"/><rect x="19" y="28" width="2" height="1"/><rect x="22" y="28" width="1" height="1"/><rect x="25" y="28" width="2" height="1"/><rect x="28" y="28" width="1" height="1"/>
+            <rect width="29" height="29" fill="#ffffff"/>
+            <g fill="#0b1224">
+              <rect x="0" y="0" width="7" height="7"/><rect x="1" y="1" width="5" height="5" fill="#ffffff"/><rect x="2" y="2" width="3" height="3"/>
+              <rect x="22" y="0" width="7" height="7"/><rect x="23" y="1" width="5" height="5" fill="#ffffff"/><rect x="24" y="2" width="3" height="3"/>
+              <rect x="0" y="22" width="7" height="7"/><rect x="1" y="23" width="5" height="5" fill="#ffffff"/><rect x="2" y="24" width="3" height="3"/>
+              <rect x="9" y="8" width="1" height="1"/><rect x="11" y="8" width="2" height="1"/><rect x="14" y="8" width="1" height="2"/><rect x="16" y="8" width="2" height="1"/><rect x="19" y="8" width="1" height="2"/>
+              <rect x="8" y="10" width="2" height="1"/><rect x="12" y="10" width="1" height="2"/><rect x="15" y="10" width="2" height="1"/><rect x="18" y="10" width="1" height="2"/><rect x="21" y="10" width="1" height="1"/>
+              <rect x="10" y="12" width="1" height="2"/><rect x="13" y="12" width="2" height="1"/><rect x="16" y="12" width="1" height="2"/><rect x="19" y="12" width="2" height="1"/>
+              <rect x="9" y="14" width="2" height="1"/><rect x="12" y="14" width="1" height="2"/><rect x="15" y="14" width="2" height="1"/><rect x="18" y="14" width="1" height="2"/><rect x="21" y="14" width="1" height="1"/>
+              <rect x="8" y="16" width="1" height="2"/><rect x="11" y="16" width="2" height="1"/><rect x="14" y="16" width="1" height="2"/><rect x="17" y="16" width="2" height="1"/><rect x="20" y="16" width="1" height="2"/>
+              <rect x="10" y="18" width="2" height="1"/><rect x="13" y="18" width="1" height="2"/><rect x="16" y="18" width="2" height="1"/><rect x="19" y="18" width="1" height="2"/>
+              <rect x="9" y="20" width="1" height="1"/><rect x="11" y="20" width="2" height="1"/><rect x="14" y="20" width="1" height="1"/><rect x="16" y="20" width="2" height="1"/><rect x="19" y="20" width="1" height="1"/><rect x="21" y="20" width="1" height="1"/>
+              <rect x="8" y="24" width="2" height="1"/><rect x="11" y="24" width="1" height="1"/><rect x="13" y="24" width="2" height="1"/><rect x="16" y="24" width="1" height="1"/><rect x="18" y="24" width="2" height="1"/><rect x="21" y="24" width="1" height="1"/>
+              <rect x="10" y="26" width="1" height="1"/><rect x="12" y="26" width="2" height="1"/><rect x="15" y="26" width="1" height="1"/><rect x="17" y="26" width="2" height="1"/><rect x="20" y="26" width="1" height="1"/>
             </g>
           </svg>
         </div>
         <div class="lic-sig">
-          <div class="name">H. Al-Mansoori</div>
+          <div class="name">Chia Der Jiun</div>
           <div class="line"></div>
-          <div class="role">Authorized Signatory</div>
+          <div class="role">Managing Director · MAS Financial Framework</div>
         </div>
         <div class="lic-stamp">
           <div class="inner">
             <div class="l1">OFFICIAL</div>
-            <div class="l2">VARA</div>
+            <div class="l2">MAS</div>
             <div class="l3">★ VERIFIED ★</div>
           </div>
         </div>
@@ -7017,7 +7157,7 @@ class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blu
 
       <div class="lic-hash">
         <div class="k"><i class="fa-solid fa-cube"></i> Blockchain Verification Hash (SHA-256)</div>
-        <div class="v">0x8f2a91c47b3e6d5f0a2c91d847e6b3f5a9c4e1d8b7a6f3c2e5d9b8a4c7f1e0d3</div>
+        <div class="v">0x7d4a19c62e8b5f31d0a9e6b74c283f5a91e4c7d6b8f2a3c1e9d0b5a8c4f7e2d1</div>
       </div>
 
       <div class="lic-actions">
@@ -7777,7 +7917,8 @@ document.addEventListener('DOMContentLoaded',function(){var m=document.getElemen
   };
   window.closeFavoritesModal=function(){const m=document.getElementById('favorites-modal');m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow='';};
   window.favToggle=function(sym){const i=favs.indexOf(sym);if(i>=0)favs.splice(i,1);else favs.push(sym);saveFavs();render();};
-  window.favShowDetails=function(sym){const a=ASSETS.find(x=>x.sym===sym);if(!a)return;alert(a.name+' ('+a.sym+')\n\u0627\u0644\u0633\u0639\u0631: '+fmtPrice(a.price)+'\n\u0627\u0644\u062a\u063a\u064a\u0651\u0631: '+(a.change>=0?'+':'')+a.change.toFixed(2)+'%\n\u0627\u0644\u062d\u062c\u0645: '+a.volume);};
+  window.__strataflowGetAsset=function(sym){return ASSETS.find(function(x){return x.sym===sym;});};
+  window.favShowDetails=function(sym){if(typeof window.openCoinDetail==='function'){window.openCoinDetail(sym);}else{var a=ASSETS.find(function(x){return x.sym===sym;});if(a)alert(a.name+' ('+a.sym+')');}};
   window.toggleShowAllAssets=function(){state.showAll=!state.showAll;document.getElementById('fav-toggle-all').textContent=state.showAll?'المفضلة فقط':'كل الأصول';render();};
 
   document.addEventListener('keydown',function(e){if(e.key==='Escape'){const m=document.getElementById('favorites-modal');if(m&&m.classList.contains('open'))closeFavoritesModal();}});
@@ -7790,6 +7931,420 @@ document.addEventListener('DOMContentLoaded',function(){var m=document.getElemen
   });
 })();
 </script>
+
+
+<!-- ===== StrataFlow Coin Detail Modal (professional live view) ===== -->
+<style id="cd-style">
+#coin-detail-modal{position:fixed;inset:0;z-index:10000;background:rgba(5,10,25,0.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:none;align-items:flex-end;justify-content:center;}
+#coin-detail-modal.open{display:flex;animation:cdFade .2s ease-out;}
+@keyframes cdFade{from{opacity:0}to{opacity:1}}
+@keyframes cdSlideUp{from{transform:translateY(30px);opacity:.4}to{transform:translateY(0);opacity:1}}
+#coin-detail-modal .cd-sheet{width:100%;max-width:448px;max-height:94vh;overflow-y:auto;background:linear-gradient(180deg,#0f1b3a 0%,#0a1128 100%);border-top-left-radius:22px;border-top-right-radius:22px;border:1px solid rgba(59,130,246,0.28);border-bottom:0;box-shadow:0 -20px 60px rgba(0,0,0,.5);animation:cdSlideUp .28s cubic-bezier(.2,.9,.25,1);position:relative;}
+#coin-detail-modal .cd-grab{width:44px;height:4px;background:rgba(255,255,255,.18);border-radius:99px;margin:8px auto 4px;}
+#coin-detail-modal .cd-header{display:flex;align-items:center;gap:10px;padding:10px 14px 12px;border-bottom:1px solid rgba(59,130,246,0.15);position:sticky;top:0;background:linear-gradient(180deg,#0f1b3a 0%,#0f1b3a 85%,rgba(15,27,58,0));z-index:2;}
+#coin-detail-modal .cd-icon{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);}
+#coin-detail-modal .cd-title{flex:1;min-width:0;}
+#coin-detail-modal .cd-title h3{font-size:15px;font-weight:800;color:#fff;line-height:1.1;margin:0;}
+#coin-detail-modal .cd-title .cd-sub{font-size:11px;color:#a89060;margin-top:2px;display:flex;align-items:center;gap:6px;}
+#coin-detail-modal .cd-live{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;color:#4ade80;background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.3);padding:2px 7px;border-radius:99px;}
+#coin-detail-modal .cd-live .dot{width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px #4ade80;animation:cdPulse 1.2s ease-in-out infinite;}
+@keyframes cdPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.75)}}
+#coin-detail-modal .cd-hicon{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s;}
+#coin-detail-modal .cd-hicon:hover{background:rgba(255,255,255,.1);}
+#coin-detail-modal .cd-hicon.star.on{color:#fbbf24;}
+#coin-detail-modal .cd-body{padding:14px;padding-bottom:calc(20px + env(safe-area-inset-bottom));}
+#coin-detail-modal .cd-price-block{padding:14px 4px 10px;}
+#coin-detail-modal .cd-price{font-size:32px;font-weight:800;color:#fff;letter-spacing:-.5px;font-variant-numeric:tabular-nums;transition:color .35s;}
+#coin-detail-modal .cd-price.flash-up{color:#4ade80;}
+#coin-detail-modal .cd-price.flash-down{color:#f87171;}
+#coin-detail-modal .cd-change{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700;margin-top:6px;}
+#coin-detail-modal .cd-change.up{background:rgba(74,222,128,.14);color:#4ade80;border:1px solid rgba(74,222,128,.28);}
+#coin-detail-modal .cd-change.down{background:rgba(248,113,113,.14);color:#f87171;border:1px solid rgba(248,113,113,.28);}
+#coin-detail-modal .cd-updated{font-size:10px;color:#7a8299;margin-top:6px;font-variant-numeric:tabular-nums;}
+#coin-detail-modal .cd-chart-wrap{margin:6px 0 14px;background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.18);border-radius:14px;padding:10px 8px 6px;position:relative;}
+#coin-detail-modal .cd-chart-wrap svg{display:block;width:100%;height:110px;}
+#coin-detail-modal .cd-tf{display:flex;gap:4px;justify-content:flex-end;padding:0 4px 4px;}
+#coin-detail-modal .cd-tf button{font-size:10px;padding:3px 9px;border-radius:8px;background:rgba(255,255,255,.04);color:#a89060;border:1px solid rgba(255,255,255,.06);cursor:pointer;font-weight:600;}
+#coin-detail-modal .cd-tf button.active{background:rgba(59,130,246,.18);color:#93c5fd;border-color:rgba(59,130,246,.35);}
+#coin-detail-modal .cd-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+#coin-detail-modal .cd-stat{background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.18);border-radius:12px;padding:9px 11px;}
+#coin-detail-modal .cd-stat .k{font-size:10px;color:#a89060;margin-bottom:3px;display:flex;align-items:center;gap:5px;}
+#coin-detail-modal .cd-stat .v{font-size:13px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
+#coin-detail-modal .cd-stat .v.pos{color:#4ade80;}
+#coin-detail-modal .cd-stat .v.neg{color:#f87171;}
+#coin-detail-modal .cd-section-title{font-size:11px;color:#a89060;font-weight:700;margin:6px 2px 8px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.5px;}
+#coin-detail-modal .cd-orderbook{background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.18);border-radius:14px;padding:10px;margin-bottom:14px;}
+#coin-detail-modal .cd-ob-head{display:grid;grid-template-columns:1fr 1fr 1fr;font-size:9px;color:#7a8299;padding:0 6px 6px;border-bottom:1px solid rgba(255,255,255,.05);text-transform:uppercase;letter-spacing:.5px;}
+#coin-detail-modal .cd-ob-head span:nth-child(2){text-align:center}
+#coin-detail-modal .cd-ob-head span:nth-child(3){text-align:left}
+#coin-detail-modal .cd-ob-rows{display:flex;flex-direction:column;gap:2px;padding-top:6px;}
+#coin-detail-modal .cd-ob-row{position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;font-size:11px;padding:3px 6px;border-radius:5px;font-variant-numeric:tabular-nums;overflow:hidden;}
+#coin-detail-modal .cd-ob-row .bar{position:absolute;top:0;bottom:0;right:0;opacity:.14;}
+#coin-detail-modal .cd-ob-row.bid .bar{background:#4ade80;}
+#coin-detail-modal .cd-ob-row.ask .bar{background:#f87171;}
+#coin-detail-modal .cd-ob-row .p{position:relative;z-index:1;font-weight:700;}
+#coin-detail-modal .cd-ob-row.bid .p{color:#4ade80;}
+#coin-detail-modal .cd-ob-row.ask .p{color:#f87171;}
+#coin-detail-modal .cd-ob-row .a{position:relative;z-index:1;color:#cbd5e1;text-align:center;}
+#coin-detail-modal .cd-ob-row .t{position:relative;z-index:1;color:#94a3b8;text-align:left;}
+#coin-detail-modal .cd-ob-spread{text-align:center;font-size:10px;color:#a89060;padding:5px 0;border-top:1px dashed rgba(255,255,255,.07);border-bottom:1px dashed rgba(255,255,255,.07);margin:4px 0;}
+#coin-detail-modal .cd-trades{background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.18);border-radius:14px;padding:10px;margin-bottom:16px;max-height:220px;overflow:hidden;}
+#coin-detail-modal .cd-trades-head{display:grid;grid-template-columns:1fr 1fr 1fr;font-size:9px;color:#7a8299;padding:0 6px 6px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid rgba(255,255,255,.05);}
+#coin-detail-modal .cd-trades-head span:nth-child(2){text-align:center}
+#coin-detail-modal .cd-trades-head span:nth-child(3){text-align:left}
+#coin-detail-modal .cd-trade{display:grid;grid-template-columns:1fr 1fr 1fr;font-size:11px;padding:4px 6px;font-variant-numeric:tabular-nums;animation:cdRowIn .3s ease-out;}
+@keyframes cdRowIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+#coin-detail-modal .cd-trade .p{font-weight:700;}
+#coin-detail-modal .cd-trade.buy .p{color:#4ade80;}
+#coin-detail-modal .cd-trade.sell .p{color:#f87171;}
+#coin-detail-modal .cd-trade .a{color:#cbd5e1;text-align:center;}
+#coin-detail-modal .cd-trade .t{color:#7a8299;text-align:left;}
+#coin-detail-modal .cd-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+#coin-detail-modal .cd-btn{padding:12px;border-radius:12px;border:0;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:.3px;transition:transform .1s,filter .15s;}
+#coin-detail-modal .cd-btn:active{transform:scale(.97);}
+#coin-detail-modal .cd-btn.buy{background:linear-gradient(135deg,#22c55e,#16a34a);color:#04170b;}
+#coin-detail-modal .cd-btn.sell{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#1a0505;}
+#coin-detail-modal .cd-toast{position:absolute;left:50%;transform:translateX(-50%);bottom:16px;background:rgba(15,27,58,.95);border:1px solid rgba(59,130,246,.35);color:#fff;padding:9px 16px;border-radius:99px;font-size:12px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:5;}
+#coin-detail-modal .cd-toast.show{opacity:1;transform:translate(-50%,-6px);}
+</style>
+
+<div id="coin-detail-modal" dir="rtl" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="cd-sheet" id="cd-sheet">
+    <div class="cd-grab"></div>
+    <div class="cd-header">
+      <div class="cd-icon" id="cd-icon">B</div>
+      <div class="cd-title">
+        <h3 id="cd-name">—</h3>
+        <div class="cd-sub"><span id="cd-sym">—</span><span class="cd-live"><span class="dot"></span>LIVE</span></div>
+      </div>
+      <button type="button" class="cd-hicon star" id="cd-star" aria-label="favorite"><i class="fa-regular fa-star"></i></button>
+      <button type="button" class="cd-hicon" onclick="closeCoinDetail()" aria-label="close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cd-body">
+      <div class="cd-price-block">
+        <div class="cd-price" id="cd-price">$0.00</div>
+        <div id="cd-change" class="cd-change up"><i class="fa-solid fa-arrow-trend-up"></i><span>0.00%</span><span style="opacity:.7;font-weight:500">· 24س</span></div>
+        <div class="cd-updated" id="cd-updated">آخر تحديث: --:--:--</div>
+      </div>
+
+      <div class="cd-chart-wrap">
+        <div class="cd-tf" id="cd-tf">
+          <button data-tf="1H" class="active">1س</button>
+          <button data-tf="24H">24س</button>
+          <button data-tf="7D">7ي</button>
+          <button data-tf="30D">30ي</button>
+        </div>
+        <svg id="cd-chart" viewBox="0 0 300 110" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="cdGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4ade80" stop-opacity=".45"/>
+              <stop offset="100%" stop-color="#4ade80" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path id="cd-area" d="" fill="url(#cdGrad)"/>
+          <polyline id="cd-line" fill="none" stroke="#4ade80" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" points=""/>
+          <g id="cd-hilo"></g>
+        </svg>
+      </div>
+
+      <div class="cd-section-title"><i class="fa-solid fa-chart-simple"></i> إحصائيات السوق</div>
+      <div class="cd-stats">
+        <div class="cd-stat"><div class="k"><i class="fa-solid fa-arrow-up text-green-400"></i> أعلى 24س</div><div class="v" id="cd-high">$0</div></div>
+        <div class="cd-stat"><div class="k"><i class="fa-solid fa-arrow-down text-red-400"></i> أدنى 24س</div><div class="v" id="cd-low">$0</div></div>
+        <div class="cd-stat"><div class="k"><i class="fa-solid fa-water"></i> الحجم 24س</div><div class="v" id="cd-vol">—</div></div>
+        <div class="cd-stat"><div class="k"><i class="fa-solid fa-coins"></i> القيمة السوقية</div><div class="v" id="cd-mcap">—</div></div>
+        <div class="cd-stat"><div class="k"><i class="fa-solid fa-layer-group"></i> المعروض المتداول</div><div class="v" id="cd-supply">—</div></div>
+        <div class="cd-stat"><div class="k"><i class="fa-solid fa-trophy"></i> ATH / منه</div><div class="v" id="cd-ath">—</div></div>
+        <div class="cd-stat"><div class="k"><i class="fa-solid fa-ranking-star"></i> الترتيب</div><div class="v" id="cd-rank">#—</div></div>
+        <div class="cd-stat"><div class="k"><i class="fa-solid fa-bolt"></i> التقلب</div><div class="v" id="cd-vol24">—</div></div>
+      </div>
+
+      <div class="cd-section-title"><i class="fa-solid fa-book"></i> دفتر الطلبات</div>
+      <div class="cd-orderbook">
+        <div class="cd-ob-head"><span>السعر (USDT)</span><span>الكمية</span><span>الإجمالي</span></div>
+        <div class="cd-ob-rows" id="cd-asks"></div>
+        <div class="cd-ob-spread" id="cd-spread">Spread —</div>
+        <div class="cd-ob-rows" id="cd-bids"></div>
+      </div>
+
+      <div class="cd-section-title"><i class="fa-solid fa-bolt-lightning"></i> آخر الصفقات</div>
+      <div class="cd-trades">
+        <div class="cd-trades-head"><span>السعر</span><span>الكمية</span><span>الوقت</span></div>
+        <div id="cd-trades-list"></div>
+      </div>
+
+      <div class="cd-actions">
+        <button class="cd-btn buy" onclick="cdSoon('شراء')"><i class="fa-solid fa-arrow-trend-up"></i> شراء</button>
+        <button class="cd-btn sell" onclick="cdSoon('بيع')"><i class="fa-solid fa-arrow-trend-down"></i> بيع</button>
+      </div>
+    </div>
+    <div class="cd-toast" id="cd-toast">سيتوفر قريباً</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const COLOR_MAP={yellow:'bg-yellow-500/10 text-yellow-500',blue:'bg-blue-500/10 text-blue-400',purple:'bg-purple-500/10 text-purple-400',slate:'bg-slate-500/10 text-[#e6cf85]',red:'bg-red-500/10 text-red-400',sky:'bg-sky-500/10 text-sky-400',amber:'bg-amber-500/10 text-amber-400',pink:'bg-pink-500/10 text-pink-400',violet:'bg-violet-500/10 text-violet-400',indigo:'bg-indigo-500/10 text-indigo-400',emerald:'bg-emerald-500/10 text-emerald-400',cyan:'bg-cyan-500/10 text-cyan-400',fuchsia:'bg-fuchsia-500/10 text-fuchsia-400',teal:'bg-teal-500/10 text-teal-300',orange:'bg-orange-500/10 text-orange-400',green:'bg-green-500/10 text-green-400'};
+  const HEX={yellow:'#eab308',blue:'#3b82f6',purple:'#a855f7',slate:'#94a3b8',red:'#ef4444',sky:'#0ea5e9',amber:'#f59e0b',pink:'#ec4899',violet:'#8b5cf6',indigo:'#6366f1',emerald:'#10b981',cyan:'#06b6d4',fuchsia:'#d946ef',teal:'#14b8a6',orange:'#f97316',green:'#22c55e'};
+  // Rough circulating supply for market cap estimation (approximate, for display only)
+  const SUPPLY={BTC:19700000,ETH:120000000,SOL:465000000,BNB:145000000,XRP:56000000000,AVAX:410000000,ADA:35500000000,DOGE:145000000000,LINK:625000000,DOT:1420000000,MATIC:9800000000,LTC:74800000,TRX:87500000000,UNI:600000000,ATOM:390000000,NEAR:1080000000,FIL:560000000,ICP:465000000,ARB:3900000000,OP:1000000000,APT:475000000,XLM:29000000000,PEPE:420000000000000,SHIB:589000000000000,TON:2500000000,SUI:2800000000,BCH:19700000,INJ:97000000,LDO:895000000,FTM:2800000000};
+  const ATH_MULT={BTC:1.10,ETH:1.45,SOL:1.15,BNB:1.20,XRP:6.60,AVAX:5.10,ADA:8.00,DOGE:5.90,LINK:3.60,DOT:8.00,MATIC:4.00,LTC:5.40,TRX:1.15,UNI:6.20,ATOM:5.50,NEAR:4.00,FIL:50,ICP:65,ARB:2.90,OP:2.50,APT:2.40,XLM:8.60};
+
+  let currentSym=null, timer=null, priceHistory=[], trades=[], lastPrice=0, seededTF={};
+
+  const $=id=>document.getElementById(id);
+
+  function fmt(p){
+    if(p>=1000) return '$'+p.toLocaleString('en-US',{maximumFractionDigits:2});
+    if(p>=1) return '$'+p.toFixed(2);
+    if(p>=0.01) return '$'+p.toFixed(4);
+    return '$'+p.toFixed(6);
+  }
+  function fmtNum(n){
+    if(n>=1e12) return (n/1e12).toFixed(2)+'T';
+    if(n>=1e9) return (n/1e9).toFixed(2)+'B';
+    if(n>=1e6) return (n/1e6).toFixed(2)+'M';
+    if(n>=1e3) return (n/1e3).toFixed(2)+'K';
+    return n.toFixed(2);
+  }
+  function timeStr(d){d=d||new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+':'+String(d.getSeconds()).padStart(2,'0');}
+
+  function seedHistory(basePrice, points, volFactor){
+    const arr=[]; let p=basePrice*(1-volFactor*0.4);
+    for(let i=0;i<points;i++){
+      const drift=(Math.sin(i*0.35)+Math.cos(i*0.11))*volFactor*0.35;
+      const noise=(Math.random()-0.5)*volFactor*0.5;
+      p=p*(1+drift/100+noise/100);
+      arr.push(p);
+    }
+    // Ensure last matches base
+    const scale=basePrice/arr[arr.length-1];
+    return arr.map(x=>x*scale);
+  }
+
+  function drawChart(up){
+    const svg=$('cd-chart'); if(!svg||!priceHistory.length) return;
+    const W=300,H=110,pad=4;
+    const min=Math.min.apply(null,priceHistory);
+    const max=Math.max.apply(null,priceHistory);
+    const range=(max-min)||(max*0.001)||1;
+    const stepX=(W-pad*2)/(priceHistory.length-1||1);
+    const pts=priceHistory.map((v,i)=>{
+      const x=(pad+i*stepX).toFixed(1);
+      const y=(pad+(H-pad*2)*(1-(v-min)/range)).toFixed(1);
+      return x+','+y;
+    });
+    const color=up?'#4ade80':'#f87171';
+    $('cd-line').setAttribute('points',pts.join(' '));
+    $('cd-line').setAttribute('stroke',color);
+    // gradient stop update
+    const grad=svg.querySelector('#cdGrad stop:first-child');
+    if(grad) grad.setAttribute('stop-color',color);
+    const grad2=svg.querySelector('#cdGrad stop:last-child');
+    if(grad2) grad2.setAttribute('stop-color',color);
+    const first=pts[0].split(',');
+    const last=pts[pts.length-1].split(',');
+    const area='M '+first[0]+','+(H-pad)+' L '+pts.join(' L ')+' L '+last[0]+','+(H-pad)+' Z';
+    $('cd-area').setAttribute('d',area);
+    // hi/lo markers
+    let hiI=0,loI=0;
+    for(let i=1;i<priceHistory.length;i++){if(priceHistory[i]>priceHistory[hiI])hiI=i;if(priceHistory[i]<priceHistory[loI])loI=i;}
+    const hp=pts[hiI].split(','),lp=pts[loI].split(',');
+    $('cd-hilo').innerHTML=
+      '<circle cx="'+hp[0]+'" cy="'+hp[1]+'" r="2.5" fill="#4ade80"/>'+
+      '<circle cx="'+lp[0]+'" cy="'+lp[1]+'" r="2.5" fill="#f87171"/>';
+  }
+
+  function renderOrderBook(price, volFactor){
+    const asks=$('cd-asks'), bids=$('cd-bids'); if(!asks||!bids) return;
+    const rowsA=[], rowsB=[]; let maxAmt=0;
+    const spread=price*0.0004;
+    const asksData=[], bidsData=[];
+    for(let i=0;i<6;i++){
+      const ap=price+spread+price*0.0006*i+(Math.random()-0.5)*price*0.0002;
+      const bp=price-spread-price*0.0006*i-(Math.random()-0.5)*price*0.0002;
+      const aa=(Math.random()*8+0.5)*volFactor;
+      const ba=(Math.random()*8+0.5)*volFactor;
+      asksData.push({p:ap,a:aa}); bidsData.push({p:bp,a:ba});
+      if(aa>maxAmt)maxAmt=aa; if(ba>maxAmt)maxAmt=ba;
+    }
+    for(let i=asksData.length-1;i>=0;i--){
+      const r=asksData[i]; const w=(r.a/maxAmt*100).toFixed(0);
+      rowsA.push('<div class="cd-ob-row ask"><span class="bar" style="width:'+w+'%"></span><span class="p">'+fmtDynPrice(r.p)+'</span><span class="a">'+r.a.toFixed(3)+'</span><span class="t">'+(r.p*r.a).toFixed(0)+'</span></div>');
+    }
+    for(let i=0;i<bidsData.length;i++){
+      const r=bidsData[i]; const w=(r.a/maxAmt*100).toFixed(0);
+      rowsB.push('<div class="cd-ob-row bid"><span class="bar" style="width:'+w+'%"></span><span class="p">'+fmtDynPrice(r.p)+'</span><span class="a">'+r.a.toFixed(3)+'</span><span class="t">'+(r.p*r.a).toFixed(0)+'</span></div>');
+    }
+    asks.innerHTML=rowsA.join('');
+    bids.innerHTML=rowsB.join('');
+    const sp=$('cd-spread'); if(sp){const s=(spread*2);sp.textContent='Spread '+fmtDynPrice(s)+' · '+((s/price)*100).toFixed(3)+'%';}
+  }
+  function fmtDynPrice(p){
+    if(p>=1000) return p.toLocaleString('en-US',{maximumFractionDigits:1});
+    if(p>=1) return p.toFixed(2);
+    if(p>=0.01) return p.toFixed(4);
+    return p.toFixed(6);
+  }
+
+  function pushTrade(price, volFactor){
+    const buy=Math.random()>0.5;
+    const drift=(Math.random()-0.5)*price*0.0005;
+    const p=price+drift;
+    const amt=(Math.random()*4+0.05)*volFactor;
+    trades.unshift({buy:buy,p:p,a:amt,t:new Date()});
+    if(trades.length>7) trades.pop();
+    renderTrades();
+  }
+  function renderTrades(){
+    const el=$('cd-trades-list'); if(!el) return;
+    el.innerHTML=trades.map(function(t){
+      return '<div class="cd-trade '+(t.buy?'buy':'sell')+'"><span class="p">'+fmtDynPrice(t.p)+'</span><span class="a">'+t.a.toFixed(4)+'</span><span class="t">'+timeStr(t.t)+'</span></div>';
+    }).join('');
+  }
+
+  function updatePriceDisplay(newPrice, change){
+    const el=$('cd-price'); if(!el) return;
+    el.textContent=fmt(newPrice);
+    if(lastPrice){
+      el.classList.remove('flash-up','flash-down');
+      void el.offsetWidth;
+      el.classList.add(newPrice>=lastPrice?'flash-up':'flash-down');
+      setTimeout(function(){el.classList.remove('flash-up','flash-down');},350);
+    }
+    lastPrice=newPrice;
+    const up=change>=0;
+    const cg=$('cd-change');
+    cg.className='cd-change '+(up?'up':'down');
+    cg.innerHTML='<i class="fa-solid fa-arrow-trend-'+(up?'up':'down')+'"></i><span>'+(up?'+':'')+change.toFixed(2)+'%</span><span style="opacity:.7;font-weight:500">· 24س</span>';
+    $('cd-updated').textContent='آخر تحديث: '+timeStr();
+  }
+
+  function refreshStats(a){
+    const price=a.price, change=a.change;
+    const volPct=Math.max(2,Math.abs(change)*1.4+3);
+    const hi=price*(1+volPct/200), lo=price*(1-volPct/200);
+    $('cd-high').textContent=fmt(hi);
+    $('cd-low').textContent=fmt(lo);
+    $('cd-vol').textContent='$'+a.volume;
+    const supply=SUPPLY[a.sym]||(Math.round(1e9/(price||1)));
+    const mcap=price*supply;
+    $('cd-mcap').textContent='$'+fmtNum(mcap);
+    $('cd-supply').textContent=fmtNum(supply)+' '+a.sym;
+    const athMul=ATH_MULT[a.sym]||(1+Math.abs(change)/10+0.5);
+    const ath=price*athMul;
+    const fromAth=((price/ath-1)*100).toFixed(1);
+    $('cd-ath').innerHTML=fmt(ath)+' <span style="font-size:10px;color:#f87171">('+fromAth+'%)</span>';
+    // rank by supply * price rough
+    const rank=Math.max(1,Math.round(1000/Math.log10(mcap+10)));
+    $('cd-rank').textContent='#'+rank;
+    $('cd-vol24').textContent=volPct.toFixed(2)+'%';
+  }
+
+  function tick(){
+    const a=(window.__strataflowGetAsset&&window.__strataflowGetAsset(currentSym));
+    if(!a) return;
+    // small live drift
+    const drift=(Math.random()-0.5)*0.35;
+    a.change=Math.max(-15,Math.min(15,a.change+drift*0.3));
+    a.price=Math.max(0.000001,a.price*(1+drift/100));
+    priceHistory.push(a.price);
+    if(priceHistory.length>60) priceHistory.shift();
+    updatePriceDisplay(a.price,a.change);
+    drawChart(a.change>=0);
+    const volFactor=Math.max(1,Math.abs(a.change)+2);
+    renderOrderBook(a.price,volFactor);
+    if(Math.random()<0.8) pushTrade(a.price,volFactor);
+    refreshStats(a);
+  }
+
+  window.openCoinDetail=function(sym){
+    const a=window.__strataflowGetAsset&&window.__strataflowGetAsset(sym);
+    if(!a) return;
+    currentSym=sym; lastPrice=0; trades=[]; priceHistory=[];
+    // header
+    const iconEl=$('cd-icon');
+    iconEl.textContent=a.icon||sym.charAt(0);
+    iconEl.style.background='rgba(255,255,255,.05)';
+    iconEl.style.color=HEX[a.color]||'#93c5fd';
+    iconEl.style.boxShadow='inset 0 0 0 1px '+(HEX[a.color]||'#3b82f6')+'55';
+    $('cd-name').textContent=a.name;
+    $('cd-sym').textContent=a.sym+' / USDT';
+    updateStarBtn();
+    // seed history
+    const volFactor=Math.max(1.2,Math.abs(a.change)+2);
+    priceHistory=seedHistory(a.price,45,volFactor);
+    // seed trades
+    for(let i=0;i<6;i++) pushTrade(a.price,volFactor);
+    updatePriceDisplay(a.price,a.change);
+    drawChart(a.change>=0);
+    renderOrderBook(a.price,volFactor);
+    refreshStats(a);
+    const m=$('coin-detail-modal'); m.classList.add('open'); m.setAttribute('aria-hidden','false');
+    if(timer) clearInterval(timer);
+    timer=setInterval(tick,1400);
+  };
+
+  window.closeCoinDetail=function(){
+    const m=$('coin-detail-modal'); if(!m) return;
+    m.classList.remove('open'); m.setAttribute('aria-hidden','true');
+    if(timer){clearInterval(timer);timer=null;}
+    currentSym=null;
+  };
+
+  function updateStarBtn(){
+    try{
+      const favs=JSON.parse(localStorage.getItem('strataflow_favorites')||'[]');
+      const on=Array.isArray(favs)&&favs.indexOf(currentSym)>=0;
+      const btn=$('cd-star'); if(!btn) return;
+      btn.classList.toggle('on',on);
+      btn.innerHTML='<i class="fa-'+(on?'solid':'regular')+' fa-star"></i>';
+    }catch(e){}
+  }
+  document.addEventListener('click',function(e){
+    const s=e.target.closest && e.target.closest('#cd-star');
+    if(s && currentSym && typeof window.favToggle==='function'){window.favToggle(currentSym);setTimeout(updateStarBtn,20);}
+  });
+
+  // Timeframe buttons — reseed history with different volatility/points
+  document.addEventListener('click',function(e){
+    const b=e.target.closest && e.target.closest('#cd-tf button');
+    if(!b) return;
+    document.querySelectorAll('#cd-tf button').forEach(function(x){x.classList.remove('active');});
+    b.classList.add('active');
+    const a=window.__strataflowGetAsset&&window.__strataflowGetAsset(currentSym);
+    if(!a) return;
+    const tf=b.dataset.tf;
+    const mult={'1H':0.6,'24H':1.4,'7D':3,'30D':5.5}[tf]||1.4;
+    priceHistory=seedHistory(a.price,50,Math.abs(a.change)*mult+2);
+    drawChart(a.change>=0);
+  });
+
+  window.cdSoon=function(kind){
+    try{
+      if(typeof sfToast==='function'){
+        sfToast({type:'error', title:'رصيد غير كافٍ', message:'يرجى شحن المحفظة للمتابعة'});
+        return;
+      }
+    }catch(e){}
+    const t=$('cd-toast'); if(!t) return;
+    t.textContent='رصيد غير كافٍ — يرجى شحن المحفظة';
+    t.classList.add('show');
+    clearTimeout(window.__cdToastTO);
+    window.__cdToastTO=setTimeout(function(){t.classList.remove('show');},1600);
+  };
+
+  // Close on backdrop click / Escape
+  document.getElementById('coin-detail-modal').addEventListener('click',function(e){
+    if(e.target===this) closeCoinDetail();
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){const m=$('coin-detail-modal');if(m&&m.classList.contains('open'))closeCoinDetail();}
+  });
+})();
+</script>
+<!-- ===== /Coin Detail Modal ===== -->
+
 
 
 <!-- ===== StrataFlow Live Data (CoinGecko) ===== -->
@@ -8984,6 +9539,233 @@ const BFR_DICT = {
   "✅ تمت إضافة 5.00 USDT إلى رصيدك": "✅ 5.00 USDT added to your balance",
   "مكافأة التحقق متاحة": "KYC Reward available",
   "اجمع مكافأتك 5.00 USDT من قسم المهام.": "Collect your 5.00 USDT reward from the Tasks section.",
+
+  /* === Added: Screenshots coverage (history / market detail / license / deposit) === */
+  /* History empty state */
+  "لا توجد معاملات": "No transactions",
+  "ستظهر هنا عملياتك عند إتمامها": "Your transactions will appear here once completed",
+
+  /* Coin detail — header / chart timeframe */
+  "آخر تحديث: --:--:--": "Last update: --:--:--",
+  "24س": "24H",
+  "1س": "1H",
+  "7ي": "7D",
+  "30ي": "30D",
+
+  /* Coin detail — market stats */
+  "إحصائيات السوق": "Market Stats",
+  "أعلى 24س": "24H High",
+  "أدنى 24س": "24H Low",
+  "الحجم 24س": "24H Volume",
+  "القيمة السوقية": "Market Cap",
+  "المعروض المتداول": "Circulating Supply",
+  "ATH / منه": "From ATH",
+  "الترتيب": "Rank",
+  "التقلب": "Volatility",
+
+  /* Coin detail — order book / trades / actions */
+  "دفتر الطلبات": "Order Book",
+  "السعر (USDT)": "Price (USDT)",
+  "الكمية": "Quantity",
+  "الإجمالي": "Total",
+  "آخر الصفقات": "Recent Trades",
+  "السعر": "Price",
+  "الوقت": "Time",
+  "شراء": "Buy",
+  "بيع": "Sell",
+  "سيتوفر قريباً": "Coming soon",
+
+  /* License certificate */
+  "شهادة ترخيص منصة تداول رقمي": "Digital Trading Platform License Certificate",
+  "وثيقة رسمية معتمدة – صادرة عن الجهات التنظيمية المختصة": "Accredited official document — issued by the competent regulatory authorities",
+  "صادرة من / ISSUED BY": "ISSUED BY",
+  "سلطة النقد السنغافورية": "Monetary Authority of Singapore",
+  "License Number · رقم الترخيص": "License Number",
+  "Status · الحالة": "Status",
+  "Registration · السجل": "Registration",
+  "Issued · الإصدار": "Issued",
+  "Expires · الانتهاء": "Expires",
+  "Jurisdiction · الولاية القضائية": "Jurisdiction",
+  "License Category · فئة الترخيص": "License Category",
+  "الاعتمادات وأمان المعاملات · SECURITY & COMPLIANCE": "SECURITY & COMPLIANCE",
+  "الامتثال الكامل لقانون خدمات الدفع الدولي لعام 2019": "Full compliance with the international Payment Services Act 2019",
+  "أعلى معيار عالمي لحماية قنوات الإيداع وبطاقات الدفع": "The highest global standard for protecting deposit channels and payment cards",
+  "حماية قانونية لفصل أموال العملاء عن حسابات الشركة": "Legal protection separating client funds from company accounts",
+  "نظام الضمان المؤتمت لتأمين السحب والإيداع الفوري": "Automated escrow system securing withdrawals and instant deposits",
+  "حفظ 98% من الأصول المودعة في محافظ باردة متعددة التوقيع": "98% of deposited assets stored in multi-signature cold wallets",
+  "شهادة عالمية محدثة في أمن وسرية البيانات المالية": "Updated global certificate for financial data security and confidentiality",
+  "التوثيق الفوري والآمن لجميع المعاملات عبر الحدود": "Instant and secure verification for all cross-border transactions",
+  "تأمين الإيداع والسحب والعمليات": "Deposit, Withdrawal & Operations Insurance",
+  "حماية فورية وتغطية تأمينية كاملة لكافة أصول وعمليات إيداع وسحب المستخدمين ضد المخاطر السيبرانية وأخطاء الشبكات.": "Instant protection and full insurance coverage for all user assets and deposit/withdrawal operations against cyber threats and network errors.",
+  "تنزيل PDF": "Download PDF",
+
+  /* Deposit modal */
+  "إيداع عملات رقمية": "Deposit Crypto",
+  "اختر الشبكة وأرسل USDT فقط": "USDT only — pick a network and send",
+  "طريقة الإيداع": "Deposit Method",
+  "إغلاق": "Close",
+  "الحد الأدنى للإيداع": "Minimum Deposit",
+  "انسخ عنوان المحفظة أو امسح رمز الـ QR.": "Copy the wallet address or scan the QR code.",
+  "أرسل المبلغ من محفظتك إلى نفس العنوان.": "Send the amount from your wallet to the same address.",
+  "أدخل المبلغ الذي أودعته في الحقل أدناه واضغط تأكيد.": "Enter the deposited amount in the field below and press Confirm.",
+  "تأكيد": "Confirm",
+  "اختر شبكة الإيداع": "Select Deposit Network",
+  "عنوان الإيداع الخاص بك — شبكة": "Your deposit address — Network",
+  "نسخ العنوان": "Copy Address",
+  "وقت التأكيد التقريبي": "Estimated Confirmation Time",
+  "1-3 دقائق": "1-3 minutes",
+  "تأكيد": "Confirm",
+  "أرسل USDT فقط عبر الشبكة المختارة. أي شبكة أخرى ستؤدي إلى فقدان الأصول.": "Send USDT only via the selected network. Any other network will result in asset loss.",
+  " س": " h",
+  " ي": " d",
+  "سنة": "year",
+  "شهر": "month",
+  "يوم": "day",
+  "أشهر": "months",
+  "ساعة": "hour",
+  "سنتين": "2 years",
+  "سنوات": "years",
+  "شهراً": "months",
+  "شهرين": "2 months",
+  "يوماً": "days",
+  "يومين": "2 days",
+  "ساعتين": "2 hours",
+  "دقيقتين": "2 minutes",
+  "10 دقائق": "10 minutes",
+  "15 دقائق": "15 minutes",
+  "30 ثانية": "30 seconds",
+  "60 ثانية": "60 seconds",
+  "120 ثانية": "120 seconds",
+  "5-15 دقيقة": "5-15 minutes",
+  "· 24س": "· 24h",
+  "0.00% · 24س": "0.00% · 24h",
+  "-0.80% · 24س": "-0.80% · 24h",
+  "آخر تحديث: ": "Last update: ",
+  "آخر تحديث: 23:10:49": "Last update: 23:10:49",
+  "آخر تغيير منذ ": "Last change ",
+  "آخر تغيير قبل لحظات": "Last change moments ago",
+  "أرسل": "Send",
+  "دخول": "Login",
+  "إشعار": "Notification",
+  "الرفع": "Upload",
+  "المدة": "Duration",
+  "التقاط": "Capture",
+  "العائد": "Return",
+  "العملة": "Currency",
+  "مراجعة": "Review",
+  "مشاركة": "Share",
+  "واتساب": "WhatsApp",
+  "تيليجرام": "Telegram",
+  "الإيداع": "Deposit",
+  "المتبقي": "Remaining",
+  "الوثيقة": "Document",
+  "التنبيهات": "Alerts",
+  "نسخ الكود": "Copy Code",
+  "التقاط مباشر": "Live Capture",
+  "موافقة ودفع": "Confirm & Pay",
+  "إظهار/إخفاء الرصيد": "Show/Hide Balance",
+  "ربح +": "Profit +",
+  "خسارة -": "Loss -",
+  "ربح من نشاط الفريق": "Earnings from team activity",
+  "مكافأة من إنجاز الفريق": "Reward from team achievement",
+  "نظام مكافأة الفريق": "Team Reward Program",
+  "جمع 5 USDT": "Collect 5 USDT",
+  "آخر صفقة": "Last trade",
+  "سعر الدخول": "Entry Price",
+  "صافي الربح": "Net Profit",
+  "أرباح اليوم": "Today's Profit",
+  "إعادة الشحن": "Recharge",
+  "سحب العملات": "Withdraw Assets",
+  "مبلغ الشراء": "Purchase Amount",
+  ": كود الدعوة": ": Invitation Code",
+  "الطلب الحالي": "Current Order",
+  "الطلبات السابقة": "Previous Orders",
+  "بيع للانخفاض": "Sell to Fall",
+  "شراء للارتفاع": "Buy to Rise",
+  "حساب الأموال": "Fund Account",
+  "مقدمة المنصة": "Platform Overview",
+  "إجمالي الأصول": "Total Assets",
+  "إجمالي الأصول (USDT)": "Total Assets (USDT)",
+  "الانتقال لعرض": "Go to View",
+  "الربح/الخسارة": "Profit / Loss",
+  "المركز الشخصي": "Personal Center",
+  "تم عرض 12 خبر": "Showing 12 news items",
+  "مبلغ غير صالح": "Invalid amount",
+  "يرجى الانتظار": "Please wait",
+  "إيقاف المزامنة": "Stop Sync",
+  "الرصيد المتوفر": "Available Balance",
+  "العائد المحتمل:": "Potential Return:",
+  "التحقق من الهوية": "Identity Verification",
+  "العملات الرئيسية": "Main Currencies",
+  "اختر وقت الانتهاء": "Select Expiry Time",
+  "ارفع صورة الوثيقة": "Upload Document Image",
+  "تأكيد المزامنة مع": "Confirm sync with",
+  "تم نسخ كود الدعوة": "Invitation code copied",
+  "لا يوجد رصيد كافٍ": "Insufficient balance",
+  "تم نسخ رابط الدعوة": "Invitation link copied",
+  "إصدار التطبيق 2.0.0": "App Version 2.0.0",
+  "الميزة قادمة قريباً": "Feature coming soon",
+  "الحد الأدنى: 15 USDT": "Minimum: 15 USDT",
+  "رسوم اشتراك المزامنة": "Sync Subscription Fee",
+  "عرض الأعضاء التابعين": "View team members",
+  "يرجى إدخال كود الطلب": "Please enter the order code",
+  "⏸️ تم إيقاف المزامنة": "⏸️ Sync stopped",
+  "تم تفعيل الوضع الداكن": "Dark mode enabled",
+  "تم تفعيل الوضع الفاتح": "Light mode enabled",
+  "تنزيل التطبيق الهاتفي": "Download Mobile App",
+  "اختر بلد إصدار الوثيقة": "Select document issuing country",
+  "تعديل كلمة مرور الدخول": "Change Login Password",
+  "قيد المراجعة... متبقي ": "Under review... remaining ",
+  "التثبيت غير متاح حالياً": "Installation not currently available",
+  "مكافأة المزامنة الفورية": "Instant Sync Reward",
+  "ℹ️ المزامنة نشطة بالفعل": "ℹ️ Sync is already active",
+  "✅ تم تفعيل المزامنة مع ": "✅ Sync activated with ",
+  "تم فتح صفقة بيع للانخفاض": "Sell-to-Fall trade opened",
+  "أدخل عنوان محفظة ERC20...": "Enter ERC20 wallet address...",
+  "اربح USDT مع كل صديق ينضم": "Earn USDT with every friend who joins",
+  "اسحب للأسفل لتحميل المزيد": "Pull down to load more",
+  "تم استلام المكافأة مسبقاً": "Reward already claimed",
+  "تم فتح صفقة شراء للارتفاع": "Buy-to-Rise trade opened",
+  "يرجى شحن المحفظة للمتابعة": "Please recharge your wallet to continue",
+  "الحد الأدنى 1 · حسب الرصيد": "Minimum 1 · Based on balance",
+  "جارٍ تحميل السعر الحالي...": "Loading current price...",
+  "🔄 جاري التحقق من الرصيد...": "🔄 Verifying balance...",
+  "أكمل التحقق من الهوية أولاً": "Complete identity verification first",
+  "الحصول على عمولة دعوة عالية": "Earn a high invitation commission",
+  "الحد الأدنى للمبلغ هو 1 USDT": "Minimum amount is 1 USDT",
+  "أدخل بريدك أو اسم المستخدم...": "Enter your email or username...",
+  "عنوان ERC20 يجب أن يبدأ بـ 0x": "ERC20 address must start with 0x",
+  "اضغط مرة أخرى للخروج من التطبيق": "Press again to exit the app",
+  "رصيد غير كافٍ — يرجى شحن المحفظة": "Insufficient balance — please recharge your wallet",
+  "❌ فشلت العملية: رصيدك الحالي هو ": "❌ Operation failed: Your current balance is ",
+  "✅ تم تغيير اللغة إلى العربية بنجاح": "✅ Language changed to Arabic successfully",
+  " USDT وهو أقل من الحد الأدنى للسحب (": " USDT which is less than the minimum withdrawal (",
+  "أحدث سعر / الارتفاع والانخفاض اليومي": "Latest Price / Daily Change",
+  "عنوان ERC20 يجب أن يتكون من 42 حرفاً بالضبط": "ERC20 address must be exactly 42 characters",
+  "شارك رابطك الآن وابدأ بتحقيق دخل إضافي فوري.": "Share your link now and start earning extra income instantly.",
+  "مرحباً بك مجدداً — سجّل الدخول لمتابعة التداول بأمان.": "Welcome back — sign in to continue trading securely.",
+  "الاعتمادات وأمان المعاملات · SECURITY &amp; COMPLIANCE": "Credentials & Transaction Security · SECURITY &amp; COMPLIANCE",
+  "تنسيق عنوان ERC20 غير صالح (يجب أن يكون بصيغة hex بعد 0x)": "Invalid ERC20 address format (must be hex after 0x)",
+  "ابحث عن خيار \"تثبيت\" أو \"إضافة إلى الشاشة الرئيسية\" في متصفحك": "Look for the \"Install\" or \"Add to Home Screen\" option in your browser",
+  "فقط عبر الشبكة المختارة. أي شبكة أخرى ستؤدي إلى فقدان الأصول.": "Only via the selected network. Any other network will result in asset loss.",
+  "أنشئ حسابك خلال دقيقة وابدأ التداول في العملات الرقمية والذهب.": "Create your account in a minute and start trading crypto and gold.",
+  "سيتم خصم رسوم الاشتراك من رصيدك، ثم إيداع مكافأة المزامنة فوراً.": "The subscription fee will be deducted from your balance, and the sync reward will be credited instantly.",
+  "مؤشر الخوف والطمع للعملات الرقمية يصل إلى مستوى \"طمع شديد\" عند 82": "Crypto Fear & Greed Index reaches \"Extreme Greed\" at 82",
+  "JPMorgan: ارتفاع البيتكوين إلى 80,000 دولار قبل نهاية العام أصبح \"سيناريو أساسي\"": "JPMorgan: Bitcoin rally to $80,000 before year-end is now a 'base case scenario'",
+  "رصيدك الحالي لا يكفي لتغطية رسوم اشتراك المزامنة. يرجى إعادة شحن حسابك للمتابعة.": "Your current balance is insufficient to cover the sync subscription fee. Please recharge your account to continue.",
+  "تم تحديث كلمة مرور حسابك بأمان. إذا لم تكن أنت من قام بذلك، يرجى تأمين الحساب فوراً.": "Your account password has been securely updated. If this wasn't you, please secure your account immediately.",
+  "⚠️ تأكد من أن العنوان يبدأ بـ 0x وأنك تتعامل مع شبكة Ethereum (ERC20). أي خطأ في الشبكة سيؤدي لفقدان الأصول.": "⚠️ Ensure the address starts with 0x and you are using the Ethereum (ERC20) network. Any network error will result in asset loss.",
+  "تأكد من اختيار شبكة ERC20 (Ethereum) الصحيحة. الحد الأدنى للسحب 20 USDT ورسوم الشبكة 5 USDT. عناوين ERC20 تبدأ بـ 0x.": "Ensure you select the correct ERC20 (Ethereum) network. Minimum withdrawal 20 USDT, network fee 5 USDT. ERC20 addresses start with 0x.",
+  "⚠️ يرجى إرسال عملة USDT فقط عبر شبكة ERC20 (Ethereum Mainnet). أي عملة أو شبكة أخرى ستؤدي إلى فقدان الأصول بشكل دائم.": "⚠️ Please send USDT only via the ERC20 (Ethereum Mainnet) network. Any other currency or network will result in permanent loss of assets.",
+  "أرسل Tether USD (USDT) فقط عبر شبكة ERC20 (Ethereum). تأكد من أن المحفظة المرسلة تدعم شبكة Ethereum وأن لديك رسوم Gas كافية.": "Send Tether USD (USDT) only via the ERC20 (Ethereum) network. Ensure the sending wallet supports Ethereum and that you have sufficient Gas fees.",
+  "✅ [StrataFlow] جاهز - نظام مصادقة حقيقي مع حفظ المستخدمين | PWA مفعل | إيداع وسحب متعددي الشبكات | قسم دعوة في الهيدر | حقل رمز دعوة (4 أرقام) في التسجيل | QR Code أبيض احترافي | سجل أرباح ومكافآت الفريق مفعّل": "✅ [StrataFlow] Ready - Real authentication system with user persistence | PWA Enabled | Multi-network deposit & withdrawal | Header invite section | 4-digit invitation code field in registration | Professional white QR code | Team earnings & rewards log enabled",
+  "خبر": "news",
+  "ملف": "File",
+  "تم عرض": "Showing",
+  "متزامن": "Synced",
+  "جاري الربط...": "Connecting...",
+  "✅ تم التحويل بنجاح |": "✅ Transfer successful |",
+  "اضغط للاستلام (+5.00 USDT)": "Tap to claim (+5.00 USDT)"
 };
 
 
@@ -9024,7 +9806,14 @@ const BFR_PATTERNS = [
   { re: /^المكافآت:\s*(.+)$/, en: 'Rewards: $1' },
   { re: /^مرحباً،?\s*(.+)$/, en: 'Welcome, $1' },
   { re: /^أهلاً،?\s*(.+)$/, en: 'Hello, $1' },
-  { re: /^قيد المراجعة\.\.\.\s*متبقي\s+(\S+)$/, en: 'Under review... remaining $1' }
+  { re: /^قيد المراجعة\.\.\.\s*متبقي\s+(\S+)$/, en: 'Under review... remaining $1' },
+  /* Dynamic clock: "آخر تحديث: 23:10:49" */
+  { re: /^آخر تحديث:\s*(.+)$/, en: 'Last update: $1' },
+  /* "0.00% · 24س" / "-0.80% · 24س" fragments */
+  { re: /^·\s*24س$/, en: '· 24H' },
+  { re: /^(-?\d[\d.,]*%)\s*·\s*24س$/, en: '$1 · 24H' },
+  /* Spread label if rendered as "Spread —" alone stays; Arabic-only fallbacks: */
+  { re: /^Spread\s+(.+)$/, en: 'Spread $1' }
 ];
 
 function _bfrLookup(s){
@@ -9194,6 +9983,17 @@ function applyLanguage(code){
   try {
     const toEn = (code==='en');
     applyDirFor(code);
+    /* Translate <title> (shown in browser/webview chrome) */
+    try {
+      if(!document.__bfrOrigTitle) document.__bfrOrigTitle = document.title;
+      const origT = document.__bfrOrigTitle;
+      if(toEn){
+        const trT = _bfrLookup((origT||'').trim());
+        if(trT) document.title = trT;
+      } else {
+        document.title = origT;
+      }
+    } catch(e){}
     if(!document.body) return;
     // First run when code==='ar': nothing to translate yet, just start observer for future
     _walkAndTranslate(document.body, toEn);
