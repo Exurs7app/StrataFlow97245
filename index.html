@@ -266,7 +266,8 @@ html:not([data-theme="light"]) body::after { background-color: transparent; }
         }
 
         /* ==================== بطاقة التثبيت في صفحة الحساب ==================== */
-        #install-card-section {
+        #install-card-section { display: none !important; }
+        #install-card-section.__unused_original {
             transition: all 0.4s ease;
         }
 
@@ -280,7 +281,7 @@ html:not([data-theme="light"]) body::after { background-color: transparent; }
             top: 56px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1200;
+            z-index: 999999;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -2812,17 +2813,69 @@ nav a, nav button, .bottom-nav a, .bottom-nav button {
         </div>
 
 
-        <!-- ===== بطاقة إشعار UID (StrataFlow) — تفتح المركز الشخصي ===== -->
-        <div id="sf-uid-notif" role="button" tabindex="0" title="المركز الشخصي"
+        <!-- ===== بطاقة الإعدادات (StrataFlow) — تفتح المركز الشخصي ===== -->
+        <style>
+        @keyframes sfGearSpin { to { transform: rotate(360deg); } }
+        @keyframes sfGearGlow {
+            0%,100% { box-shadow: 0 0 12px rgba(96,165,250,.45), 0 0 24px rgba(168,85,247,.28), inset 0 0 0 1px rgba(255,255,255,.15); }
+            50%     { box-shadow: 0 0 22px rgba(96,165,250,.75), 0 0 44px rgba(168,85,247,.55), inset 0 0 0 1px rgba(255,255,255,.28); }
+        }
+        @keyframes sfLabelShine {
+            0%   { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        #sf-uid-notif { transition: transform .25s ease, opacity .2s ease; }
+        #sf-uid-notif:hover { transform: translateY(-1px); }
+        #sf-uid-notif:active { transform: scale(.96); }
+        #sf-uid-notif .sf-gear-btn{
+            position:relative; display:inline-flex; align-items:center; justify-content:center;
+            width:40px; height:40px; border-radius:13px; flex:0 0 auto; overflow:hidden;
+            background: linear-gradient(135deg,#1e3a8a 0%,#4c1d95 45%,#7c3aed 100%);
+            animation: sfGearGlow 2.8s ease-in-out infinite;
+            transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+        }
+        #sf-uid-notif .sf-gear-btn::before{
+            content:""; position:absolute; inset:-2px; border-radius:15px; padding:1px;
+            background: conic-gradient(from 0deg,#60a5fa,#a855f7,#fde68a,#60a5fa);
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+                    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            opacity:.65; animation: sfGearSpin 6s linear infinite;
+        }
+        #sf-uid-notif .sf-gear-btn i{
+            font-size:19px; color:#ffffff;
+            text-shadow: 0 0 8px rgba(147,197,253,.7), 0 0 14px rgba(168,85,247,.5);
+            animation: sfGearSpin 8s linear infinite;
+            transition: font-size .25s ease;
+        }
+        #sf-uid-notif:hover .sf-gear-btn{ transform: scale(1.09) rotate(-3deg); }
+        #sf-uid-notif:hover .sf-gear-btn i{ animation-duration: 1.2s; }
+        #sf-uid-notif .sf-settings-label{
+            font-family:'Tajawal',sans-serif; font-weight:800; font-size:14px;
+            letter-spacing:.4px; white-space:nowrap;
+            background: linear-gradient(90deg,#fde68a 0%,#93c5fd 25%,#c4b5fd 50%,#93c5fd 75%,#fde68a 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            animation: sfLabelShine 4s linear infinite;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,.35));
+        }
+        #sf-uid-notif .sf-settings-chev{
+            font-size:10px; color:#93c5fd; opacity:.85;
+            transform: translateX(0); transition: transform .3s ease, opacity .3s ease;
+        }
+        #sf-uid-notif:hover .sf-settings-chev{ transform: translateX(-4px); opacity:1; }
+        </style>
+        <div id="sf-uid-notif" role="button" tabindex="0" title="الإعدادات"
              onclick="event.stopPropagation(); openPersonalCenter();"
              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();openPersonalCenter();}"
-             style="display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:12px;background:transparent;border:0;box-shadow:none;cursor:pointer;transition:opacity .15s ease;user-select:none;opacity:.95;direction:ltr;"
-             onmouseover="this.style.opacity='1'"
-             onmouseout="this.style.opacity='0.95'">
-            <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#0f2450 0%,#0a1a3a 100%);box-shadow:0 4px 10px rgba(0,0,0,.35),inset 0 0 0 1px rgba(96,165,250,.35);flex:0 0 auto;overflow:hidden;">
-                <img src="data:image/jpeg;base64,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" alt="StrataFlow" style="width:38px;height:38px;border-radius:11px;object-fit:cover;display:block;">
+             style="display:flex;align-items:center;gap:10px;padding:4px 8px;border-radius:14px;background:transparent;border:0;box-shadow:none;cursor:pointer;user-select:none;direction:rtl;">
+            <span class="sf-gear-btn" aria-hidden="true">
+                <i class="fa-solid fa-gear"></i>
             </span>
-            <span id="sf-notif-uid" style="font-size:13px;font-weight:700;color:#ffffff;direction:ltr;font-family:'Tajawal',sans-serif;letter-spacing:0.3px;white-space:nowrap;">UID:--------</span>
+            <span class="sf-settings-label">الإعدادات</span>
+            <i class="fa-solid fa-chevron-left sf-settings-chev" aria-hidden="true"></i>
+            <span id="sf-notif-uid" style="display:none;" aria-hidden="true">UID:--------</span>
         </div>
         <script>
         (function(){
@@ -3506,47 +3559,155 @@ nav a, nav button, .bottom-nav a, .bottom-nav button {
         التزامن بالصفقة
     </button>
 
-    <!-- ============ SF Sync Experts (added) ============ -->
-    <div id="sf-sync-experts" class="mt-1 rounded-2xl p-3" style="background: rgba(15,25,55,0.55); border: 1px solid rgba(59,130,246,0.18);">
-        <h4 class="text-center text-white/90 text-sm font-bold mb-2">قائمة خبراء التداول المتاحين للمزامنة</h4>
+    <!-- ============ SF Sync Experts (redesigned) ============ -->
+    <style>
+        @keyframes sfPulseDot { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.35);opacity:.55} }
+        @keyframes sfShine { 0%{transform:translateX(-120%)} 60%,100%{transform:translateX(220%)} }
+        @keyframes sfSpinSlow { to { transform: rotate(360deg); } }
+        .sf-expert-card{ position:relative; }
+        .sf-expert-card .sf-glow{ position:absolute; inset:-1px; border-radius:20px; padding:1px; background:linear-gradient(135deg,var(--sf-c1,#f59e0b),transparent 45%,transparent 55%,var(--sf-c2,#d97706)); -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; opacity:.85;}
+        .sf-expert-card .sf-shine{ position:absolute; top:0; bottom:0; width:40%; background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.10) 50%,transparent 100%); transform:translateX(-120%); pointer-events:none; border-radius:20px; overflow:hidden;}
+        .sf-expert-card:hover .sf-shine{ animation: sfShine 1.4s ease forwards; }
+        .sf-live-dot{ animation: sfPulseDot 1.6s ease-in-out infinite; }
+        .sf-sync-btn .sf-sync-icon{ display:inline-block; }
+        .sf-sync-btn:active .sf-sync-icon{ animation: sfSpinSlow .8s linear; }
+        .sf-section-title-line{ height:1px; background:linear-gradient(90deg,transparent,rgba(96,165,250,.55),transparent); }
+    </style>
+    <div id="sf-sync-experts" class="mt-3 rounded-2xl p-4" style="background:linear-gradient(180deg, rgba(15,25,55,.75), rgba(11,21,48,.65)); border:1px solid rgba(96,165,250,.18); box-shadow: 0 10px 40px -18px rgba(47,123,255,.45), inset 0 1px 0 rgba(255,255,255,.04);">
+        <!-- Section title -->
+        <div class="flex items-center gap-2 mb-3">
+            <div class="flex-1 sf-section-title-line"></div>
+            <div class="flex items-center gap-2 px-3 py-1 rounded-full" style="background:rgba(96,165,250,.10); border:1px solid rgba(96,165,250,.22);">
+                <i class="fas fa-crown text-amber-400 text-[11px]"></i>
+                <h4 class="text-white/95 text-[12.5px] font-bold whitespace-nowrap">قائمة خبراء التداول المتاحين للمزامنة</h4>
+            </div>
+            <div class="flex-1 sf-section-title-line"></div>
+        </div>
 
         <!-- Alpha Trader Pro -->
-        <div class="sf-expert-card" data-expert="alpha" data-name="Alpha Trader Pro" data-yield="145.2" data-winrate="0.72" data-color="orange">
-            <div class="flex items-center justify-between gap-3 p-3 rounded-xl mb-2" style="background:#0f1a35; border:1px solid rgba(255,255,255,0.06);">
-                <button type="button" class="sf-sync-btn px-4 py-2.5 rounded-lg text-white text-[13px] font-bold transition active:scale-95" style="background:#2f7bff;">مزامنة الآن</button>
-                <div class="flex-1 text-right">
-                    <div class="text-white font-bold text-[14px]">Alpha Trader Pro</div>
-                    <div class="text-emerald-400 text-[12px] font-semibold sf-expert-sub">معدل العائد: +145.2%</div>
+        <div class="sf-expert-card mb-3" data-expert="alpha" data-name="Alpha Trader Pro" data-yield="145.2" data-winrate="0.72" data-color="orange" style="--sf-c1:#f59e0b; --sf-c2:#d97706;">
+            <div class="relative overflow-hidden rounded-2xl p-3.5" style="background:linear-gradient(160deg, rgba(245,158,11,.10), rgba(15,26,53,.85) 55%); border:1px solid rgba(255,255,255,.05);">
+                <span class="sf-glow"></span>
+                <span class="sf-shine"></span>
+                <!-- Top accent bar -->
+                <div class="absolute top-0 right-0 left-0 h-[3px]" style="background:linear-gradient(90deg,#f59e0b,#fbbf24,#d97706);"></div>
+
+                <div class="flex items-center gap-3">
+                    <!-- Avatar -->
+                    <div class="relative shrink-0">
+                        <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-extrabold text-[14px]" style="background:linear-gradient(135deg,#f59e0b,#d97706); box-shadow:0 6px 22px -6px rgba(245,158,11,.75), inset 0 1px 0 rgba(255,255,255,.25);">CK</div>
+                        <span class="absolute -bottom-0.5 -left-0.5 w-3 h-3 rounded-full sf-live-dot" style="background:#22c55e; box-shadow:0 0 0 2px #0f1a35, 0 0 10px #22c55e;"></span>
+                    </div>
+
+                    <!-- Info -->
+                    <div class="flex-1 min-w-0 text-right">
+                        <div class="flex items-center justify-end gap-1.5 mb-1">
+                            <span class="px-1.5 py-[1px] rounded-md text-[9px] font-bold text-amber-300" style="background:rgba(245,158,11,.14); border:1px solid rgba(245,158,11,.35);">TOP</span>
+                            <div class="text-white font-bold text-[14.5px] truncate">Alpha Trader Pro</div>
+                        </div>
+                        <div class="flex items-center justify-end gap-2 mb-1.5">
+                            <span class="inline-flex items-center gap-1 text-emerald-400 text-[11.5px] font-bold sf-expert-sub" style="background:rgba(34,197,94,.10); padding:2px 8px; border-radius:999px; border:1px solid rgba(34,197,94,.22);">
+                                <i class="fas fa-arrow-trend-up text-[10px]"></i>
+                                معدل العائد: +145.2%
+                            </span>
+                        </div>
+                        <!-- Win rate bar -->
+                        <div class="flex items-center gap-2">
+                            <div class="flex-1 h-[5px] rounded-full overflow-hidden" style="background:rgba(255,255,255,.06);">
+                                <div style="width:72%; height:100%; background:linear-gradient(90deg,#f59e0b,#22c55e); box-shadow:0 0 8px rgba(245,158,11,.6);"></div>
+                            </div>
+                            <span class="text-white/70 text-[10px] font-semibold">72%</span>
+                        </div>
+                    </div>
+
+                    <!-- Sync button -->
+                    <button type="button" class="sf-sync-btn shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-white text-[12.5px] font-bold transition active:scale-95" style="background:linear-gradient(135deg,#3b82f6,#6d28d9); box-shadow:0 8px 22px -8px rgba(109,40,217,.75), inset 0 1px 0 rgba(255,255,255,.2);">
+                        <i class="fas fa-sync-alt sf-sync-icon text-[11px]"></i>
+                        مزامنة الآن
+                    </button>
                 </div>
-                <div class="w-11 h-11 rounded-xl flex items-center justify-center text-white font-extrabold text-[13px]" style="background:linear-gradient(135deg,#f59e0b,#d97706);">CK</div>
             </div>
-            <div class="sf-expert-stats hidden mb-3 p-3 rounded-xl" style="background:#0b1530; border:1px solid rgba(34,197,94,0.18);">
+
+            <div class="sf-expert-stats hidden mt-2 p-3 rounded-2xl" style="background:linear-gradient(180deg, rgba(11,21,48,.9), rgba(11,21,48,.6)); border:1px solid rgba(34,197,94,.22); box-shadow: inset 0 1px 0 rgba(255,255,255,.04);">
                 <div class="grid grid-cols-3 gap-2 text-center">
-                    <div><div class="text-[10px] text-gray-400">الصفقات</div><div class="sf-stat-trades text-white font-bold text-[13px]">0</div></div>
-                    <div><div class="text-[10px] text-gray-400">الربح/الخسارة</div><div class="sf-stat-pnl text-emerald-400 font-bold text-[13px]">0.00</div></div>
-                    <div><div class="text-[10px] text-gray-400">آخر صفقة</div><div class="sf-stat-last text-white/80 text-[11px]">—</div></div>
+                    <div class="p-2 rounded-xl" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05);">
+                        <div class="text-[10px] text-gray-400 mb-0.5"><i class="fas fa-exchange-alt text-[9px] ml-1 text-blue-400"></i>الصفقات</div>
+                        <div class="sf-stat-trades text-white font-bold text-[14px]">0</div>
+                    </div>
+                    <div class="p-2 rounded-xl" style="background:rgba(34,197,94,.06); border:1px solid rgba(34,197,94,.14);">
+                        <div class="text-[10px] text-gray-400 mb-0.5"><i class="fas fa-chart-line text-[9px] ml-1 text-emerald-400"></i>الربح/الخسارة</div>
+                        <div class="sf-stat-pnl text-emerald-400 font-bold text-[14px]">0.00</div>
+                    </div>
+                    <div class="p-2 rounded-xl" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05);">
+                        <div class="text-[10px] text-gray-400 mb-0.5"><i class="fas fa-clock text-[9px] ml-1 text-amber-400"></i>آخر صفقة</div>
+                        <div class="sf-stat-last text-white/85 text-[11px] font-semibold">—</div>
+                    </div>
                 </div>
-                <button type="button" class="sf-stop-btn mt-3 w-full py-2 rounded-lg text-[12px] font-bold text-white" style="background:rgba(239,68,68,0.85);">إيقاف المزامنة</button>
+                <button type="button" class="sf-stop-btn mt-3 w-full py-2.5 rounded-xl text-[12.5px] font-bold text-white inline-flex items-center justify-center gap-2" style="background:linear-gradient(135deg,#ef4444,#b91c1c); box-shadow:0 8px 22px -10px rgba(239,68,68,.7);">
+                    <i class="fas fa-stop-circle text-[12px]"></i>
+                    إيقاف المزامنة
+                </button>
             </div>
         </div>
 
         <!-- Whale Tracking Bot -->
-        <div class="sf-expert-card" data-expert="whale" data-name="Whale Tracking Bot" data-yield="89.3" data-winrate="0.63" data-color="purple">
-            <div class="flex items-center justify-between gap-3 p-3 rounded-xl mb-2" style="background:#0f1a35; border:1px solid rgba(255,255,255,0.06);">
-                <button type="button" class="sf-sync-btn px-4 py-2.5 rounded-lg text-white text-[13px] font-bold transition active:scale-95" style="background:#2f7bff;">مزامنة الآن</button>
-                <div class="flex-1 text-right">
-                    <div class="text-white font-bold text-[14px]">Whale Tracking Bot</div>
-                    <div class="text-emerald-400 text-[12px] font-semibold sf-expert-sub">معدل العائد: +89.3%</div>
+        <div class="sf-expert-card" data-expert="whale" data-name="Whale Tracking Bot" data-yield="89.3" data-winrate="0.63" data-color="purple" style="--sf-c1:#8b5cf6; --sf-c2:#6d28d9;">
+            <div class="relative overflow-hidden rounded-2xl p-3.5" style="background:linear-gradient(160deg, rgba(139,92,246,.10), rgba(15,26,53,.85) 55%); border:1px solid rgba(255,255,255,.05);">
+                <span class="sf-glow"></span>
+                <span class="sf-shine"></span>
+                <div class="absolute top-0 right-0 left-0 h-[3px]" style="background:linear-gradient(90deg,#8b5cf6,#a78bfa,#6d28d9);"></div>
+
+                <div class="flex items-center gap-3">
+                    <div class="relative shrink-0">
+                        <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-extrabold text-[14px]" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9); box-shadow:0 6px 22px -6px rgba(139,92,246,.75), inset 0 1px 0 rgba(255,255,255,.25);">WX</div>
+                        <span class="absolute -bottom-0.5 -left-0.5 w-3 h-3 rounded-full sf-live-dot" style="background:#22c55e; box-shadow:0 0 0 2px #0f1a35, 0 0 10px #22c55e;"></span>
+                    </div>
+
+                    <div class="flex-1 min-w-0 text-right">
+                        <div class="flex items-center justify-end gap-1.5 mb-1">
+                            <span class="px-1.5 py-[1px] rounded-md text-[9px] font-bold text-violet-300" style="background:rgba(139,92,246,.14); border:1px solid rgba(139,92,246,.35);">PRO</span>
+                            <div class="text-white font-bold text-[14.5px] truncate">Whale Tracking Bot</div>
+                        </div>
+                        <div class="flex items-center justify-end gap-2 mb-1.5">
+                            <span class="inline-flex items-center gap-1 text-emerald-400 text-[11.5px] font-bold sf-expert-sub" style="background:rgba(34,197,94,.10); padding:2px 8px; border-radius:999px; border:1px solid rgba(34,197,94,.22);">
+                                <i class="fas fa-arrow-trend-up text-[10px]"></i>
+                                معدل العائد: +89.3%
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex-1 h-[5px] rounded-full overflow-hidden" style="background:rgba(255,255,255,.06);">
+                                <div style="width:63%; height:100%; background:linear-gradient(90deg,#8b5cf6,#22c55e); box-shadow:0 0 8px rgba(139,92,246,.6);"></div>
+                            </div>
+                            <span class="text-white/70 text-[10px] font-semibold">63%</span>
+                        </div>
+                    </div>
+
+                    <button type="button" class="sf-sync-btn shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-white text-[12.5px] font-bold transition active:scale-95" style="background:linear-gradient(135deg,#3b82f6,#6d28d9); box-shadow:0 8px 22px -8px rgba(109,40,217,.75), inset 0 1px 0 rgba(255,255,255,.2);">
+                        <i class="fas fa-sync-alt sf-sync-icon text-[11px]"></i>
+                        مزامنة الآن
+                    </button>
                 </div>
-                <div class="w-11 h-11 rounded-xl flex items-center justify-center text-white font-extrabold text-[13px]" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">WX</div>
             </div>
-            <div class="sf-expert-stats hidden mb-1 p-3 rounded-xl" style="background:#0b1530; border:1px solid rgba(34,197,94,0.18);">
+
+            <div class="sf-expert-stats hidden mt-2 p-3 rounded-2xl" style="background:linear-gradient(180deg, rgba(11,21,48,.9), rgba(11,21,48,.6)); border:1px solid rgba(34,197,94,.22); box-shadow: inset 0 1px 0 rgba(255,255,255,.04);">
                 <div class="grid grid-cols-3 gap-2 text-center">
-                    <div><div class="text-[10px] text-gray-400">الصفقات</div><div class="sf-stat-trades text-white font-bold text-[13px]">0</div></div>
-                    <div><div class="text-[10px] text-gray-400">الربح/الخسارة</div><div class="sf-stat-pnl text-emerald-400 font-bold text-[13px]">0.00</div></div>
-                    <div><div class="text-[10px] text-gray-400">آخر صفقة</div><div class="sf-stat-last text-white/80 text-[11px]">—</div></div>
+                    <div class="p-2 rounded-xl" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05);">
+                        <div class="text-[10px] text-gray-400 mb-0.5"><i class="fas fa-exchange-alt text-[9px] ml-1 text-blue-400"></i>الصفقات</div>
+                        <div class="sf-stat-trades text-white font-bold text-[14px]">0</div>
+                    </div>
+                    <div class="p-2 rounded-xl" style="background:rgba(34,197,94,.06); border:1px solid rgba(34,197,94,.14);">
+                        <div class="text-[10px] text-gray-400 mb-0.5"><i class="fas fa-chart-line text-[9px] ml-1 text-emerald-400"></i>الربح/الخسارة</div>
+                        <div class="sf-stat-pnl text-emerald-400 font-bold text-[14px]">0.00</div>
+                    </div>
+                    <div class="p-2 rounded-xl" style="background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05);">
+                        <div class="text-[10px] text-gray-400 mb-0.5"><i class="fas fa-clock text-[9px] ml-1 text-amber-400"></i>آخر صفقة</div>
+                        <div class="sf-stat-last text-white/85 text-[11px] font-semibold">—</div>
+                    </div>
                 </div>
-                <button type="button" class="sf-stop-btn mt-3 w-full py-2 rounded-lg text-[12px] font-bold text-white" style="background:rgba(239,68,68,0.85);">إيقاف المزامنة</button>
+                <button type="button" class="sf-stop-btn mt-3 w-full py-2.5 rounded-xl text-[12.5px] font-bold text-white inline-flex items-center justify-center gap-2" style="background:linear-gradient(135deg,#ef4444,#b91c1c); box-shadow:0 8px 22px -10px rgba(239,68,68,.7);">
+                    <i class="fas fa-stop-circle text-[12px]"></i>
+                    إيقاف المزامنة
+                </button>
             </div>
         </div>
     </div>
@@ -3826,7 +3987,7 @@ button.sf-cta.sf-cta-login:active,
     <!-- هيدر القسم -->
     <div class="glass-card p-5 rounded-2xl relative overflow-hidden">
         <button type="button"
-            onclick="switchTab('home', document.querySelector('.nav-btn[data-tab=&quot;home&quot;]'))"
+            onclick="switchTab('home', document.querySelector('.nav-btn[data-tab=&quot;home&quot;]')); try{ if(typeof openPersonalCenter==='function') openPersonalCenter(); }catch(e){}"
             aria-label="إغلاق"
             class="absolute top-2.5 left-2.5 z-20 w-8 h-8 rounded-full flex items-center justify-center bg-white/10 hover:bg-red-500/25 border border-white/15 hover:border-red-400/40 text-white/80 hover:text-white backdrop-blur-md transition-all duration-200 hover:scale-110 active:scale-95 shadow-lg shadow-black/20">
             <i class="fa-solid fa-xmark text-sm"></i>
@@ -6397,28 +6558,31 @@ class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blu
     }
 
     function triggerInstall() {
-        if (isAppInstalled) {
+        var _standalone = window.matchMedia('(display-mode: standalone)').matches
+            || (window.navigator.standalone === true);
+        if (isAppInstalled || _standalone) {
+            isAppInstalled = true;
+            updateAllPWAUI();
+            showToast('✅ تطبيق StrataFlow مثبت بالفعل على جهازك', 'success', 3500);
             return;
         }
         if (deferredPrompt) {
+            showToast('⏳ جاري فتح نافذة تثبيت StrataFlow...', 'loading', 2000);
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then(function(choiceResult) {
                 if (choiceResult.outcome === 'accepted') {
                     isAppInstalled = true;
                     deferredPrompt = null;
                     updateAllPWAUI();
-                    showToast('✅ جاري تثبيت تطبيق StrataFlow...', 'success', 3000);
+                    showToast('✅ جاري تثبيت تطبيق StrataFlow على جهازك...', 'success', 3500);
+                } else {
+                    showToast('ℹ️ تم إلغاء عملية التثبيت', 'info', 2500);
                 }
                 deferredPrompt = null;
             });
         } else {
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                isAppInstalled = true;
-                updateAllPWAUI();
-            } else {
-                let instructions = 'ابحث عن خيار "تثبيت" أو "إضافة إلى الشاشة الرئيسية" في متصفحك';
-                showToast('📱 ' + instructions, 'loading', 5000);
-            }
+            let instructions = 'ابحث عن خيار "تثبيت" أو "إضافة إلى الشاشة الرئيسية" في متصفحك';
+            showToast('📱 ' + instructions, 'loading', 5000);
         }
     }
 
@@ -6519,6 +6683,13 @@ class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blu
     });
 
     function switchTab(tabId, buttonElement) {
+        // إغلاق نافذة الأسعار السوقية عند التبديل لأي تبويب آخر
+        if (tabId !== 'market') {
+            var _favM = document.getElementById('favorites-modal');
+            if (_favM && _favM.classList.contains('open') && typeof closeFavoritesModal === 'function') {
+                closeFavoritesModal();
+            }
+        }
         // ضبط التبويب النشط على body لإظهار/إخفاء أزرار الهيدر (الجرس + الكرة الأرضية)
         if (tabId !== 'market') { try { document.body.dataset.activeTab = tabId; } catch(e){} }
         // خانة "الأسعار السوقية" تفتح نافذة كل الأصول بدل قسم مستقل
@@ -7768,7 +7939,7 @@ document.addEventListener('DOMContentLoaded',function(){var m=document.getElemen
 
 <!-- ==================== شاشة كل الأصول المفضلة ==================== -->
 <style>
-  #favorites-modal{position:fixed;inset:0;z-index:9999;background:#0a1a3a;display:none;flex-direction:column;max-width:448px;margin:0 auto;left:0;right:0;}
+  #favorites-modal{position:fixed;top:0;left:0;right:0;bottom:var(--sf-bottom-nav-h,68px);z-index:9999;background:#0a1a3a;display:none;flex-direction:column;max-width:448px;margin:0 auto;border-bottom-left-radius:20px;border-bottom-right-radius:20px;overflow:hidden;}
   #favorites-modal.open{display:flex;animation:favSlideIn .25s ease-out;}
   @keyframes favSlideIn{from{transform:translateX(-100%);opacity:.5}to{transform:translateX(0);opacity:1}}
   #favorites-modal .fav-header{position:sticky;top:0;background:linear-gradient(180deg,#0f141e 0%,#0a1a3a 100%);border-bottom:1px solid rgba(59,130,246,0.24);padding:14px 14px 10px;z-index:5}
@@ -11683,7 +11854,7 @@ function bfToggleTheme(){
 .pc-b-badge:hover{transform:scale(1.08);}
 #personal-center-modal{
   position:fixed;inset:0;z-index:9999;background:#0a1a3a;
-  transform:translateX(100%);transition:transform .3s ease;
+  transform:translateX(100%);transition:transform .38s cubic-bezier(.22,.61,.36,1);
   overflow-y:auto;display:flex;flex-direction:column;
   font-family:'Tajawal',sans-serif;color:#fff;
 }
@@ -12425,12 +12596,23 @@ function bfToggleTheme(){
     if(orig.__sfUidWrapped) return;
     window.switchTab=function(tabId, btn){
       var r=orig.apply(this, arguments);
-      try{ apply(tabId); }catch(e){}
+      try{ var real=(tabId==='market')?currentTab():tabId; apply(real); }catch(e){}
       return r;
     };
     window.switchTab.__sfUidWrapped=true;
   }
-  function boot(){ wrap(); apply(currentTab()); setTimeout(function(){apply(currentTab());}, 800); }
+  function wrapClose(){
+    var origClose=window.closeFavoritesModal;
+    if(typeof origClose!=='function'){ setTimeout(wrapClose,50); return; }
+    if(origClose.__sfUidWrapped) return;
+    window.closeFavoritesModal=function(){
+      var r=origClose.apply(this, arguments);
+      try{ apply(currentTab()); }catch(e){}
+      return r;
+    };
+    window.closeFavoritesModal.__sfUidWrapped=true;
+  }
+  function boot(){ wrap(); wrapClose(); apply(currentTab()); setTimeout(function(){apply(currentTab());}, 800); }
   if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
 })();
 </script>
@@ -12798,6 +12980,84 @@ function bfToggleTheme(){
 })();
 </script>
 <!-- ============ /SF Sync Engine ============ -->
+
+
+<!-- ============ Personal Center Return Fix (× returns to Personal Center) ============ -->
+<script>
+(function(){
+  var FLAG = '__pcReturn';
+  function pcOpen(){
+    try { if (typeof window.openPersonalCenter === 'function') window.openPersonalCenter(); } catch(e){}
+  }
+  function setFlag(){ window[FLAG] = true; }
+  function consumeFlag(){
+    if (window[FLAG]) { window[FLAG] = false; pcOpen(); return true; }
+    return false;
+  }
+
+  // Wrap an open-fn so we mark the flag before it runs.
+  function wrapOpen(name){
+    var orig = window[name];
+    if (typeof orig !== 'function') return false;
+    window[name] = function(){ setFlag(); return orig.apply(this, arguments); };
+    return true;
+  }
+  // Wrap a close-fn so we reopen PC after it runs (if the flag was set).
+  function wrapClose(name){
+    var orig = window[name];
+    if (typeof orig !== 'function') return false;
+    window[name] = function(){
+      var r = orig.apply(this, arguments);
+      // Defer so the closing modal's overflow reset happens first.
+      setTimeout(consumeFlag, 0);
+      return r;
+    };
+    return true;
+  }
+
+  // Try repeatedly until each target function exists (some are defined later).
+  var openTargets  = ['pcGoto','openAboutModal','openTeamModal'];
+  var closeTargets = ['closeKycModal','closeChangePasswordModal','closeLicenseModal','closeTeamModal'];
+  var wrappedOpen  = {};
+  var wrappedClose = {};
+
+  function tryWrapAll(){
+    openTargets.forEach(function(n){
+      if (!wrappedOpen[n] && wrapOpen(n)) wrappedOpen[n] = true;
+    });
+    closeTargets.forEach(function(n){
+      if (!wrappedClose[n] && wrapClose(n)) wrappedClose[n] = true;
+    });
+    var done = openTargets.every(function(n){return wrappedOpen[n];}) &&
+               closeTargets.every(function(n){return wrappedClose[n];});
+    return done;
+  }
+
+  if (!tryWrapAll()) {
+    var tries = 0;
+    var iv = setInterval(function(){
+      tries++;
+      if (tryWrapAll() || tries > 60) clearInterval(iv);
+    }, 100);
+  }
+
+  // Intercept the × button inside the invite section (sec-invite) so it
+  // returns to Personal Center instead of switching to home — only when the
+  // user actually arrived there via Personal Center.
+  document.addEventListener('click', function(e){
+    var btn = e.target && e.target.closest && e.target.closest('#sec-invite button[aria-label="إغلاق"]');
+    if (!btn) return;
+    if (window[FLAG]) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      window[FLAG] = false;
+      pcOpen();
+    }
+  }, true);
+})();
+</script>
+<!-- ============ /Personal Center Return Fix ============ -->
 
 </body>
 
