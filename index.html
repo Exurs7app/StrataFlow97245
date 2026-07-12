@@ -6844,6 +6844,15 @@ class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blu
     });
 
     function switchTab(tabId, buttonElement) {
+        // إغلاق نافذة الأسعار السوقية عند الانتقال لأي تبويب آخر
+        if (tabId !== 'market') {
+            try {
+                const favM = document.getElementById('favorites-modal');
+                if (favM && favM.classList.contains('open') && typeof closeFavoritesModal === 'function') {
+                    closeFavoritesModal();
+                }
+            } catch(e){}
+        }
         // ضبط التبويب النشط على body لإظهار/إخفاء أزرار الهيدر (الجرس + الكرة الأرضية)
         if (tabId !== 'market') { try { document.body.dataset.activeTab = tabId; } catch(e){} }
         // خانة "الأسعار السوقية" تفتح نافذة كل الأصول بدل قسم مستقل
