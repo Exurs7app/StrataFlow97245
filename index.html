@@ -11591,25 +11591,46 @@ function bfToggleTheme(){
 </script>
 
 <script>
-/* ==================== App Loader (show on load & reload) ==================== */
+/* ==================== App Loader (Hardened: guaranteed hide) ==================== */
 (function(){
     var loader = document.getElementById('app-loader');
     if(!loader) return;
+    var hidden = false;
     function hideLoader(){
-        loader.classList.add('hidden');
-        setTimeout(function(){ if(loader && loader.parentNode) loader.setAttribute('aria-hidden','true'); }, 500);
+        if(hidden) return;
+        hidden = true;
+        try {
+            loader.classList.add('hidden');
+            setTimeout(function(){
+                if(loader && loader.parentNode) loader.setAttribute('aria-hidden','true');
+            }, 500);
+        } catch(e){
+            try { loader.style.display = 'none'; } catch(_){}
+        }
     }
-    if(document.readyState === 'complete'){
-        setTimeout(hideLoader, 400);
+    function scheduleHide(delay){
+        setTimeout(hideLoader, delay || 400);
+    }
+    // 1) Hide as soon as DOM is interactive/complete
+    if(document.readyState === 'complete' || document.readyState === 'interactive'){
+        scheduleHide(400);
     } else {
-        window.addEventListener('load', function(){ setTimeout(hideLoader, 400); });
+        document.addEventListener('DOMContentLoaded', function(){ scheduleHide(400); }, { once: true });
     }
-    // Show loader again on reload / navigation away
+    // 2) Hide on full window load (original behavior)
+    window.addEventListener('load', function(){ scheduleHide(200); });
+    // 3) Safety timeout: force-hide after 6s no matter what (CDN failure, JS error, etc.)
+    setTimeout(hideLoader, 6000);
+    // 4) Never let a global error keep the loader spinning forever
+    window.addEventListener('error', function(){ setTimeout(hideLoader, 800); });
+    window.addEventListener('unhandledrejection', function(){ setTimeout(hideLoader, 800); });
+    // 5) Show loader again on reload / navigation away (unchanged)
     window.addEventListener('beforeunload', function(){
-        loader.classList.remove('hidden');
+        hidden = false;
+        try { loader.classList.remove('hidden'); } catch(_){}
     });
-    // Optional: expose for manual triggers
-    window.bfShowLoader = function(){ loader.classList.remove('hidden'); };
+    // 6) Public API preserved
+    window.bfShowLoader = function(){ hidden = false; try { loader.classList.remove('hidden'); } catch(_){} };
     window.bfHideLoader = hideLoader;
 })();
 
