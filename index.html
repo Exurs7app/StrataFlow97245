@@ -5634,59 +5634,57 @@ class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blu
     }
 
     function enterPlatform(user) {
-        document.getElementById('auth-container').classList.add('hidden');
-        document.getElementById('main-platform').classList.remove('hidden');
-        setTimeout(function(){ if(typeof window.bfRefreshKyc==='function') window.bfRefreshKyc(); }, 0);
+        // Step A: toggle screens FIRST — this is the only step that must succeed.
+        try {
+            var _auth = document.getElementById('auth-container');
+            if (_auth) _auth.classList.add('hidden');
+            var _main = document.getElementById('main-platform');
+            if (_main) _main.classList.remove('hidden');
+        } catch (e) { console.error('enterPlatform toggle failed:', e); }
 
-        document.getElementById('user-display-name').innerText = user.username;
-        const usernameViews = document.querySelectorAll('.id-username-view');
-        usernameViews.forEach(el => {
-            el.innerText = user.username;
-        });
+        // Step B: every subsequent UI update is best-effort and MUST NOT block entry.
+        try {
+            setTimeout(function(){ try { if(typeof window.bfRefreshKyc==='function') window.bfRefreshKyc(); } catch(_){} }, 0);
 
-        const accountUid = document.getElementById('account-uid');
-        if (accountUid) {
-            accountUid.innerText = 'UID: ' + user.uid;
-        }
+            var udn = document.getElementById('user-display-name');
+            if (udn) udn.innerText = user.username;
 
-        const accountEmail = document.getElementById('account-email-view');
-        if (accountEmail) {
-            accountEmail.innerText = '📧 ' + user.email;
-        }
+            const usernameViews = document.querySelectorAll('.id-username-view');
+            usernameViews.forEach(el => { try { el.innerText = user.username; } catch(_){} });
 
-        // تحديث رابط الدعوة في صفحة الدعوة
-        updateInviteLinkDisplay(user.uid);
+            const accountUid = document.getElementById('account-uid');
+            if (accountUid) accountUid.innerText = 'UID: ' + user.uid;
 
-        // تحديث إحصائيات الدعوة
-        updateInviteStats(user);
+            const accountEmail = document.getElementById('account-email-view');
+            if (accountEmail) accountEmail.innerText = '📧 ' + user.email;
 
-        document.getElementById('login-form').reset();
-        document.getElementById('register-form').reset();
-        hideAllFieldErrors('login');
-        hideAllFieldErrors('reg');
-        document.querySelectorAll('#register-form input').forEach(input => {
-            input.classList.remove('input-success', 'input-error');
-        });
-        document.querySelectorAll('#login-form input').forEach(input => {
-            input.classList.remove('input-success', 'input-error');
-        });
-        // إعادة تعيين تنسيق حقل رمز الدعوة
-        const referralWrapper = document.getElementById('referral-code-wrapper');
-        if (referralWrapper) {
-            referralWrapper.classList.remove('has-value');
-        }
+            try { updateInviteLinkDisplay(user.uid); } catch(_){}
+            try { updateInviteStats(user); } catch(_){}
 
-        setTimeout(updateAllPWAUI, 400);
-        adjustHeaderPosition();
+            var lf = document.getElementById('login-form'); if (lf) try { lf.reset(); } catch(_){}
+            var rf = document.getElementById('register-form'); if (rf) try { rf.reset(); } catch(_){}
+            try { hideAllFieldErrors('login'); } catch(_){}
+            try { hideAllFieldErrors('reg'); } catch(_){}
+            document.querySelectorAll('#register-form input').forEach(input => { input.classList.remove('input-success', 'input-error'); });
+            document.querySelectorAll('#login-form input').forEach(input => { input.classList.remove('input-success', 'input-error'); });
 
-        const homeBtn = document.querySelector('.nav-btn[data-tab="home"]');
-        if (homeBtn) switchTab('home', homeBtn);
+            const referralWrapper = document.getElementById('referral-code-wrapper');
+            if (referralWrapper) referralWrapper.classList.remove('has-value');
 
-        console.log('✅ [StrataFlow] تم دخول المستخدم:', user.username, '| UID:', user.uid, '| رمز الدعوة:', user
-            .referralCode || 'لا يوجد');
-        if (user.referredBy) {
-            console.log('👥 [StrataFlow] تمت دعوة هذا المستخدم بواسطة:', user.referredByUsername, '| UID:', user
-            .referredBy);
+            setTimeout(function(){ try { updateAllPWAUI(); } catch(_){} }, 400);
+            try { adjustHeaderPosition(); } catch(_){}
+
+            const homeBtn = document.querySelector('.nav-btn[data-tab="home"]');
+            if (homeBtn) { try { switchTab('home', homeBtn); } catch(_){} }
+
+            console.log('✅ [StrataFlow] تم دخول المستخدم:', user.username, '| UID:', user.uid, '| رمز الدعوة:', user.referralCode || 'لا يوجد');
+            if (user.referredBy) {
+                console.log('👥 [StrataFlow] تمت دعوة هذا المستخدم بواسطة:', user.referredByUsername, '| UID:', user.referredBy);
+            }
+        } catch (e) {
+            console.error('⚠️ [StrataFlow] خطأ في تهيئة واجهة المنصة (تم تجاهله):', e);
+        } finally {
+            try { window.bfHideLoader && window.bfHideLoader(); } catch(_){}
         }
     }
 
@@ -6468,21 +6466,41 @@ class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blu
         // تهيئة تنسيق حقل رمز الدعوة
         updateReferralCodeWrapperStyle();
 
-        autoRestoreSession();
+        // Defer to next tick + rAF so any exception during restore cannot race
+        // with sibling DOMContentLoaded handlers or unbuilt DOM references.
+        try {
+            requestAnimationFrame(function(){ setTimeout(autoRestoreSession, 0); });
+        } catch(_) { setTimeout(autoRestoreSession, 0); }
     });
 
     function autoRestoreSession() {
-        const session = getCurrentSession();
-        if (session) {
+        try {
+            const session = getCurrentSession();
+            if (!session) { try { window.bfHideLoader && window.bfHideLoader(); } catch(_){} return; }
             const users = getAllUsers();
             const user = users.find(u => u.uid === session.uid);
             if (user) {
                 console.log('🔄 [StrataFlow] تم استعادة الجلسة السابقة للمستخدم:', user.username);
-                enterPlatform(user);
+                try {
+                    enterPlatform(user);
+                } catch (e) {
+                    console.error('⚠️ [StrataFlow] فشل استعادة الجلسة، عرض شاشة الدخول:', e);
+                    try { clearCurrentSession(); } catch(_){}
+                    try { document.getElementById('main-platform').classList.add('hidden'); } catch(_){}
+                    try { document.getElementById('auth-container').classList.remove('hidden'); } catch(_){}
+                }
             } else {
                 clearCurrentSession();
+                try { document.getElementById('auth-container').classList.remove('hidden'); } catch(_){}
                 console.log('⚠️ [StrataFlow] جلسة غير صالحة - تم مسحها');
             }
+        } catch (e) {
+            console.error('⚠️ [StrataFlow] خطأ في استعادة الجلسة:', e);
+            try { clearCurrentSession(); } catch(_){}
+            try { document.getElementById('main-platform').classList.add('hidden'); } catch(_){}
+            try { document.getElementById('auth-container').classList.remove('hidden'); } catch(_){}
+        } finally {
+            try { window.bfHideLoader && window.bfHideLoader(); } catch(_){}
         }
     }
 
@@ -11620,7 +11638,18 @@ function bfToggleTheme(){
     // 2) Hide on full window load (original behavior)
     window.addEventListener('load', function(){ scheduleHide(200); });
     // 3) Safety timeout: force-hide after 6s no matter what (CDN failure, JS error, etc.)
-    setTimeout(hideLoader, 6000);
+    setTimeout(function(){
+        hideLoader();
+        // Last-resort UI fallback: if we ended up with both screens hidden
+        // (a broken half-init), reveal the auth screen so the user is never stuck.
+        try {
+            var a = document.getElementById('auth-container');
+            var m = document.getElementById('main-platform');
+            if (a && m && a.classList.contains('hidden') && m.classList.contains('hidden')){
+                a.classList.remove('hidden');
+            }
+        } catch(_){}
+    }, 2500);
     // 4) Never let a global error keep the loader spinning forever
     window.addEventListener('error', function(){ setTimeout(hideLoader, 800); });
     window.addEventListener('unhandledrejection', function(){ setTimeout(hideLoader, 800); });
