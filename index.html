@@ -892,6 +892,48 @@ html:not([data-theme="light"]) body::after { background-color: transparent; }
             box-shadow: 0 0 16px rgba(52, 211, 153, 0.1);
         }
 
+        /* زر تعديل رمز الدعوة */
+        .referral-edit-btn {
+            position: absolute;
+            top: 50%;
+            left: 8px;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            background: rgba(168, 85, 247, 0.14);
+            color: #d8b4fe;
+            border: 1px solid rgba(168, 85, 247, 0.28);
+            cursor: pointer;
+            font-size: 11px;
+            transition: background .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+            padding: 0;
+            line-height: 1;
+        }
+        .referral-edit-btn:hover {
+            background: rgba(168, 85, 247, 0.28);
+            color: #ffffff;
+            transform: translateY(-50%) scale(1.06);
+            border-color: rgba(168, 85, 247, 0.55);
+        }
+        .referral-edit-btn:active {
+            transform: translateY(-50%) scale(0.94);
+        }
+        .referral-edit-btn:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.35);
+        }
+        .referral-edit-btn.editing {
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: #ffffff;
+            border-color: rgba(168, 85, 247, 0.9);
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.25);
+        }
+
         .referral-badge {
             display: inline-flex;
             align-items: center;
@@ -2824,8 +2866,12 @@ nav a, nav button, .bottom-nav a, .bottom-nav button {
                 <i class="fa-solid fa-ticket text-xs"></i>
               </span>
               <input type="text" id="reg-referral-code" inputmode="numeric" pattern="[0-9]{5}"
-                class="w-full pl-4 pr-10 py-3 bg-purple-500/5 rounded-xl border border-purple-500/15 focus:border-purple-500 focus:bg-purple-500/10 outline-none transition text-sm text-purple-200 placeholder-purple-400/40"
-                value="97431" readonly maxlength="5">
+                class="w-full pl-12 pr-10 py-3 bg-purple-500/5 rounded-xl border border-purple-500/15 focus:border-purple-500 focus:bg-purple-500/10 outline-none transition text-sm text-purple-200 placeholder-purple-400/40"
+                value="97431" readonly maxlength="5" data-default-code="97431">
+              <button type="button" id="reg-referral-edit-btn" aria-label="تعديل رمز الدعوة" title="تعديل رمز الدعوة"
+                class="referral-edit-btn">
+                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+              </button>
             </div>
             <div class="error-message" id="reg-referral-code-error">
               <i class="fa-solid fa-circle-exclamation"></i><span></span>
@@ -13213,6 +13259,63 @@ function bfToggleTheme(){
   }
   document.addEventListener('DOMContentLoaded', tryAll);
   window.addEventListener('load', tryAll);
+})();
+</script>
+
+<script>
+(function () {
+    function init() {
+        var input = document.getElementById('reg-referral-code');
+        var btn = document.getElementById('reg-referral-edit-btn');
+        if (!input || !btn) return;
+        var icon = btn.querySelector('i');
+        var defaultCode = input.getAttribute('data-default-code') || input.value || '';
+
+        function setEditing(on) {
+            if (on) {
+                input.removeAttribute('readonly');
+                btn.classList.add('editing');
+                if (icon) { icon.classList.remove('fa-pen'); icon.classList.add('fa-check'); }
+                btn.setAttribute('aria-label', 'تأكيد رمز الدعوة');
+                btn.setAttribute('title', 'تأكيد');
+                try { input.focus(); input.select(); } catch (e) {}
+            } else {
+                if (!input.value || !input.value.trim()) {
+                    input.value = defaultCode;
+                }
+                input.setAttribute('readonly', 'readonly');
+                btn.classList.remove('editing');
+                if (icon) { icon.classList.remove('fa-check'); icon.classList.add('fa-pen'); }
+                btn.setAttribute('aria-label', 'تعديل رمز الدعوة');
+                btn.setAttribute('title', 'تعديل رمز الدعوة');
+            }
+        }
+
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var editing = !input.hasAttribute('readonly');
+            setEditing(!editing);
+        });
+
+        input.addEventListener('blur', function () {
+            setTimeout(function () {
+                if (document.activeElement !== btn && !input.hasAttribute('readonly')) {
+                    setEditing(false);
+                }
+            }, 120);
+        });
+
+        input.addEventListener('input', function () {
+            input.value = (input.value || '').replace(/[^0-9]/g, '').slice(0, 5);
+        });
+
+        input.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') { e.preventDefault(); setEditing(false); }
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else { init(); }
 })();
 </script>
 </body>
