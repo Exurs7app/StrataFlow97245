@@ -89,146 +89,18 @@ html:not([data-theme="light"]) body::after { background-color: transparent; }
             width:180px; height:180px; border-radius:9999px;
             background:radial-gradient(closest-side, rgba(99,102,241,.28), transparent 70%);
         }
-        /* ============ Main Coins — Pro Redesign ============ */
         .sf-coin-card {
-            position: relative;
             flex-shrink: 0;
-            width: 74%;
+            width: 72%;
             scroll-snap-align: start;
-            background:
-              radial-gradient(120% 80% at 0% 0%, rgba(96,165,250,.18), transparent 55%),
-              radial-gradient(120% 80% at 100% 100%, rgba(217,180,105,.10), transparent 60%),
-              linear-gradient(160deg, rgba(20,40,90,.85) 0%, rgba(10,20,45,.92) 100%);
-            border: 1px solid rgba(120,170,255,.18);
+            background: linear-gradient(160deg, rgba(30,58,138,.55), rgba(15,23,42,.85));
+            border: 1px solid rgba(59,130,246,.18);
             border-radius: 1.25rem;
-            padding: 0.95rem 1.05rem 1rem;
-            min-height: 148px;
+            padding: 1rem 1.1rem 1.15rem;
+            min-height: 128px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            overflow: hidden;
-            isolation: isolate;
-            box-shadow:
-              0 8px 24px -12px rgba(0,0,0,.55),
-              inset 0 1px 0 rgba(255,255,255,.05);
-            transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s, border-color .35s;
-            animation: sfCoinEnter .55s cubic-bezier(.2,.7,.2,1) both;
-            will-change: transform;
-        }
-        .sf-coin-card:nth-child(1){ animation-delay:.02s; }
-        .sf-coin-card:nth-child(2){ animation-delay:.10s; }
-        .sf-coin-card:nth-child(3){ animation-delay:.18s; }
-        .sf-coin-card:nth-child(4){ animation-delay:.26s; }
-        .sf-coin-card:hover, .sf-coin-card:active {
-            transform: translateY(-3px);
-            border-color: rgba(150,190,255,.35);
-            box-shadow:
-              0 14px 32px -14px rgba(30,80,200,.55),
-              0 0 0 1px rgba(150,190,255,.15) inset;
-        }
-        .sf-coin-card::before {
-            content:"";
-            position:absolute; inset:-1px;
-            border-radius: inherit;
-            padding:1px;
-            background: linear-gradient(135deg, rgba(150,190,255,.35), rgba(217,180,105,.15) 45%, rgba(150,190,255,0) 70%);
-            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-                    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-            -webkit-mask-composite: xor;
-                    mask-composite: exclude;
-            pointer-events:none;
-            opacity:.9;
-        }
-        .sf-coin-card::after {
-            content:"";
-            position:absolute; top:0; left:-60%;
-            width:60%; height:100%;
-            background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,.10) 50%, transparent 80%);
-            transform: skewX(-18deg);
-            animation: sfCoinShimmer 6.5s ease-in-out infinite;
-            pointer-events:none;
-            z-index:1;
-        }
-        .sf-coin-card > * { position:relative; z-index:2; }
-
-        .sf-coin-head { display:flex; align-items:center; gap:.5rem; }
-        .sf-coin-ico {
-            position:relative;
-            width:2.35rem; height:2.35rem;
-            border-radius:9999px;
-            display:flex; align-items:center; justify-content:center;
-            color:#fff; font-weight:800;
-            box-shadow: 0 4px 14px -4px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.25);
-        }
-        .sf-coin-ico::after {
-            content:""; position:absolute; inset:-4px;
-            border-radius:inherit;
-            box-shadow: 0 0 0 0 currentColor;
-            animation: sfCoinPulse 2.6s ease-out infinite;
-            opacity:.55;
-        }
-        .sf-coin-ico.c-btc { background:linear-gradient(135deg,#f7931a,#ffb457); color:#f7931a; }
-        .sf-coin-ico.c-eth { background:linear-gradient(135deg,#627eea,#8aa1ff); color:#627eea; }
-        .sf-coin-ico.c-sol { background:linear-gradient(135deg,#9945ff,#14f195); color:#9945ff; }
-        .sf-coin-ico.c-btc, .sf-coin-ico.c-eth, .sf-coin-ico.c-sol { }
-        .sf-coin-ico > span { color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.35); }
-
-        .sf-coin-sym { display:flex; flex-direction:column; line-height:1.1; }
-        .sf-coin-sym b { color:#fff; font-size:.9rem; font-weight:800; letter-spacing:.2px; }
-        .sf-coin-sym small { color:rgba(255,255,255,.45); font-size:.68rem; margin-top:2px; }
-
-        .sf-coin-chg {
-            margin-inline-start:auto;
-            display:inline-flex; align-items:center; gap:3px;
-            font-size:.68rem; font-weight:800;
-            padding:3px 7px; border-radius:9999px;
-            background:rgba(34,197,94,.12);
-            color:#4ade80;
-            border:1px solid rgba(34,197,94,.25);
-            transition: background .3s, color .3s, border-color .3s;
-        }
-        .sf-coin-chg.dn { background:rgba(239,68,68,.12); color:#f87171; border-color:rgba(239,68,68,.28); }
-        .sf-coin-chg i { font-size:.6rem; }
-
-        .sf-coin-price {
-            color:#fff; font-weight:800;
-            font-size:1.15rem; letter-spacing:.2px;
-            font-variant-numeric: tabular-nums;
-            transition: color .25s;
-        }
-        .sf-coin-price.flash-up { animation: sfPriceFlash .9s ease; color:#86efac; }
-        .sf-coin-price.flash-dn { animation: sfPriceFlash .9s ease; color:#fca5a5; }
-
-        .sf-coin-spark { width:100%; height:36px; display:block; margin-top:.35rem; }
-        .sf-coin-spark path.line { fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;
-            stroke-dasharray: 400; stroke-dashoffset: 400;
-            animation: sfSparkDraw 1.4s ease-out forwards; }
-        .sf-coin-spark path.fill { opacity:.35; }
-
-        @keyframes sfCoinEnter {
-            from { opacity:0; transform: translateY(14px) scale(.98); }
-            to   { opacity:1; transform: translateY(0)    scale(1); }
-        }
-        @keyframes sfCoinShimmer {
-            0%   { left:-60%; }
-            55%  { left:120%; }
-            100% { left:120%; }
-        }
-        @keyframes sfCoinPulse {
-            0%   { box-shadow: 0 0 0 0 currentColor; opacity:.55; }
-            70%  { box-shadow: 0 0 0 12px transparent; opacity:0; }
-            100% { box-shadow: 0 0 0 0 transparent;    opacity:0; }
-        }
-        @keyframes sfPriceFlash {
-            0%   { text-shadow: 0 0 0 currentColor; }
-            30%  { text-shadow: 0 0 14px currentColor; }
-            100% { text-shadow: 0 0 0 transparent; }
-        }
-        @keyframes sfSparkDraw {
-            to { stroke-dashoffset: 0; }
-        }
-        @media (prefers-reduced-motion: reduce){
-            .sf-coin-card, .sf-coin-card::after, .sf-coin-ico::after, .sf-coin-spark path.line { animation: none !important; }
         }
         .sf-price-row {
             display:flex; align-items:center; justify-content:space-between;
@@ -2163,27 +2035,7 @@ label.bf-switch:has(#bf-theme-toggle) { display: none !important; }
 .sf-toast.sf-info .sf-t-icon{background:linear-gradient(135deg,rgba(59,130,246,.25),rgba(59,130,246,.08));color:#60a5fa;box-shadow:0 0 0 1px rgba(59,130,246,.25) inset}
 .sf-toast.sf-info .sf-t-bar{background:linear-gradient(90deg,#3b82f6,#2563eb)}
 
-
-/* ===== Withdraw Network Selector — Redesigned ===== */
-.wd-net-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-.wd-net-card{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 8px 12px;border-radius:16px;background:linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);border:1px solid rgba(255,255,255,0.08);color:#fff;cursor:pointer;transition:transform .18s ease, border-color .2s ease, background .2s ease, box-shadow .25s ease;overflow:hidden;-webkit-tap-highlight-color:transparent;}
-.wd-net-card::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 0%, var(--wd-net-glow, transparent) 0%, transparent 60%);opacity:0;transition:opacity .25s ease;pointer-events:none;}
-.wd-net-card:hover{transform:translateY(-1px);border-color:rgba(255,255,255,0.16);}
-.wd-net-card:active{transform:scale(.97);}
-.wd-net-card .wd-net-logo{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;background:var(--wd-net-bg,#333);color:var(--wd-net-fg,#fff);box-shadow:0 4px 14px -4px var(--wd-net-glow, rgba(0,0,0,.4));}
-.wd-net-card .wd-net-name{font-size:13px;font-weight:800;letter-spacing:.3px;line-height:1;}
-.wd-net-card .wd-net-sub{font-size:10px;color:#d4b872;opacity:.85;line-height:1.2;text-align:center;}
-.wd-net-card .wd-net-badge{position:absolute;top:8px;left:8px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#d4b872;color:#0a1a3a;font-size:10px;font-weight:900;opacity:0;transform:scale(.6);transition:all .2s ease;}
-.wd-net-card.trc{--wd-net-bg:#EF0027;--wd-net-fg:#fff;--wd-net-glow:rgba(239,0,39,.35);}
-.wd-net-card.bnb{--wd-net-bg:#F3BA2F;--wd-net-fg:#0a1a3a;--wd-net-glow:rgba(243,186,47,.35);}
-.wd-net-card.eth{--wd-net-bg:#627EEA;--wd-net-fg:#fff;--wd-net-glow:rgba(98,126,234,.35);}
-.wd-net-card.active{border-color:#d4b872;background:linear-gradient(160deg, rgba(212,184,114,0.14) 0%, rgba(212,184,114,0.04) 100%);box-shadow:0 0 0 1px rgba(212,184,114,.25), 0 10px 24px -14px var(--wd-net-glow);}
-.wd-net-card.active::before{opacity:1;}
-.wd-net-card.active .wd-net-badge{opacity:1;transform:scale(1);}
-.wd-net-card.active .wd-net-name{color:#f5e5bf;}
-/* ===== end withdraw network selector ===== */
-
-    </style>
+</style>
 
 <style>
 /* ==================== News Modal ==================== */
@@ -2878,13 +2730,11 @@ nav a, nav button, .bottom-nav a, .bottom-nav button {
               <label class="text-xs font-medium text-purple-300 flex items-center gap-1.5">
                 <i class="fa-solid fa-gift text-purple-400"></i>
                 رمز الدعوة
+                <span class="referral-badge">
+                  <i class="fa-solid fa-circle-info text-[8px]"></i>
+                  اختياري
+                </span>
               </label>
-              <button type="button" id="reg-referral-edit-btn"
-                onclick="(function(btn){var i=document.getElementById('reg-referral-code');var ic=btn.querySelector('i');if(i.hasAttribute('readonly')){i.removeAttribute('readonly');i.focus();try{i.select();}catch(e){}ic.className='fa-solid fa-check text-xs';btn.setAttribute('title','حفظ');}else{i.setAttribute('readonly','');ic.className='fa-solid fa-pen text-xs';btn.setAttribute('title','تعديل الرمز');}})(this)"
-                class="text-purple-300 hover:text-purple-100 transition p-1 rounded-md hover:bg-purple-500/10"
-                aria-label="تعديل رمز الدعوة" title="تعديل الرمز">
-                <i class="fa-solid fa-pen text-xs"></i>
-              </button>
             </div>
             <div class="relative">
               <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-purple-400">
@@ -2892,11 +2742,15 @@ nav a, nav button, .bottom-nav a, .bottom-nav button {
               </span>
               <input type="text" id="reg-referral-code" inputmode="numeric" pattern="[0-9]{4}"
                 class="w-full pl-4 pr-10 py-3 bg-purple-500/5 rounded-xl border border-purple-500/15 focus:border-purple-500 focus:bg-purple-500/10 outline-none transition text-sm text-purple-200 placeholder-purple-400/40"
-                placeholder="أدخل رمز الدعوة" maxlength="4" value="7649" readonly>
+                placeholder="أدخل رمز الدعوة" maxlength="4">
             </div>
             <div class="error-message" id="reg-referral-code-error">
               <i class="fa-solid fa-circle-exclamation"></i><span></span>
             </div>
+            <p class="text-[9px] text-purple-400/50 mt-1.5 flex items-center gap-1">
+              <i class="fa-solid fa-circle-check text-[8px]"></i>
+              أدخل رمز الدعوة إن وجد
+            </p>
           </div>
 
           <div class="flex items-center space-x-2 space-x-reverse pt-1">
@@ -3189,37 +3043,25 @@ nav a, nav button, .bottom-nav a, .bottom-nav button {
             <div id="sf-home-main-coins" class="flex gap-3 overflow-x-auto snap-x snap-mandatory sf-hide-scroll pb-2 -mx-1 px-1" dir="ltr">
                 <!-- سيتم ملؤها ديناميكياً؛ قيم افتراضية أدناه -->
                 <div class="sf-coin-card" data-sym="BTC">
-                    <div class="sf-coin-head">
-                        <div class="sf-coin-ico c-btc"><span>₿</span></div>
-                        <div class="sf-coin-sym"><b>BTC</b><small>/USDT</small></div>
-                        <span class="sf-coin-chg" data-change><i class="fa-solid fa-arrow-trend-up"></i>+1.24%</span>
+                    <div class="flex items-center gap-2">
+                        <div class="w-9 h-9 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold">₿</div>
+                        <div class="text-white text-sm font-semibold"><span>BTC</span><span class="text-white/50">/USDT</span></div>
                     </div>
-                    <div>
-                        <div class="sf-coin-price" data-price>$ 63,272.00</div>
-                        <svg class="sf-coin-spark" viewBox="0 0 100 36" preserveAspectRatio="none" aria-hidden="true" data-spark></svg>
-                    </div>
+                    <div class="text-white text-lg font-bold" data-price>$ 63,272.00</div>
                 </div>
                 <div class="sf-coin-card" data-sym="ETH">
-                    <div class="sf-coin-head">
-                        <div class="sf-coin-ico c-eth"><span>♦</span></div>
-                        <div class="sf-coin-sym"><b>ETH</b><small>/USDT</small></div>
-                        <span class="sf-coin-chg" data-change><i class="fa-solid fa-arrow-trend-up"></i>+0.86%</span>
+                    <div class="flex items-center gap-2">
+                        <div class="w-9 h-9 rounded-full bg-indigo-400 flex items-center justify-center text-white font-bold">♦</div>
+                        <div class="text-white text-sm font-semibold"><span>ETH</span><span class="text-white/50">/USDT</span></div>
                     </div>
-                    <div>
-                        <div class="sf-coin-price" data-price>$ 1,826.73</div>
-                        <svg class="sf-coin-spark" viewBox="0 0 100 36" preserveAspectRatio="none" aria-hidden="true" data-spark></svg>
-                    </div>
+                    <div class="text-white text-lg font-bold" data-price>$ 1,826.73</div>
                 </div>
                 <div class="sf-coin-card" data-sym="SOL">
-                    <div class="sf-coin-head">
-                        <div class="sf-coin-ico c-sol"><span>◎</span></div>
-                        <div class="sf-coin-sym"><b>SOL</b><small>/USDT</small></div>
-                        <span class="sf-coin-chg dn" data-change><i class="fa-solid fa-arrow-trend-down"></i>-0.42%</span>
+                    <div class="flex items-center gap-2">
+                        <div class="w-9 h-9 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">◎</div>
+                        <div class="text-white text-sm font-semibold"><span>SOL</span><span class="text-white/50">/USDT</span></div>
                     </div>
-                    <div>
-                        <div class="sf-coin-price" data-price>$ 145.15</div>
-                        <svg class="sf-coin-spark" viewBox="0 0 100 36" preserveAspectRatio="none" aria-hidden="true" data-spark></svg>
-                    </div>
+                    <div class="text-white text-lg font-bold" data-price>$ 145.15</div>
                 </div>
             </div>
         </div>
@@ -4796,34 +4638,37 @@ class="nav-btn flex flex-col items-center justify-center py-2 text-[#d4b872] hov
         <!-- ========== محدد الشبكة ========== -->
         <div>
             <label class="block text-xs font-medium text-[#d4b872] mb-2">اختر شبكة السحب</label>
-            <div class="wd-net-grid">
+            <div class="grid grid-cols-3 gap-2">
                 <button type="button" onclick="switchWithdrawNetwork('trc20')" id="withdraw-network-trc20"
-                        class="network-toggle-btn wd-net-card trc active">
-                    <span class="wd-net-badge"><i class="fa-solid fa-check" id="check-trc20"></i></span>
-                    <span class="wd-net-logo">T</span>
-                    <span class="wd-net-name">TRC20</span>
-                    <span class="wd-net-sub">Tron • USDT</span>
-                    <span class="network-dot trc" style="display:none"></span>
-                </button>
-                <button type="button" onclick="switchWithdrawNetwork('bep20')" id="withdraw-network-bep20"
-                        class="network-toggle-btn wd-net-card bnb">
-                    <span class="wd-net-badge"><i class="fa-solid fa-check" id="check-bep20"></i></span>
-                    <span class="wd-net-logo">B</span>
-                    <span class="wd-net-name">BEP20</span>
-                    <span class="wd-net-sub">BNB Chain • USDT</span>
-                    <span class="network-dot bnb" style="display:none"></span>
-                </button>
-                <button type="button" onclick="switchWithdrawNetwork('erc20')" id="withdraw-network-erc20"
-                        class="network-toggle-btn wd-net-card eth">
-                    <span class="wd-net-badge"><i class="fa-solid fa-check" id="check-erc20"></i></span>
-                    <span class="wd-net-logo">Ξ</span>
-                    <span class="wd-net-name">ERC20</span>
-                    <span class="wd-net-sub">Ethereum • USDT</span>
-                    <span class="network-dot eth" style="display:none"></span>
-                </button>
+                class="network-toggle-btn active flex items-center gap-1.5 p-2.5 rounded-xl bg-white/5 text-white transition">
+                <span class="network-dot trc"></span>
+                <div class="text-right">
+                    <span class="text-[11px] font-bold block">TRC20</span>
+                    <span class="text-[9px] text-[#d4b872]">Tron</span>
+                </div>
+                <i class="fa-solid fa-check-circle text-indigo-400 text-[10px] mr-auto hidden" id="check-trc20"></i>
+            </button>
+            <button type="button" onclick="switchWithdrawNetwork('bep20')" id="withdraw-network-bep20"
+            class="network-toggle-btn flex items-center gap-1.5 p-2.5 rounded-xl bg-white/5 text-white transition">
+            <span class="network-dot bnb"></span>
+            <div class="text-right">
+                <span class="text-[11px] font-bold block">BEP20</span>
+                <span class="text-[9px] text-[#d4b872]">BNB Chain</span>
             </div>
-            <input type="hidden" id="withdraw-active-network" value="trc20">
+            <i class="fa-solid fa-check-circle text-amber-400 text-[10px] mr-auto hidden" id="check-bep20"></i>
+        </button>
+        <button type="button" onclick="switchWithdrawNetwork('erc20')" id="withdraw-network-erc20"
+        class="network-toggle-btn flex items-center gap-1.5 p-2.5 rounded-xl bg-white/5 text-white transition">
+        <span class="network-dot eth"></span>
+        <div class="text-right">
+            <span class="text-[11px] font-bold block">ERC20</span>
+            <span class="text-[9px] text-[#d4b872]">Ethereum</span>
         </div>
+        <i class="fa-solid fa-check-circle text-blue-400 text-[10px] mr-auto hidden" id="check-erc20"></i>
+    </button>
+    </div>
+    <input type="hidden" id="withdraw-active-network" value="trc20">
+</div>
 
 <!-- ========== عنوان المحفظة ========== -->
 <div>
@@ -5634,62 +5479,64 @@ class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blu
     }
 
     function enterPlatform(user) {
-        // Step A: toggle screens FIRST — this is the only step that must succeed.
-        try {
-            var _auth = document.getElementById('auth-container');
-            if (_auth) _auth.classList.add('hidden');
-            var _main = document.getElementById('main-platform');
-            if (_main) _main.classList.remove('hidden');
-        } catch (e) { console.error('enterPlatform toggle failed:', e); }
+        document.getElementById('auth-container').classList.add('hidden');
+        document.getElementById('main-platform').classList.remove('hidden');
+        setTimeout(function(){ if(typeof window.bfRefreshKyc==='function') window.bfRefreshKyc(); }, 0);
 
-        // Step B: every subsequent UI update is best-effort and MUST NOT block entry.
-        try {
-            setTimeout(function(){ try { if(typeof window.bfRefreshKyc==='function') window.bfRefreshKyc(); } catch(_){} }, 0);
+        document.getElementById('user-display-name').innerText = user.username;
+        const usernameViews = document.querySelectorAll('.id-username-view');
+        usernameViews.forEach(el => {
+            el.innerText = user.username;
+        });
 
-            var udn = document.getElementById('user-display-name');
-            if (udn) udn.innerText = user.username;
+        const accountUid = document.getElementById('account-uid');
+        if (accountUid) {
+            accountUid.innerText = 'UID: ' + user.uid;
+        }
 
-            const usernameViews = document.querySelectorAll('.id-username-view');
-            usernameViews.forEach(el => { try { el.innerText = user.username; } catch(_){} });
+        const accountEmail = document.getElementById('account-email-view');
+        if (accountEmail) {
+            accountEmail.innerText = '📧 ' + user.email;
+        }
 
-            const accountUid = document.getElementById('account-uid');
-            if (accountUid) accountUid.innerText = 'UID: ' + user.uid;
+        // تحديث رابط الدعوة في صفحة الدعوة
+        updateInviteLinkDisplay(user.uid);
 
-            const accountEmail = document.getElementById('account-email-view');
-            if (accountEmail) accountEmail.innerText = '📧 ' + user.email;
+        // تحديث إحصائيات الدعوة
+        updateInviteStats(user);
 
-            try { updateInviteLinkDisplay(user.uid); } catch(_){}
-            try { updateInviteStats(user); } catch(_){}
+        document.getElementById('login-form').reset();
+        document.getElementById('register-form').reset();
+        hideAllFieldErrors('login');
+        hideAllFieldErrors('reg');
+        document.querySelectorAll('#register-form input').forEach(input => {
+            input.classList.remove('input-success', 'input-error');
+        });
+        document.querySelectorAll('#login-form input').forEach(input => {
+            input.classList.remove('input-success', 'input-error');
+        });
+        // إعادة تعيين تنسيق حقل رمز الدعوة
+        const referralWrapper = document.getElementById('referral-code-wrapper');
+        if (referralWrapper) {
+            referralWrapper.classList.remove('has-value');
+        }
 
-            var lf = document.getElementById('login-form'); if (lf) try { lf.reset(); } catch(_){}
-            var rf = document.getElementById('register-form'); if (rf) try { rf.reset(); } catch(_){}
-            try { hideAllFieldErrors('login'); } catch(_){}
-            try { hideAllFieldErrors('reg'); } catch(_){}
-            document.querySelectorAll('#register-form input').forEach(input => { input.classList.remove('input-success', 'input-error'); });
-            document.querySelectorAll('#login-form input').forEach(input => { input.classList.remove('input-success', 'input-error'); });
+        setTimeout(updateAllPWAUI, 400);
+        adjustHeaderPosition();
 
-            const referralWrapper = document.getElementById('referral-code-wrapper');
-            if (referralWrapper) referralWrapper.classList.remove('has-value');
+        const homeBtn = document.querySelector('.nav-btn[data-tab="home"]');
+        if (homeBtn) switchTab('home', homeBtn);
 
-            setTimeout(function(){ try { updateAllPWAUI(); } catch(_){} }, 400);
-            try { adjustHeaderPosition(); } catch(_){}
-
-            const homeBtn = document.querySelector('.nav-btn[data-tab="home"]');
-            if (homeBtn) { try { switchTab('home', homeBtn); } catch(_){} }
-
-            console.log('✅ [StrataFlow] تم دخول المستخدم:', user.username, '| UID:', user.uid, '| رمز الدعوة:', user.referralCode || 'لا يوجد');
-            if (user.referredBy) {
-                console.log('👥 [StrataFlow] تمت دعوة هذا المستخدم بواسطة:', user.referredByUsername, '| UID:', user.referredBy);
-            }
-        } catch (e) {
-            console.error('⚠️ [StrataFlow] خطأ في تهيئة واجهة المنصة (تم تجاهله):', e);
-        } finally {
-            try { window.bfHideLoader && window.bfHideLoader(); } catch(_){}
+        console.log('✅ [StrataFlow] تم دخول المستخدم:', user.username, '| UID:', user.uid, '| رمز الدعوة:', user
+            .referralCode || 'لا يوجد');
+        if (user.referredBy) {
+            console.log('👥 [StrataFlow] تمت دعوة هذا المستخدم بواسطة:', user.referredByUsername, '| UID:', user
+            .referredBy);
         }
     }
 
     function updateInviteLinkDisplay(uid) {
-        const link = (typeof getInviteLink === 'function') ? getInviteLink() : 'https://exurs7app.github.io/StrataFlow97245/';
+        const link = 'https://exurs7app.github.io/StrataFlow97245/';
         const inviteLinkText = document.getElementById('invite-link-text');
         if (inviteLinkText) {
             inviteLinkText.textContent = link;
@@ -6374,17 +6221,7 @@ class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blu
     // ============================================================
 
     function getInviteLink() {
-        var base = 'https://exurs7app.github.io/StrataFlow97245/';
-        try {
-            var s = (typeof getCurrentSession === 'function') ? getCurrentSession() : null;
-            var code = s && s.referralCode ? s.referralCode : null;
-            if (!code && s && s.uid && typeof getAllUsers === 'function') {
-                var u = (getAllUsers() || []).find(function(x){ return x.uid === s.uid; });
-                if (u) code = u.referralCode;
-            }
-            if (code) return base + '?ref=' + encodeURIComponent(code);
-        } catch(e) {}
-        return base;
+        return 'https://exurs7app.github.io/StrataFlow97245/';
     }
 
     function copyInviteLink() {
@@ -6466,41 +6303,21 @@ class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blu
         // تهيئة تنسيق حقل رمز الدعوة
         updateReferralCodeWrapperStyle();
 
-        // Defer to next tick + rAF so any exception during restore cannot race
-        // with sibling DOMContentLoaded handlers or unbuilt DOM references.
-        try {
-            requestAnimationFrame(function(){ setTimeout(autoRestoreSession, 0); });
-        } catch(_) { setTimeout(autoRestoreSession, 0); }
+        autoRestoreSession();
     });
 
     function autoRestoreSession() {
-        try {
-            const session = getCurrentSession();
-            if (!session) { try { window.bfHideLoader && window.bfHideLoader(); } catch(_){} return; }
+        const session = getCurrentSession();
+        if (session) {
             const users = getAllUsers();
             const user = users.find(u => u.uid === session.uid);
             if (user) {
                 console.log('🔄 [StrataFlow] تم استعادة الجلسة السابقة للمستخدم:', user.username);
-                try {
-                    enterPlatform(user);
-                } catch (e) {
-                    console.error('⚠️ [StrataFlow] فشل استعادة الجلسة، عرض شاشة الدخول:', e);
-                    try { clearCurrentSession(); } catch(_){}
-                    try { document.getElementById('main-platform').classList.add('hidden'); } catch(_){}
-                    try { document.getElementById('auth-container').classList.remove('hidden'); } catch(_){}
-                }
+                enterPlatform(user);
             } else {
                 clearCurrentSession();
-                try { document.getElementById('auth-container').classList.remove('hidden'); } catch(_){}
                 console.log('⚠️ [StrataFlow] جلسة غير صالحة - تم مسحها');
             }
-        } catch (e) {
-            console.error('⚠️ [StrataFlow] خطأ في استعادة الجلسة:', e);
-            try { clearCurrentSession(); } catch(_){}
-            try { document.getElementById('main-platform').classList.add('hidden'); } catch(_){}
-            try { document.getElementById('auth-container').classList.remove('hidden'); } catch(_){}
-        } finally {
-            try { window.bfHideLoader && window.bfHideLoader(); } catch(_){}
         }
     }
 
@@ -11609,57 +11426,25 @@ function bfToggleTheme(){
 </script>
 
 <script>
-/* ==================== App Loader (Hardened: guaranteed hide) ==================== */
+/* ==================== App Loader (show on load & reload) ==================== */
 (function(){
     var loader = document.getElementById('app-loader');
     if(!loader) return;
-    var hidden = false;
     function hideLoader(){
-        if(hidden) return;
-        hidden = true;
-        try {
-            loader.classList.add('hidden');
-            setTimeout(function(){
-                if(loader && loader.parentNode) loader.setAttribute('aria-hidden','true');
-            }, 500);
-        } catch(e){
-            try { loader.style.display = 'none'; } catch(_){}
-        }
+        loader.classList.add('hidden');
+        setTimeout(function(){ if(loader && loader.parentNode) loader.setAttribute('aria-hidden','true'); }, 500);
     }
-    function scheduleHide(delay){
-        setTimeout(hideLoader, delay || 400);
-    }
-    // 1) Hide as soon as DOM is interactive/complete
-    if(document.readyState === 'complete' || document.readyState === 'interactive'){
-        scheduleHide(400);
+    if(document.readyState === 'complete'){
+        setTimeout(hideLoader, 400);
     } else {
-        document.addEventListener('DOMContentLoaded', function(){ scheduleHide(400); }, { once: true });
+        window.addEventListener('load', function(){ setTimeout(hideLoader, 400); });
     }
-    // 2) Hide on full window load (original behavior)
-    window.addEventListener('load', function(){ scheduleHide(200); });
-    // 3) Safety timeout: force-hide after 6s no matter what (CDN failure, JS error, etc.)
-    setTimeout(function(){
-        hideLoader();
-        // Last-resort UI fallback: if we ended up with both screens hidden
-        // (a broken half-init), reveal the auth screen so the user is never stuck.
-        try {
-            var a = document.getElementById('auth-container');
-            var m = document.getElementById('main-platform');
-            if (a && m && a.classList.contains('hidden') && m.classList.contains('hidden')){
-                a.classList.remove('hidden');
-            }
-        } catch(_){}
-    }, 2500);
-    // 4) Never let a global error keep the loader spinning forever
-    window.addEventListener('error', function(){ setTimeout(hideLoader, 800); });
-    window.addEventListener('unhandledrejection', function(){ setTimeout(hideLoader, 800); });
-    // 5) Show loader again on reload / navigation away (unchanged)
+    // Show loader again on reload / navigation away
     window.addEventListener('beforeunload', function(){
-        hidden = false;
-        try { loader.classList.remove('hidden'); } catch(_){}
+        loader.classList.remove('hidden');
     });
-    // 6) Public API preserved
-    window.bfShowLoader = function(){ hidden = false; try { loader.classList.remove('hidden'); } catch(_){} };
+    // Optional: expose for manual triggers
+    window.bfShowLoader = function(){ loader.classList.remove('hidden'); };
     window.bfHideLoader = hideLoader;
 })();
 
@@ -12039,114 +11824,6 @@ function bfToggleTheme(){
   document.addEventListener('DOMContentLoaded', function(){
     try {
       if (window.__strataflowAssets) updateHome(window.__strataflowAssets);
-    } catch(e){}
-  });
-})();
-</script>
-
-
-<!-- ===== StrataFlow Main Coins — Pro Enhancements (isolated) ===== -->
-<script>
-(function(){
-  var HIST = {}; // sym -> [prices]
-  var MAX = 24;
-
-  function parsePrice(txt){
-    if(!txt) return NaN;
-    var n = parseFloat(String(txt).replace(/[^0-9.\-]/g,''));
-    return isNaN(n) ? NaN : n;
-  }
-  function buildSpark(svg, arr, up){
-    if(!svg || !arr || arr.length < 2) return;
-    var w = 100, h = 36, pad = 2;
-    var min = Math.min.apply(null, arr), max = Math.max.apply(null, arr);
-    if(max === min){ max = min + 1; }
-    var step = (w) / (arr.length - 1);
-    var pts = arr.map(function(v, i){
-      var x = i * step;
-      var y = h - pad - ((v - min) / (max - min)) * (h - pad*2);
-      return [x, y];
-    });
-    var d = 'M' + pts.map(function(p){ return p[0].toFixed(2)+','+p[1].toFixed(2); }).join(' L');
-    var fillD = d + ' L'+w+','+h+' L0,'+h+' Z';
-    var color = up ? '#22c55e' : '#ef4444';
-    var gradId = 'sfSpark-' + Math.random().toString(36).slice(2,8);
-    svg.innerHTML =
-      '<defs><linearGradient id="'+gradId+'" x1="0" x2="0" y1="0" y2="1">' +
-        '<stop offset="0%" stop-color="'+color+'" stop-opacity=".55"/>' +
-        '<stop offset="100%" stop-color="'+color+'" stop-opacity="0"/>' +
-      '</linearGradient></defs>' +
-      '<path class="fill" d="'+fillD+'" fill="url(#'+gradId+')"/>' +
-      '<path class="line" d="'+d+'" stroke="'+color+'"/>';
-  }
-  function flashPrice(el, up){
-    if(!el) return;
-    el.classList.remove('flash-up','flash-dn');
-    // force reflow to restart animation
-    void el.offsetWidth;
-    el.classList.add(up ? 'flash-up' : 'flash-dn');
-  }
-  function updateBadge(card, changePct){
-    var badge = card.querySelector('[data-change]');
-    if(!badge || typeof changePct !== 'number') return;
-    var up = changePct >= 0;
-    badge.classList.toggle('dn', !up);
-    var icon = up ? 'fa-arrow-trend-up' : 'fa-arrow-trend-down';
-    badge.innerHTML = '<i class="fa-solid '+icon+'"></i>' + (up?'+':'') + changePct.toFixed(2) + '%';
-  }
-  function tickCard(card, price, changePct){
-    var sym = card.getAttribute('data-sym'); if(!sym) return;
-    var priceEl = card.querySelector('[data-price]');
-    var svg = card.querySelector('[data-spark]');
-    if(typeof price === 'number' && !isNaN(price)){
-      HIST[sym] = HIST[sym] || [];
-      var last = HIST[sym][HIST[sym].length - 1];
-      HIST[sym].push(price);
-      if(HIST[sym].length > MAX) HIST[sym].shift();
-      var up = typeof changePct === 'number' ? changePct >= 0 :
-               (typeof last === 'number' ? price >= last : true);
-      if(typeof last === 'number' && last !== price){
-        flashPrice(priceEl, price > last);
-      }
-      buildSpark(svg, HIST[sym], up);
-    }
-    updateBadge(card, changePct);
-  }
-  function handleAssets(list){
-    if(!Array.isArray(list)) return;
-    var map = {};
-    list.forEach(function(c){ if(c && c.sym) map[c.sym] = c; });
-    document.querySelectorAll('#sf-home-main-coins .sf-coin-card').forEach(function(card){
-      var sym = card.getAttribute('data-sym'); var c = map[sym]; if(!c) return;
-      var price = (typeof c.price === 'number') ? c.price : parsePrice(c.price);
-      var ch = (typeof c.change === 'number') ? c.change : undefined;
-      tickCard(card, price, ch);
-    });
-  }
-  // Seed sparklines from default markup so cards look alive before live data
-  function seed(){
-    document.querySelectorAll('#sf-home-main-coins .sf-coin-card').forEach(function(card){
-      var sym = card.getAttribute('data-sym');
-      var base = parsePrice(card.querySelector('[data-price]') && card.querySelector('[data-price]').textContent);
-      if(isNaN(base)) return;
-      var arr = [], v = base;
-      for(var i=0;i<MAX;i++){
-        v = v * (1 + (Math.sin(i*0.7 + sym.length) * 0.004) + (Math.random()-0.5) * 0.006);
-        arr.push(v);
-      }
-      HIST[sym] = arr;
-      var badge = card.querySelector('[data-change]');
-      var up = badge ? !badge.classList.contains('dn') : true;
-      buildSpark(card.querySelector('[data-spark]'), arr, up);
-    });
-  }
-  window.addEventListener('strataflow:assets-updated', function(e){
-    try { handleAssets(e.detail); } catch(err){}
-  });
-  document.addEventListener('DOMContentLoaded', function(){
-    try {
-      seed();
-      if(window.__strataflowAssets) handleAssets(window.__strataflowAssets);
     } catch(e){}
   });
 })();
@@ -13292,272 +12969,6 @@ function bfToggleTheme(){
 })();
 </script>
 <!-- ============ /SF Sync Engine ============ -->
-
-
-<script>
-/* ==================== StrataFlow: Referral Auto-Fill (v3) ==================== */
-(function(){
-    var SS_KEY = 'pending_ref';
-    var LS_KEY = 'strataflow_pending_ref';
-    var DETECTED_KEY = 'sf_ref_detected_shown';
-    var applied = false;
-
-    function getPending(){
-        try { var a = sessionStorage.getItem(SS_KEY); if (a) return a; } catch(e){}
-        try { var b = localStorage.getItem(LS_KEY); if (b) return b; } catch(e){}
-        return null;
-    }
-    function setPending(code){
-        try { sessionStorage.setItem(SS_KEY, code); } catch(e){}
-        try { localStorage.setItem(LS_KEY, code); } catch(e){}
-    }
-    function clearPending(){
-        try { sessionStorage.removeItem(SS_KEY); } catch(e){}
-        try { localStorage.removeItem(LS_KEY); } catch(e){}
-    }
-
-    // ----- Fallback toast (used only if global showToast is unavailable) -----
-    function ensureFallbackStyle(){
-        if (document.getElementById('sf-ref-toast-style')) return;
-        var st = document.createElement('style');
-        st.id = 'sf-ref-toast-style';
-        st.textContent = ''
-          + '#sf-ref-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-20px);'
-          + 'z-index:2147483647;background:linear-gradient(135deg,rgba(10,26,58,0.96),rgba(30,20,60,0.96));'
-          + 'color:#fff;font-family:"Tajawal",sans-serif;font-weight:700;font-size:14px;'
-          + 'padding:12px 18px;border-radius:14px;border:1px solid rgba(250,204,21,0.55);'
-          + 'box-shadow:0 10px 30px rgba(0,0,0,0.45),0 0 20px rgba(250,204,21,0.25);'
-          + 'opacity:0;transition:opacity .25s ease,transform .25s ease;pointer-events:none;'
-          + 'direction:rtl;text-align:center;max-width:92vw;}'
-          + '#sf-ref-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}'
-          + '#sf-ref-toast .sf-ref-code{color:#facc15;margin:0 4px;letter-spacing:1px;}';
-        document.head.appendChild(st);
-    }
-    function fallbackToast(code){
-        ensureFallbackStyle();
-        var el = document.getElementById('sf-ref-toast');
-        if (!el){
-            el = document.createElement('div');
-            el.id = 'sf-ref-toast';
-            document.body.appendChild(el);
-        }
-        el.innerHTML = '🎁 تم اكتشاف كود مكافأة: <span class="sf-ref-code">' + code + '</span>';
-        // Force reflow then show
-        void el.offsetWidth;
-        el.classList.add('show');
-        clearTimeout(el._t);
-        el._t = setTimeout(function(){
-            el.classList.remove('show');
-        }, 4000);
-    }
-    function notifyDetected(code){
-        try {
-            if (typeof showToast === 'function'){
-                showToast('🎁 تم اكتشاف كود مكافأة: ' + code, 'success', 4000);
-                return;
-            }
-        } catch(e){}
-        // If body not ready yet, defer
-        if (!document.body){
-            document.addEventListener('DOMContentLoaded', function(){ fallbackToast(code); });
-        } else {
-            fallbackToast(code);
-        }
-    }
-
-    // 1) Read ?ref= / ?invite= / ?code= from URL and persist.
-    try {
-        var qs = new URLSearchParams(location.search);
-        var ref = qs.get('ref') || qs.get('invite') || qs.get('code');
-        if (ref) {
-            ref = String(ref).trim();
-            if (/^[0-9]{4}$/.test(ref)) {
-                setPending(ref);
-
-                // Show "detected" notification once per session for this ref
-                try {
-                    var already = sessionStorage.getItem(DETECTED_KEY);
-                    if (already !== ref) {
-                        sessionStorage.setItem(DETECTED_KEY, ref);
-                        notifyDetected(ref);
-                    }
-                } catch(e){ notifyDetected(ref); }
-
-                // 2) Clean the URL (preserve hash) without reloading.
-                try {
-                    qs.delete('ref'); qs.delete('invite'); qs.delete('code');
-                    var newSearch = qs.toString();
-                    var cleanUrl = location.origin + location.pathname +
-                        (newSearch ? ('?' + newSearch) : '') + (location.hash || '');
-                    history.replaceState({}, document.title, cleanUrl);
-                } catch(e){}
-            }
-        }
-    } catch(e){}
-
-    function isVisible(el){
-        if (!el) return false;
-        if (el.offsetParent === null) {
-            var cs = window.getComputedStyle(el);
-            if (cs.display === 'none' || cs.visibility === 'hidden') return false;
-        }
-        return true;
-    }
-
-    function applyRef(){
-        var code = getPending();
-        if (!code) return false;
-        var input = document.getElementById('reg-referral-code');
-        if (!input) return false;
-        if (!isVisible(input)) return false;
-
-        // Ensure we're on the register tab if that helper exists.
-        try { if (typeof toggleAuthCard === 'function') toggleAuthCard('register'); } catch(e){}
-
-        if (input.value !== code) {
-            input.value = code;
-            var wrap = document.getElementById('referral-code-wrapper');
-            if (wrap) wrap.classList.add('has-value');
-            try { input.dispatchEvent(new Event('input',  {bubbles:true})); } catch(e){}
-            try { input.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
-            if (!applied) {
-                applied = true;
-                try { if (typeof showToast === 'function')
-                    showToast('🎁 تم تطبيق رمز الدعوة تلقائياً: ' + code, 'success', 3000);
-                } catch(e){}
-            }
-        }
-        return true;
-    }
-
-    // 3) Observe DOM changes so we fill the field the moment it appears / becomes visible.
-    var obs;
-    function startObserver(){
-        if (obs || !document.body) return;
-        obs = new MutationObserver(function(){
-            if (!getPending()) return;
-            applyRef();
-        });
-        obs.observe(document.body, {
-            subtree: true,
-            childList: true,
-            attributes: true,
-            attributeFilter: ['class', 'style', 'hidden']
-        });
-    }
-
-    // 4) Re-apply on any click (covers tab switches between login/register).
-    document.addEventListener('click', function(){
-        if (getPending()) setTimeout(applyRef, 30);
-    }, true);
-
-    // 5) Clear only after a successful registration submit.
-    document.addEventListener('submit', function(ev){
-        var t = ev.target;
-        if (t && t.id === 'register-form') {
-            setTimeout(function(){
-                var auth = document.getElementById('auth-container');
-                if (!auth || auth.classList.contains('hidden') || !isVisible(auth)) {
-                    clearPending();
-                    applied = false;
-                    try { sessionStorage.removeItem(DETECTED_KEY); } catch(e){}
-                }
-            }, 2500);
-        }
-    }, true);
-
-    function boot(){
-        startObserver();
-        applyRef();
-        setTimeout(applyRef, 300);
-        setTimeout(applyRef, 1200);
-        setTimeout(applyRef, 3000);
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', boot);
-    } else {
-        boot();
-    }
-})();
-</script>
-
-<!-- ===== PC Return Patch (added) ===== -->
-<style id="pc-return-style">
-#personal-center-modal.open{animation:pcReopenFade .28s ease both;}
-@keyframes pcReopenFade{
-  from{opacity:0;transform:translateY(6px) scale(.985);}
-  to{opacity:1;transform:none;}
-}
-</style>
-<script>
-(function(){
-  var RETURN_TARGETS = {verify:1,password:1,about:1,team:1};
-  window.__pcReturn = false;
-
-  function reopenPC(){
-    if(!window.__pcReturn) return;
-    window.__pcReturn = false;
-    setTimeout(function(){
-      try{
-        if(typeof window.openPersonalCenter === 'function'){
-          window.openPersonalCenter();
-          var m = document.getElementById('personal-center-modal');
-          if(m){
-            m.classList.remove('open');
-            // force reflow to restart animation
-            void m.offsetWidth;
-            m.classList.add('open');
-          }
-        }
-      }catch(e){}
-    }, 120);
-  }
-
-  function wrapClose(name){
-    var tries = 0;
-    (function attach(){
-      var orig = window[name];
-      if(typeof orig !== 'function'){
-        if(tries++ < 40) return setTimeout(attach, 150);
-        return;
-      }
-      if(orig.__pcWrapped) return;
-      var wrapped = function(){
-        var r;
-        try{ r = orig.apply(this, arguments); }catch(e){}
-        reopenPC();
-        return r;
-      };
-      wrapped.__pcWrapped = true;
-      wrapped.__pcOrig = orig;
-      window[name] = wrapped;
-    })();
-  }
-
-  ['closeKycModal','closeChangePasswordModal','closeLicenseModal','closeTeamModal']
-    .forEach(wrapClose);
-
-  // Patch pcGoto to raise the return flag only for the four targets
-  (function patchPcGoto(){
-    var tries = 0;
-    (function attach(){
-      var orig = window.pcGoto;
-      if(typeof orig !== 'function'){
-        if(tries++ < 40) return setTimeout(attach, 150);
-        return;
-      }
-      if(orig.__pcWrapped) return;
-      var wrapped = function(target){
-        if(RETURN_TARGETS[target]) window.__pcReturn = true;
-        return orig.apply(this, arguments);
-      };
-      wrapped.__pcWrapped = true;
-      window.pcGoto = wrapped;
-    })();
-  })();
-})();
-</script>
 
 </body>
 
