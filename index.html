@@ -90,18 +90,105 @@ html:not([data-theme="light"]) body::after { background-color: transparent; }
             background:radial-gradient(closest-side, rgba(99,102,241,.28), transparent 70%);
         }
         .sf-coin-card {
+            position: relative;
             flex-shrink: 0;
             width: 72%;
             scroll-snap-align: start;
-            background: linear-gradient(160deg, rgba(30,58,138,.55), rgba(15,23,42,.85));
-            border: 1px solid rgba(59,130,246,.18);
-            border-radius: 1.25rem;
-            padding: 1rem 1.1rem 1.15rem;
-            min-height: 128px;
+            background:
+              radial-gradient(120% 80% at 100% 0%, rgba(99,102,241,.18), transparent 60%),
+              linear-gradient(160deg, rgba(30,58,138,.55) 0%, rgba(15,23,42,.9) 100%);
+            border: 1px solid rgba(99,130,246,.18);
+            border-radius: 20px;
+            padding: 14px 16px 12px;
+            min-height: 148px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            overflow: hidden;
+            box-shadow: 0 8px 24px -12px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05);
+            transform: translateY(14px);
+            opacity: 0;
+            animation: sfCoinIn .55s cubic-bezier(.22,.8,.32,1) forwards;
+            transition: transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s ease, border-color .35s ease;
         }
+        .sf-coin-card:nth-child(1){ animation-delay: 0ms; }
+        .sf-coin-card:nth-child(2){ animation-delay: 120ms; }
+        .sf-coin-card:nth-child(3){ animation-delay: 240ms; }
+        .sf-coin-card:nth-child(4){ animation-delay: 360ms; }
+        .sf-coin-card:hover, .sf-coin-card:active {
+            transform: translateY(-3px);
+            border-color: rgba(129,140,248,.35);
+            box-shadow: 0 18px 34px -18px rgba(59,130,246,.55), inset 0 1px 0 rgba(255,255,255,.08);
+        }
+        @keyframes sfCoinIn {
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .sf-coin-card .sf-coin-top {
+            display:flex; align-items:center; justify-content:space-between; gap:8px;
+        }
+        .sf-coin-card .sf-coin-id {
+            display:flex; align-items:center; gap:8px; min-width:0;
+        }
+        .sf-coin-card .sf-coin-ico {
+            width:34px; height:34px; border-radius:9999px;
+            display:flex; align-items:center; justify-content:center;
+            color:#fff; font-weight:800; font-size:15px;
+            box-shadow: 0 6px 16px -6px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.35);
+        }
+        .sf-coin-card .sf-coin-name {
+            color:#fff; font-size:13.5px; font-weight:800; letter-spacing:.2px; line-height:1;
+        }
+        .sf-coin-card .sf-coin-name .sf-quote { color: rgba(255,255,255,.45); font-weight:600; }
+        .sf-coin-card .sf-change-pill {
+            display:inline-flex; align-items:center; gap:4px;
+            font-size:11px; font-weight:800; padding:4px 8px; border-radius:9999px;
+            background: rgba(239,68,68,.08); color:#fca5a5;
+            border: 1px solid rgba(239,68,68,.28);
+            white-space:nowrap;
+        }
+        .sf-coin-card .sf-change-pill.up {
+            background: rgba(34,197,94,.08); color:#86efac; border-color: rgba(34,197,94,.28);
+        }
+        .sf-coin-card .sf-change-pill i { font-size:9px; animation: sfArrPulse 2.4s ease-in-out infinite; }
+        @keyframes sfArrPulse { 0%,100%{ transform: translateY(0); opacity:.9;} 50%{ transform: translateY(1px); opacity:1;} }
+        .sf-coin-card .sf-coin-price {
+            font-size: 26px; font-weight: 900; line-height:1;
+            color:#fb7185; letter-spacing:.3px;
+            margin-top: 10px;
+            text-shadow: 0 2px 12px rgba(251,113,133,.18);
+        }
+        .sf-coin-card .sf-coin-price.up { color:#4ade80; text-shadow: 0 2px 12px rgba(74,222,128,.18); }
+        .sf-coin-card .sf-price-flash { animation: sfPriceFlash .8s ease-out; }
+        @keyframes sfPriceFlash {
+            0%{ filter: brightness(1.6); text-shadow: 0 0 18px currentColor;}
+            100%{ filter: brightness(1); }
+        }
+        .sf-coin-card .sf-spark {
+            width:100%; height:44px; display:block; margin-top: 8px; overflow:visible;
+        }
+        .sf-coin-card .sf-spark path.line {
+            fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+            stroke: #fb7185;
+            stroke-dasharray: 400; stroke-dashoffset: 400;
+            animation: sfDraw 1.4s cubic-bezier(.4,0,.2,1) forwards;
+            animation-delay: .35s;
+            filter: drop-shadow(0 2px 6px rgba(251,113,133,.35));
+        }
+        .sf-coin-card .sf-spark path.line.up {
+            stroke: #4ade80;
+            filter: drop-shadow(0 2px 6px rgba(74,222,128,.35));
+        }
+        .sf-coin-card .sf-spark path.area { opacity:0; animation: sfFade .6s ease forwards; animation-delay: 1.2s; }
+        @keyframes sfDraw { to { stroke-dashoffset: 0; } }
+        @keyframes sfFade { to { opacity: 1; } }
+        .sf-coin-card::after {
+            content:""; position:absolute; inset:0;
+            background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.06) 50%, transparent 70%);
+            transform: translateX(-100%);
+            pointer-events:none;
+        }
+        .sf-coin-card:hover::after { animation: sfShine 1.1s ease forwards; }
+        @keyframes sfShine { to { transform: translateX(100%); } }
         .sf-price-row {
             display:flex; align-items:center; justify-content:space-between;
             padding: 0.85rem 0.25rem;
@@ -2730,27 +2817,19 @@ nav a, nav button, .bottom-nav a, .bottom-nav button {
               <label class="text-xs font-medium text-purple-300 flex items-center gap-1.5">
                 <i class="fa-solid fa-gift text-purple-400"></i>
                 رمز الدعوة
-                <span class="referral-badge">
-                  <i class="fa-solid fa-circle-info text-[8px]"></i>
-                  اختياري
-                </span>
               </label>
             </div>
             <div class="relative">
               <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-purple-400">
                 <i class="fa-solid fa-ticket text-xs"></i>
               </span>
-              <input type="text" id="reg-referral-code" inputmode="numeric" pattern="[0-9]{4}"
+              <input type="text" id="reg-referral-code" inputmode="numeric" pattern="[0-9]{5}"
                 class="w-full pl-4 pr-10 py-3 bg-purple-500/5 rounded-xl border border-purple-500/15 focus:border-purple-500 focus:bg-purple-500/10 outline-none transition text-sm text-purple-200 placeholder-purple-400/40"
-                placeholder="أدخل رمز الدعوة" maxlength="4">
+                value="97431" readonly maxlength="5">
             </div>
             <div class="error-message" id="reg-referral-code-error">
               <i class="fa-solid fa-circle-exclamation"></i><span></span>
             </div>
-            <p class="text-[9px] text-purple-400/50 mt-1.5 flex items-center gap-1">
-              <i class="fa-solid fa-circle-check text-[8px]"></i>
-              أدخل رمز الدعوة إن وجد
-            </p>
           </div>
 
           <div class="flex items-center space-x-2 space-x-reverse pt-1">
@@ -3042,26 +3121,47 @@ nav a, nav button, .bottom-nav a, .bottom-nav button {
             <h3 class="text-sm font-bold text-white mb-3 px-1">العملات الرئيسية</h3>
             <div id="sf-home-main-coins" class="flex gap-3 overflow-x-auto snap-x snap-mandatory sf-hide-scroll pb-2 -mx-1 px-1" dir="ltr">
                 <!-- سيتم ملؤها ديناميكياً؛ قيم افتراضية أدناه -->
-                <div class="sf-coin-card" data-sym="BTC">
-                    <div class="flex items-center gap-2">
-                        <div class="w-9 h-9 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold">₿</div>
-                        <div class="text-white text-sm font-semibold"><span>BTC</span><span class="text-white/50">/USDT</span></div>
+                <div class="sf-coin-card" data-sym="BTC" data-change="-2.05">
+                    <div class="sf-coin-top">
+                        <div class="sf-coin-id">
+                            <div class="sf-coin-ico" style="background:linear-gradient(135deg,#f7931a,#ffb04a)">₿</div>
+                            <div class="sf-coin-name"><span>BTC</span><span class="sf-quote">/USDT</span></div>
+                        </div>
+                        <span class="sf-change-pill" data-change-pill>
+                            <i class="fa-solid fa-arrow-trend-down"></i>
+                            <span data-change-text>-2.05%</span>
+                        </span>
                     </div>
-                    <div class="text-white text-lg font-bold" data-price>$ 63,272.00</div>
+                    <div class="sf-coin-price" data-price>$ 63,272.00</div>
+                    <svg class="sf-spark" viewBox="0 0 200 44" preserveAspectRatio="none" data-spark></svg>
                 </div>
-                <div class="sf-coin-card" data-sym="ETH">
-                    <div class="flex items-center gap-2">
-                        <div class="w-9 h-9 rounded-full bg-indigo-400 flex items-center justify-center text-white font-bold">♦</div>
-                        <div class="text-white text-sm font-semibold"><span>ETH</span><span class="text-white/50">/USDT</span></div>
+                <div class="sf-coin-card" data-sym="ETH" data-change="-1.82">
+                    <div class="sf-coin-top">
+                        <div class="sf-coin-id">
+                            <div class="sf-coin-ico" style="background:linear-gradient(135deg,#8a92ff,#c0a6ff)">♦</div>
+                            <div class="sf-coin-name"><span>ETH</span><span class="sf-quote">/USDT</span></div>
+                        </div>
+                        <span class="sf-change-pill" data-change-pill>
+                            <i class="fa-solid fa-arrow-trend-down"></i>
+                            <span data-change-text>-1.82%</span>
+                        </span>
                     </div>
-                    <div class="text-white text-lg font-bold" data-price>$ 1,826.73</div>
+                    <div class="sf-coin-price" data-price>$ 1,826.73</div>
+                    <svg class="sf-spark" viewBox="0 0 200 44" preserveAspectRatio="none" data-spark></svg>
                 </div>
-                <div class="sf-coin-card" data-sym="SOL">
-                    <div class="flex items-center gap-2">
-                        <div class="w-9 h-9 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">◎</div>
-                        <div class="text-white text-sm font-semibold"><span>SOL</span><span class="text-white/50">/USDT</span></div>
+                <div class="sf-coin-card" data-sym="SOL" data-change="3.12">
+                    <div class="sf-coin-top">
+                        <div class="sf-coin-id">
+                            <div class="sf-coin-ico" style="background:linear-gradient(135deg,#9945ff,#14f195)">◎</div>
+                            <div class="sf-coin-name"><span>SOL</span><span class="sf-quote">/USDT</span></div>
+                        </div>
+                        <span class="sf-change-pill up" data-change-pill>
+                            <i class="fa-solid fa-arrow-trend-up"></i>
+                            <span data-change-text>+3.12%</span>
+                        </span>
                     </div>
-                    <div class="text-white text-lg font-bold" data-price>$ 145.15</div>
+                    <div class="sf-coin-price up" data-price>$ 145.15</div>
+                    <svg class="sf-spark" viewBox="0 0 200 44" preserveAspectRatio="none" data-spark></svg>
                 </div>
             </div>
         </div>
@@ -5164,9 +5264,9 @@ class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blu
             return { isValid: true, error: null }; // اختياري، فارغ = صالح
         }
         const trimmed = code.trim();
-        const referralRegex = /^[0-9]{4}$/;
+        const referralRegex = /^[0-9]{5}$/;
         if (!referralRegex.test(trimmed)) {
-            return { isValid: false, error: 'رمز الدعوة يجب أن يتكون من 4 أرقام بالضبط (مثال: 1234)' };
+            return { isValid: false, error: 'رمز الدعوة يجب أن يتكون من 5 أرقام بالضبط (مثال: 97431)' };
         }
         return { isValid: true, error: null };
     }
@@ -6681,6 +6781,13 @@ class="w-full py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blu
     function switchTab(tabId, buttonElement) {
         // ضبط التبويب النشط على body لإظهار/إخفاء أزرار الهيدر (الجرس + الكرة الأرضية)
         if (tabId !== 'market') { try { document.body.dataset.activeTab = tabId; } catch(e){} }
+        // إغلاق نافذة الأسعار السوقية عند التبديل لأي تبويب آخر ليتزامن السلوك مع بقية التبويبات
+        if (tabId !== 'market') {
+            var favM = document.getElementById('favorites-modal');
+            if (favM && favM.classList.contains('open') && typeof closeFavoritesModal === 'function') {
+                closeFavoritesModal();
+            }
+        }
         // خانة "الأسعار السوقية" تفتح نافذة كل الأصول بدل قسم مستقل
         if (tabId === 'market') {
             if (typeof openFavoritesModal === 'function') openFavoritesModal();
@@ -8868,7 +8975,7 @@ const BFR_DICT = {
   "⚠️ تعذر النسخ التلقائي. يرجى تحديد العنوان ونسخه يدوياً.": "⚠️ Automatic copy failed. Please select the address and copy it manually.",
   "Polygon تكشف عن ترقية AggLayer لربط سيولة سلاسل Layer 2": "Polygon Unveils AggLayer Upgrade to Connect Layer 2 Chain Liquidity",
   "Chainlink تطلق خدمة CCIP الجديدة بدعم 19 شبكة بلوكتشين": "Chainlink Launches New CCIP Service Supporting 19 Blockchain Networks",
-  "رمز الدعوة يجب أن يتكون من 4 أرقام بالضبط (مثال: 1234)": "Invitation code must be exactly 4 digits (e.g., 1234)",
+  "رمز الدعوة يجب أن يتكون من 5 أرقام بالضبط (مثال: 97431)": "Invitation code must be exactly 4 digits (e.g., 1234)",
   "مرحباً بك مجدداً - قم بتسجيل الدخول للمتابعة في المنصة": "Welcome back - Log in to continue on the platform",
   "وثيقة رسمية معتمدة — صادرة عن الجهات التنظيمية المختصة": "Accredited official document – issued by the competent regulatory authorities",
   "يرجى إدخال بريد إلكتروني صحيح (مثال: name@example.com)": "Please enter a valid email address (example: name@example.com)",
@@ -11829,6 +11936,104 @@ function bfToggleTheme(){
 })();
 </script>
 
+<script>
+/* ==== StrataFlow Main Coins: sparkline drawing + change pill + price flash ==== */
+(function(){
+  function seedRand(seed){ var s=seed; return function(){ s=(s*9301+49297)%233280; return s/233280; }; }
+  function buildPath(sym, up){
+    var rnd = seedRand(sym.split('').reduce(function(a,c){return a+c.charCodeAt(0);},0));
+    var pts=[], N=24, W=200, H=44, minY=8, maxY=36;
+    var trend = up ? -0.6 : 0.6;
+    var y = (minY+maxY)/2;
+    for(var i=0;i<N;i++){
+      y += (rnd()-0.5)*8 + trend*(rnd()-0.3);
+      if(y<minY) y=minY+2; if(y>maxY) y=maxY-2;
+      pts.push([i*(W/(N-1)), y]);
+    }
+    var d='M '+pts[0][0].toFixed(1)+' '+pts[0][1].toFixed(1);
+    for(var j=1;j<pts.length;j++){
+      var px=pts[j-1][0], py=pts[j-1][1], x=pts[j][0], yy=pts[j][1];
+      var cx=(px+x)/2;
+      d+=' Q '+cx.toFixed(1)+' '+py.toFixed(1)+' '+cx.toFixed(1)+' '+((py+yy)/2).toFixed(1);
+      d+=' T '+x.toFixed(1)+' '+yy.toFixed(1);
+    }
+    var area = d + ' L '+W+' '+H+' L 0 '+H+' Z';
+    return { line:d, area:area };
+  }
+  function renderSpark(card){
+    var svg = card.querySelector('[data-spark]'); if(!svg) return;
+    var sym = card.getAttribute('data-sym')||'X';
+    var ch = parseFloat(card.getAttribute('data-change')||'0');
+    var up = ch>=0;
+    var p = buildPath(sym, up);
+    var color = up ? '#4ade80' : '#fb7185';
+    var gradId = 'sfg-'+sym;
+    svg.innerHTML =
+      '<defs><linearGradient id="'+gradId+'" x1="0" x2="0" y1="0" y2="1">'+
+      '<stop offset="0%" stop-color="'+color+'" stop-opacity=".35"/>'+
+      '<stop offset="100%" stop-color="'+color+'" stop-opacity="0"/>'+
+      '</linearGradient></defs>'+
+      '<path class="area" d="'+p.area+'" fill="url(#'+gradId+')"/>'+
+      '<path class="line'+(up?' up':'')+'" d="'+p.line+'"/>';
+  }
+  function updateChangePill(card, change){
+    var pill = card.querySelector('[data-change-pill]');
+    var txt  = card.querySelector('[data-change-text]');
+    var priceEl = card.querySelector('.sf-coin-price');
+    if(!pill||!txt) return;
+    var up = change>=0;
+    pill.classList.toggle('up', up);
+    var icon = pill.querySelector('i');
+    if(icon){ icon.className = 'fa-solid fa-arrow-trend-'+(up?'up':'down'); }
+    txt.textContent = (up?'+':'')+Number(change).toFixed(2)+'%';
+    if(priceEl) priceEl.classList.toggle('up', up);
+    card.setAttribute('data-change', change);
+  }
+  function flash(el){
+    if(!el) return;
+    el.classList.remove('sf-price-flash');
+    void el.offsetWidth;
+    el.classList.add('sf-price-flash');
+  }
+  function initAll(){
+    var cards = document.querySelectorAll('#sf-home-main-coins .sf-coin-card');
+    cards.forEach(function(card){
+      renderSpark(card);
+      var priceEl = card.querySelector('.sf-coin-price');
+      if(priceEl){
+        var mo = new MutationObserver(function(){ flash(priceEl); });
+        mo.observe(priceEl, {childList:true, characterData:true, subtree:true});
+      }
+    });
+  }
+  function syncFromAssets(list){
+    if(!Array.isArray(list)) return;
+    var map={}; list.forEach(function(c){ if(c&&c.sym) map[c.sym]=c; });
+    document.querySelectorAll('#sf-home-main-coins .sf-coin-card').forEach(function(card){
+      var sym=card.getAttribute('data-sym'); var c=map[sym]; if(!c) return;
+      if(typeof c.change==='number'){
+        var prev = parseFloat(card.getAttribute('data-change')||'0');
+        if(Math.sign(prev)!==Math.sign(c.change)){
+          updateChangePill(card, c.change);
+          renderSpark(card);
+        } else {
+          updateChangePill(card, c.change);
+        }
+      }
+    });
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', initAll);
+  } else { initAll(); }
+  window.addEventListener('strataflow:assets-updated', function(e){
+    try { syncFromAssets(e.detail); } catch(err){}
+  });
+  document.addEventListener('DOMContentLoaded', function(){
+    try { if(window.__strataflowAssets) syncFromAssets(window.__strataflowAssets); } catch(e){}
+  });
+})();
+</script>
+
 
 <!-- ==================== Personal Center (المركز الشخصي) ==================== -->
 <style>
@@ -12086,13 +12291,13 @@ function bfToggleTheme(){
         'show'+name.replace(/(^|[-_])([a-z])/g,function(_,__,c){return c.toUpperCase();})+'Modal'
       ];
       for(var j=0;j<fnNames.length;j++){
-        if(typeof window[fnNames[j]]==='function'){ closePersonalCenter(); window[fnNames[j]](); return; }
+        if(typeof window[fnNames[j]]==='function'){ window.__pcReturnAfterClose = true; closePersonalCenter(); window[fnNames[j]](); return; }
       }
     }
     // Fallback: switchTab
     if(typeof window.switchTab==='function'){
       for(var k=0;k<candidates.length;k++){
-        try{ window.switchTab(candidates[k]); closePersonalCenter(); return; }catch(e){}
+        try{ window.__pcReturnAfterClose = true; window.switchTab(candidates[k]); closePersonalCenter(); return; }catch(e){}
       }
     }
     try{ if(typeof showToast==='function') showToast('الميزة قادمة قريباً','info'); }catch(e){}
@@ -12970,6 +13175,46 @@ function bfToggleTheme(){
 </script>
 <!-- ============ /SF Sync Engine ============ -->
 
+
+<script>
+/* Return to Personal Center after closing modals opened from it */
+(function(){
+  function wrap(name){
+    var orig = window[name];
+    if(typeof orig !== 'function'){
+      // try again later if not yet defined
+      return false;
+    }
+    if(orig.__pcWrapped) return true;
+    var wrapped = function(){
+      var r = orig.apply(this, arguments);
+      if(window.__pcReturnAfterClose){
+        window.__pcReturnAfterClose = false;
+        try{ requestAnimationFrame(function(){ if(typeof window.openPersonalCenter==='function') window.openPersonalCenter(); }); }catch(e){}
+      }
+      return r;
+    };
+    wrapped.__pcWrapped = true;
+    window[name] = wrapped;
+    return true;
+  }
+  var names = ['closeKycModal','closeChangePasswordModal','closeLicenseModal','closeTeamModal'];
+  function tryAll(){
+    var allDone = true;
+    for(var i=0;i<names.length;i++){ if(!wrap(names[i])) allDone = false; }
+    return allDone;
+  }
+  if(!tryAll()){
+    var tries = 0;
+    var iv = setInterval(function(){
+      tries++;
+      if(tryAll() || tries > 50) clearInterval(iv);
+    }, 200);
+  }
+  document.addEventListener('DOMContentLoaded', tryAll);
+  window.addEventListener('load', tryAll);
+})();
+</script>
 </body>
 
 </html>
